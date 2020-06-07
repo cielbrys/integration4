@@ -3,7 +3,9 @@ import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import LocationsScreen from '../screens/LocationsScreen';
+import PeopleScreen from '../screens/PeopleScreen';
+import GalleryScreen from '../screens/GalleryScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -20,46 +22,58 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-car" />,
+          title: 'Home',
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-car" />
+          ),
         }}
       />
       <BottomTab.Screen
         name="Locations"
-        component={LinksScreen}
+        component={LocationsScreen}
         options={{
           title: 'Locations',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-locate" />,
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-locate" />
+          ),
         }}
       />
-       <BottomTab.Screen
+      <BottomTab.Screen
         name="People"
-        component={LinksScreen}
+        component={PeopleScreen}
         options={{
           title: 'People',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-people" />
+          ),
         }}
       />
-            <BottomTab.Screen
+      <BottomTab.Screen
         name="Gallery"
-        component={LinksScreen}
+        component={GalleryScreen}
         options={{
           title: 'Gallery',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-photos" />,
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} name="md-photos" />
+          ),
         }}
       />
-      
     </BottomTab.Navigator>
   );
 }
 
 function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+  const routeName =
+    route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
     case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+      return 'The Unplanned Trip';
+    case 'Locations':
+      return 'Locations';
+    case 'People':
+      return 'People';
+    case 'Gallery':
+      return 'Gallery';
   }
 }
