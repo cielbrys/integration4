@@ -6,9 +6,10 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 export default function PeopleScreen() {
   return (
-    <View>
-      <Text>Locations</Text>
-    </View>
+    <ScrollView style={styles.container}>
+       <Text>People you have met</Text>
+      <Text>No friends met yet... </Text>
+    </ScrollView>
   );
 }
 
@@ -16,7 +17,7 @@ export default function PeopleScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 15,

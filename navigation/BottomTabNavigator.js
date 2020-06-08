@@ -6,6 +6,8 @@ import HomeScreen from '../screens/HomeScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
 import GalleryScreen from '../screens/GalleryScreen';
+import { Image } from 'react-native';
+const logo = require('../assets/images/unplannedLogo.png');
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -14,7 +16,10 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions({
+    headerStyle: { height: 120},
+    headerTitle: (<Image source={logo}/>),
+  });
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -62,18 +67,3 @@ export default function BottomTabNavigator({ navigation, route }) {
   );
 }
 
-function getHeaderTitle(route) {
-  const routeName =
-    route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'Home':
-      return 'The Unplanned Trip';
-    case 'Locations':
-      return 'Locations';
-    case 'People':
-      return 'People';
-    case 'Gallery':
-      return 'Gallery';
-  }
-}

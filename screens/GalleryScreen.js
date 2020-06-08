@@ -6,9 +6,10 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 export default function GalleryScreen() {
   return (
-    <View>
-      <Text>Gallery</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text>Your gallery</Text>
+      <Text>No photos yet</Text>
+    </ScrollView>
   );
 }
 
@@ -16,7 +17,7 @@ export default function GalleryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 15,
