@@ -1,9 +1,8 @@
-
-import LocationStore from "./LocationStore";
-import UserStore from "./UserStore";
-import TripStore from "./TripStore";
-import UiStore from "./UiStore";
-import { decorate, computed } from "mobx";
+import LocationStore from './LocationStore';
+import UserStore from './UserStore';
+import TripStore from './TripStore';
+import UiStore from './UiStore';
+import { decorate, computed } from 'mobx';
 
 class RootStore {
   constructor() {
@@ -12,10 +11,7 @@ class RootStore {
     this.tripStore = new TripStore(this);
     this.uiStore = new UiStore(this);
   }
-
-
 }
-
 
 decorate(RootStore, {
   unreadLength: computed,

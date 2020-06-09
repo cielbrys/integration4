@@ -9,21 +9,16 @@ import LinkingConfiguration from './navigation/LinkingConfiguration';
 const Stack = createStackNavigator();
 
 export default function App(props) {
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <NavigationContainer linking={LinkingConfiguration}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+      <NavigationContainer linking={LinkingConfiguration}>
+        <Stack.Navigator>
+          <Stack.Screen name="Root" component={BottomTabNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
