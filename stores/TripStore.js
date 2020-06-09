@@ -1,5 +1,5 @@
-import { decorate, observable, action } from "mobx";
-
+import { decorate, observable, action } from 'mobx';
+import TripModel from '../models/TripModel';
 
 class TripStore {
   constructor(rootStore) {
@@ -9,6 +9,19 @@ class TripStore {
   empty() {
     this.trips = [];
   }
+
+  createTrip = (trip) => {
+    const newTrip = new TripModel(trip);
+    if (newTrip) {
+      addTrip(newTrip);
+    }
+  };
+
+  addTrip = (trip) => {
+    this.trips.push(trip);
+  };
+
+  resolveTrip = (id) => this.trips.find((trip) => trip.id === id);
 }
 
 decorate(TripStore, {

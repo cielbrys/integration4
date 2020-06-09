@@ -1,4 +1,5 @@
 import { decorate, observable, action } from 'mobx';
+import LocationModel from '../models/LocationModel';
 
 class LocationStore {
   constructor(rootStore) {
@@ -8,6 +9,19 @@ class LocationStore {
   empty() {
     this.locations = [];
   }
+
+  createLocation = (location) => {
+    const newLocation = new LocationModel(location);
+    if (location) {
+      addLocation(newLocation);
+    }
+  };
+
+  addLocation(location) {
+    this.locations.push(location);
+  }
+
+  resolveLocation = (id) => this.locations.find((location) => location.id === id);
 }
 
 decorate(LocationStore, {

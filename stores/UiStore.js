@@ -7,6 +7,10 @@ class UiStore {
   }
 }
 
+setCurrentUser = (user) => {
+  this.currentUser = user;
+};
+
 decorate(UiStore, {
   currentUser: observable,
   setCurrentUser: action,
