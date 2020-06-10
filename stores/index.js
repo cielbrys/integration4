@@ -2,7 +2,7 @@ import LocationStore from './LocationStore';
 import UserStore from './UserStore';
 import TripStore from './TripStore';
 import UiStore from './UiStore';
-import { decorate, computed } from 'mobx';
+import { decorate } from 'mobx';
 
 class RootStore {
   constructor() {
@@ -14,7 +14,6 @@ class RootStore {
 }
 
 decorate(RootStore, {
-  unreadLength: computed,
 });
 
 export default RootStore;

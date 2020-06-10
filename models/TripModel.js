@@ -4,20 +4,41 @@ import { decorate, observable, action, computed, configure } from 'mobx';
 configure({ enforceActions: `observed` });
 
 class TripModel {
-  constructor({ id = v4(), time, distance, photos, users, name, ...json }) {
+  constructor({
+    id = v4(),
+    time,
+    distance,
+    photos = [],
+    users,
+    user,
+    name,
+    locations = [],
+    store,
+    ...json
+  }) {
     this.id = id;
     this.name = name;
     this.time = time;
     this.distance = distance;
     this.locations = locations;
+    if (!store) {
+      throw Error('voorzie een store');
+    }
     this.store = store;
     this.photos = photos;
-    this.users = users;
+    this.user = user;
+    this.users = [];
   }
+
+  addUsers = (user) => {
+    this.users.push(user);
+  };
 }
 
 decorate(TripModel, {
   name: observable,
+  users: observable,
+  addUsers: action,
 });
 
 export default TripModel;

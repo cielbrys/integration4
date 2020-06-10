@@ -13,7 +13,7 @@ class TripStore {
   createTrip = (trip) => {
     const newTrip = new TripModel(trip);
     if (newTrip) {
-      addTrip(newTrip);
+      this.addTrip(newTrip);
     }
   };
 
