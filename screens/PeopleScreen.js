@@ -1,18 +1,23 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { useStore } from '../hooks/useStore';
 
 export default function PeopleScreen() {
+  const { uiStore } = useStore();
   return (
-    <ScrollView style={styles.container}>
-       <Text>People you have met</Text>
-      <Text>No friends met yet... </Text>
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <Text>People you have met</Text>
+      {uiStore.currentUser.users.length === 0 ? (
+        <Text>No friends met yet... </Text>
+      ) : (
+        <Text>Friends </Text>
+      )}
+    </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

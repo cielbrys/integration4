@@ -2,44 +2,44 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LocationsScreen from '../screens/LocationsScreen';
+import HomeScreen from '../screens/home';
+import StatsScreen from '../screens/stats/StatsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
-import GalleryScreen from '../screens/GalleryScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import { Image } from 'react-native';
 const logo = require('../assets/images/unplannedLogo.png');
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'home';
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({
-    headerStyle: { height: 120},
-    headerTitle: (<Image source={logo}/>),
+    headerStyle: { height: 120 },
+    headerTitle: <Image source={logo} />,
   });
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
+        name="home"
         component={HomeScreen}
         options={{
-          title: 'Home',
+          title: 'home',
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} name="md-car" />
           ),
         }}
       />
       <BottomTab.Screen
-        name="Locations"
-        component={LocationsScreen}
+        name="Stats"
+        component={StatsScreen}
         options={{
-          title: 'Locations',
+          title: 'Stats',
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-locate" />
+            <TabBarIcon focused={focused} name="md-stats" />
           ),
         }}
       />
@@ -54,16 +54,15 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Gallery"
-        component={GalleryScreen}
+        name="Settings"
+        component={SettingsScreen}
         options={{
-          title: 'Gallery',
+          title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} name="md-photos" />
+            <TabBarIcon focused={focused} name="md-settings" />
           ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
-

@@ -5,11 +5,10 @@ class UiStore {
     this.rootStore = rootStore;
     this.currentUser = undefined;
   }
+  setCurrentUser = (user) => {
+    this.currentUser = user;
+  };
 }
-
-setCurrentUser = (user) => {
-  this.currentUser = user;
-};
 
 decorate(UiStore, {
   currentUser: observable,

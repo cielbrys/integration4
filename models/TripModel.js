@@ -24,10 +24,11 @@ class TripModel {
     if (!store) {
       throw Error('voorzie een store');
     }
-    this.store = store;
+    this.rootStore = store;
     this.photos = photos;
     this.user = user;
     this.users = [];
+    this.user.addTrip(this)
   }
 
   addUsers = (user) => {

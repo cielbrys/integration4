@@ -1,24 +1,88 @@
+import * as React from 'react';
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
+import { SplashScreen } from 'expo';
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import 'mobx-react-lite/batchingForReactNative';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
-import LinkingConfiguration from './navigation/LinkingConfiguration';
+import useLinking from './navigation/useLinking';
+import { useStore } from './hooks/useStore';
+import { useObserver } from 'mobx-react-lite';
 
 const Stack = createStackNavigator();
 
 export default function App(props) {
-  return (
-    <View style={styles.container}>
-      {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-      <NavigationContainer linking={LinkingConfiguration}>
-        <Stack.Navigator>
-          <Stack.Screen name="Root" component={BottomTabNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
-  );
+  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
+  const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const containerRef = React.useRef();
+  const { getInitialState } = useLinking(containerRef);
+
+  const { uiStore } = useStore();
+
+  // Load any resources or data that we need prior to rendering the app
+  React.useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHide();
+
+        // Load our initial navigation state
+        setInitialNavigationState(await getInitialState());
+
+        // Load fonts
+        await Font.loadAsync({
+          ...Ionicons.font,
+          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+        });
+      } catch (e) {
+        // We might want to provide this error information to an error reporting service
+        console.warn(e);
+      } finally {
+        setLoadingComplete(true);
+        SplashScreen.hide();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  return useObserver(() => {
+    if (!isLoadingComplete && !props.skipLoadingScreen) {
+      return null;
+    } else {
+      return (
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.Os == 'ios' ? 'padding' : 'height'}
+        >
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <NavigationContainer
+            ref={containerRef}
+            initialState={initialNavigationState}
+          >
+            {uiStore.currentUser ? (
+              <Stack.Navigator headerMode="none">
+                <Stack.Screen name="Root" component={BottomTabNavigator} />
+              </Stack.Navigator>
+            ) : (
+              <Stack.Navigator>
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Register" component={Register} />
+              </Stack.Navigator>
+            )}
+          </NavigationContainer>
+        </KeyboardAvoidingView>
+      );
+    }
+  });
 }
 
 const styles = StyleSheet.create({

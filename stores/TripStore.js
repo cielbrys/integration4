@@ -1,4 +1,4 @@
-import { decorate, observable, action } from 'mobx';
+import { decorate, observable, action, computed } from 'mobx';
 import TripModel from '../models/TripModel';
 
 class TripStore {
@@ -21,12 +21,29 @@ class TripStore {
     this.trips.push(trip);
   };
 
+  get distanceDone() {
+    let distance = 0;
+    this.trips.map((trip) => {
+      distance = trip.distance + distance;
+    });
+    return distance;
+  }
+
+  get timeDone() {
+    let time = 0;
+    this.trips.map((trip) => {
+      time = trip.time + time;
+    });
+    return time;
+  }
+
   resolveTrip = (id) => this.trips.find((trip) => trip.id === id);
 }
 
 decorate(TripStore, {
   trips: observable,
   empty: action,
+  distanceDone: computed,
 });
 
 export default TripStore;
