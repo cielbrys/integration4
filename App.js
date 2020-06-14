@@ -14,6 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'mobx-react-lite/batchingForReactNative';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
+
 import useLinking from './navigation/useLinking';
 import { useStore } from './hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
@@ -25,6 +26,7 @@ import Start from './screens/auth/Start';
 const Stack = createStackNavigator();
 
 export default function App(props) {
+
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
@@ -95,9 +97,9 @@ export default function App(props) {
   });
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+// });
