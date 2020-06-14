@@ -13,7 +13,7 @@ class LocationStore {
   createLocation = (location) => {
     const newLocation = new LocationModel(location);
     if (location) {
-      addLocation(newLocation);
+      this.addLocation(newLocation);
     }
   };
 
@@ -21,7 +21,8 @@ class LocationStore {
     this.locations.push(location);
   }
 
-  resolveLocation = (id) => this.locations.find((location) => location.id === id);
+  resolveLocation = (id) =>
+    this.locations.find((location) => location.id === id);
 }
 
 decorate(LocationStore, {

@@ -1,15 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 export default function GalleryScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <Text>Your gallery</Text>
-      <Text>No photos yet</Text>
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <Text>Your setting</Text>
+    </SafeAreaView>
   );
 }
 
