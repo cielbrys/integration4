@@ -34,7 +34,7 @@ export default function App(props) {
 
   const { uiStore } = useStore();
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -97,9 +97,9 @@ export default function App(props) {
   });
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

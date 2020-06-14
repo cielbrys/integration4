@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export default () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator >
       <Stack.Screen name="Home" component={Overview} />
       <Stack.Screen name="Detail" component={Detail} />
       <Stack.Screen name="NewTrip" component={NewTrip} />
@@ -24,4 +24,7 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  nav: {
+    backgroundColor: 'black'
+  }
 });

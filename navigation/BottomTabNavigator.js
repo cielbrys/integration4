@@ -6,8 +6,9 @@ import HomeScreen from '../screens/home';
 import StatsScreen from '../screens/stats/StatsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
-import { Image } from 'react-native';
-const logo = require('../assets/images/unplannedLogo.png');
+import {StyleSheet, Image, View } from 'react-native';
+// const logo = require('../assets/images/home.svg');
+import Mountain from '../assets/images/home.svg';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'home';
@@ -16,13 +17,16 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
+
   navigation.setOptions({
-    headerStyle: { height: 120 },
-    headerTitle: <Image source={logo} />,
+    headerStyle: { height: 0 },
+    headerTitle: null,
+    headerLeft: null,
   });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+
+    <BottomTab.Navigator style={style.nav} initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="home"
         component={HomeScreen}
@@ -66,3 +70,14 @@ export default function BottomTabNavigator({ navigation, route }) {
     </BottomTab.Navigator>
   );
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  nav: {
+    backgroundColor: 'black',
+    display: 'none'
+  }
+});
