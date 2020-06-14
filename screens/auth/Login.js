@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 12
   },
   textInput: {
+    paddingLeft: 10,
     marginRight:24,
     marginLeft:24,
     marginBottom: 20,
