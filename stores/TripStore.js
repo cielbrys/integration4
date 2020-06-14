@@ -21,6 +21,22 @@ class TripStore {
     this.trips.push(trip);
   };
 
+  updateUserFromServer(json) {
+    let trip = this.trips.find((trip) => trip.id === json.id);
+    if (!trip) {
+      trip = new TripModel({
+        id: json.id,
+        store: this.rootStore.tripStore,
+      });
+    }
+    if (json.isDeleted) {
+      this.trips.remove(trip);
+    } else {
+      trip.updateFromJson(json);
+    }
+    return trip;
+  }
+
   get distanceDone() {
     let distance = 0;
     this.trips.map((trip) => {

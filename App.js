@@ -26,7 +26,6 @@ import Start from './screens/auth/Start';
 const Stack = createStackNavigator();
 
 export default function App(props) {
-
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
@@ -76,16 +75,13 @@ export default function App(props) {
             ref={containerRef}
             initialState={initialNavigationState}
           >
-            {(isLoggedIn) ? (
+            {isLoggedIn ? (
               <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>
             ) : (
               <Stack.Navigator>
-                <Stack.Screen 
-                  name="Start" 
-                  component={Start} 
-                />
+                <Stack.Screen name="Start" component={Start} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
               </Stack.Navigator>
@@ -97,9 +93,9 @@ export default function App(props) {
   });
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

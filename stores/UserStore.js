@@ -17,6 +17,22 @@ class UserStore {
     }
   };
 
+  updateUserFromServer(json) {
+    let user = this.users.find((user) => user.id === json.id);
+    if (!user) {
+      user = new UserModel({
+        id: json.id,
+        store: this.rootStore.userStore,
+      });
+    }
+    if (json.isDeleted) {
+      this.users.remove(user);
+    } else {
+      user.updateFromJson(json);
+    }
+    return user;
+  }
+
   addUser = (user) => {
     this.users.push(user);
   };

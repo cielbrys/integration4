@@ -8,21 +8,12 @@ class UserModel {
     id = v4(),
     photos = [],
     users = [],
-    name,
-    email,
-    van,
     locations = [],
     trips = [],
     store,
-    status = undefined,
-    socials,
     ...json
   }) {
     this.id = id;
-    this.name = name;
-    this.email = email;
-    this.van = van;
-    this.status = status;
     this.trips = trips;
     this.locations = locations;
     if (!store) {
@@ -31,7 +22,7 @@ class UserModel {
     this.rootStore = store;
     this.photos = photos;
     this.users = users;
-    this.socials = socials;
+    this.updateFromJson(json);
   }
 
   changeName(newName) {
@@ -45,6 +36,30 @@ class UserModel {
   addTrip(trip) {
     this.trips.push(trip);
   }
+
+  updateFromJson = ({
+    email = undefined,
+    name = undefined,
+    van = undefined,
+    trips = undefined,
+    status = undefined,
+    socials = undefined,
+  }) => {
+    this.name = name !== undefined ? name : this.name;
+    this.email = email !== undefined ? email : this.email;
+    this.van = van !== undefined ? van : this.van;
+    this.status = status !== undefined ? status : this.status;
+    this.socials = socials !== undefined ? socials : this.socials;
+    if (trips !== undefined) {
+      const oldGroups = this.trips.concat();
+      oldGroups.forEach((trip) => trip.unlinkUser(this));
+      trips.forEach((trip) => {
+        this.store.rootStore.tripStore
+          .updateGroupFromServer(trip)
+          .linkUser(this);
+      });
+    }
+  };
 
   addUser(user) {
     this.users.push(user);

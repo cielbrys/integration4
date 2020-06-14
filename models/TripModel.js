@@ -6,20 +6,14 @@ configure({ enforceActions: `observed` });
 class TripModel {
   constructor({
     id = v4(),
-    startTime,
     stopTime = '',
-    distance,
+    distance = undefined,
     photos = [],
-    users,
-    user,
-    name,
     locations = [],
     store,
     ...json
   }) {
     this.id = id;
-    this.name = name;
-    this.startTime = startTime;
     this.stopTime = stopTime;
     this.duration = undefined;
     this.distance = distance;
@@ -29,14 +23,29 @@ class TripModel {
     }
     this.rootStore = store;
     this.photos = photos;
-    this.user = user;
-    this.users = [];
+    this.updateFromJson(json);
     this.user.addTrip(this);
     this.durationTime();
   }
 
   addUsers = (user) => {
     this.users.push(user);
+  };
+
+  updateFromJson = ({
+    startTime = undefined,
+    stopTime = undefined,
+    distance = undefined,
+    users = undefined,
+    user = undefined,
+    name = undefined,
+  }) => {
+    this.name = name !== undefined ? name : this.name;
+    this.user = user !== undefined ? user : this.user;
+    this.users = users !== undefined ? users : this.users;
+    this.distance = distance !== undefined ? distance : this.distance;
+    this.stopTime = stopTime !== undefined ? stopTime : this.stopTime;
+    this.startTime = startTime !== undefined ? startTime : this.startTime;
   };
 
   setStopTime() {

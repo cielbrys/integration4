@@ -2,11 +2,7 @@
   "expo": {
     "name": "unplannedTrip",
     "slug": "unplannedTrip",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,15 +15,26 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "REACT_APP_apiKey": "AIzaSyDt8ha88axY7bLSTfd0vPRySz5k86EQ-FE",
+      "REACT_APP_authDomain": "thatsapp-cbefb.firebaseapp.com",
+      "REACT_APP_databaseURL": "https://thatsapp-cbefb.firebaseio.com",
+      "REACT_APP_projectId": "thatsapp-cbefb",
+      "REACT_APP_storageBucket": "thatsapp-cbefb.appspot.com",
+      "REACT_APP_messagingSenderId": "928218687027",
+      "REACT_APP_appId": "1:928218687027:web:edb7d00cf0066edbcda546",
+      "REACT_APP_measurementId": ""
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "packagerOpts": { "config": "metro.config.js", "sourceExts": [ "js","jsx","svg","ts","tsx"] }
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
+    }
   }
 }
