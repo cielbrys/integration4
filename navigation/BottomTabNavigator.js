@@ -5,7 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/home';
 import StatsScreen from '../screens/stats/StatsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SettingsScreen from '../screens/settings/SettingsScreen';
 import { Image } from 'react-native';
 const logo = require('../assets/images/unplannedLogo.png');
 

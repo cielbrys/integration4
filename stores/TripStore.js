@@ -32,7 +32,7 @@ class TripStore {
   get timeDone() {
     let time = 0;
     this.trips.map((trip) => {
-      time = trip.time + time;
+      time = Number(trip.duration) + time;
     });
     return time;
   }

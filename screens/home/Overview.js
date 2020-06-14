@@ -28,8 +28,14 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('home', {
       screen: 'Detail',
       params: {
-        name: item.name,
+        id: item.id,
       },
+    });
+  };
+
+  const goToTips = () => {
+    navigation.navigate('home', {
+      screen: 'Tips',
     });
   };
 
@@ -44,7 +50,7 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity onPress={() => goToDetail(item)}>
         <View style={styles.trip}>
           <Text>{item.name}</Text>
-          <Text>{item.time}min.</Text>
+          <Text>{item.duration}h.</Text>
           <Text>{item.distance}km</Text>
         </View>
       </TouchableOpacity>
@@ -60,6 +66,13 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity onPress={() => startNewTrip()}>
         <Text>Start a new trip</Text>
       </TouchableOpacity>
+      {uiStore.currentUser.status === 'beginner' ? (
+        <TouchableOpacity onPress={() => goToTips()}>
+          <Text>Go to tips and tricks</Text>
+        </TouchableOpacity>
+      ) : (
+        ''
+      )}
       <Text>{uiStore.currentUser.name}'s' recent trips</Text>
       {trips.length !== 0 ? (
         <FlatList

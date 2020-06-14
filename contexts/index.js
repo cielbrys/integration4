@@ -12,14 +12,18 @@ const userJson = {
   email: 'ciel@gmail.com',
   van: 'VW',
   socials: {},
+  status: 'beginner',
 };
 
 const user = new UserModel(userJson);
 store.uiStore.setCurrentUser(user);
 
+const fakeStartTime = new Date('June 12 2020 13:00');
+
 const trip = {
   name: 'test',
-  time: 60,
+  startTime: fakeStartTime,
+  stopTime: new Date(),
   distance: 100,
   photos: {},
   user: store.uiStore.currentUser,
@@ -29,8 +33,9 @@ const trip = {
 
 const trip2 = {
   name: 'Anotherone',
-  time: 150,
+  startTime: fakeStartTime,
   distance: 238,
+  stopTime: new Date(),
   photos: {},
   user: store.uiStore.currentUser,
   locations: {},

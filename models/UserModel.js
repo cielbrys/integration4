@@ -14,6 +14,7 @@ class UserModel {
     locations = [],
     trips = [],
     store,
+    status = undefined,
     socials,
     ...json
   }) {
@@ -21,6 +22,7 @@ class UserModel {
     this.name = name;
     this.email = email;
     this.van = van;
+    this.status = status;
     this.trips = trips;
     this.locations = locations;
     if (!store) {
@@ -40,15 +42,15 @@ class UserModel {
     this.email = newEmail;
   }
 
-  addTrip(trip){
+  addTrip(trip) {
     this.trips.push(trip);
   }
 
-  addUser(user){
-    this.users.push(user)
+  addUser(user) {
+    this.users.push(user);
   }
-  addLocation(location){
-    this.locations.push(location)
+  addLocation(location) {
+    this.locations.push(location);
   }
 }
 
