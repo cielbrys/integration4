@@ -26,7 +26,6 @@ export default ({ navigation }) => {
   const history = useHistory();
 
   const handleSubmit = async e => {
-    e.preventDefault();
     try {
       await uiStore.login(email, password);
       history.push(ROUTES.home);
