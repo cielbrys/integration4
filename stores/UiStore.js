@@ -1,5 +1,5 @@
 import { decorate, observable, action } from 'mobx';
-import AuthService from "../services/AuthService";
+import AuthService from '../services/AuthService';
 
 class UiStore {
   constructor(rootStore) {
@@ -10,6 +10,10 @@ class UiStore {
       onAuthStateChanged: this.onAuthStateChanged,
     });
   }
+
+  setCurrentUser = (user) => {
+    this.currentUser = user;
+  };
 
   login = async (email, password) => {
     return await this.authService.login(email, password);
@@ -28,20 +32,16 @@ class UiStore {
 
   onAuthStateChanged = async (data) => {
     if (data) {
-      console.log("ingelogd");
+      console.log('ingelogd');
       const user = this.rootStore.userStore.updateUserFromServer(data);
       this.setCurrentUser(user);
     } else {
-      console.log("niet ingelogd");
+      console.log('niet ingelogd');
       this.setCurrentUser(undefined);
       this.rootStore.tripStore.empty();
       this.rootStore.userStore.empty();
       this.rootStore.locationStore.empty();
     }
-  };
-
-  setCurrentUser = (user) => {
-    this.currentUser = user;
   };
 }
 

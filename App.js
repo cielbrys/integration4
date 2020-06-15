@@ -33,7 +33,7 @@ export default function App(props) {
 
   const { uiStore } = useStore();
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
