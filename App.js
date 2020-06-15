@@ -21,6 +21,7 @@ import { useObserver } from 'mobx-react-lite';
 
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
+import RegisterTwo from './screens/auth/RegisterTwo';
 import Start from './screens/auth/Start';
 
 const Stack = createStackNavigator();
@@ -34,7 +35,7 @@ export default function App(props) {
 
   const { uiStore } = useStore();
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -88,6 +89,7 @@ export default function App(props) {
                 />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
               </Stack.Navigator>
             )}
           </NavigationContainer>

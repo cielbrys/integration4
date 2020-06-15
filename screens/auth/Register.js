@@ -13,6 +13,10 @@ export default ({ navigation }) => {
     navigation.navigate("Login");
   };
 
+  const goToRegisterTwo = () => {
+    navigation.navigate("RegisterTwo");
+  };
+
   navigation.setOptions({
     headerStyle: { height: 0 },
     headerTitle: null,
@@ -83,7 +87,7 @@ export default ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
         <View style={style.buttonWrapper}>
-          <Button title="Create account" onPress={handleSubmit} />
+          <Button title="Create account" onPress={goToRegisterTwo} />
         </View>
         <View style={style.buttonWrapper}>
           <Button title="I already have an account! Sign in" onPress={goToLogin} />

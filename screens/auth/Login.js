@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 import Landscape from '../../assets/images/LandscapeSignin.svg';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 export default ({ navigation }) => {
 
   const goToRegister = () => {
@@ -34,40 +36,40 @@ export default ({ navigation }) => {
   }
   
   return (
-    <KeyboardAvoidingView 
-      style={styles.view}
+    <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "margin" : "height"}
+      style={{flex: 1}}
     >
-      <Landscape style={styles.container}/>
-      <View 
-        style={styles.bottom}
-      >
-        
-        <Text style={styles.text}>Email</Text>
-        <TextInput
-          style={styles.textInput}
-          label="eai"
-          clearButtonMode="always"
-          keyboardType="email-address"
-          placeholder="Fill in your email."
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          returnKeyType = {"next"}
-        />
-        <Text style={styles.text}>Password</Text>
-        <TextInput
-          style={styles.textInput}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          placeholder="Fill in your password."
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <View>
-          <Button title="Login" onPress={handleSubmit} />
-        </View>
-        <View>
-          <Button title="Don't have an account? Create one" onPress={goToRegister} />
+      <View style={styles.view}>
+        <Landscape style={styles.container}/>
+        <View style={styles.bottom}>
+          
+          <Text style={styles.text}>Email</Text>
+          <TextInput
+            style={styles.textInput}
+            label="eai"
+            clearButtonMode="always"
+            keyboardType="email-address"
+            placeholder="Fill in your email."
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            returnKeyType = {"next"}
+          />
+          <Text style={styles.text}>Password</Text>
+          <TextInput
+            style={styles.textInput}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            placeholder="Fill in your password."
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <View>
+            <Button title="Login" onPress={handleSubmit} />
+          </View>
+          <View>
+            <Button title="Don't have an account? Create one" onPress={goToRegister} />
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
