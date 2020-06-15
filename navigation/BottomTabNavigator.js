@@ -31,6 +31,8 @@ export default function BottomTabNavigator({ navigation, route }) {
       tabBarOptions={{
         style: {
           backgroundColor: '#1D7874',
+          paddingTop: 8,
+          paddingBottom: 20
         },
         activeTintColor: '#91B7AC',
         inactiveTintColor: '#fff',
