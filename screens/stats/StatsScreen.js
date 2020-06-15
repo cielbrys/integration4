@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/statsTop.svg';
+import Top from '../../assets/images/StatsTop.svg';
+import TopTitle from '../../assets/images/StatsTitle.svg';
 import Bottom from '../../assets/images/statsBottom.svg';
 import Back from '../../assets/images/back.svg';
 import Stats from '../../assets/images/stats.svg';
@@ -17,6 +18,12 @@ import Yellow from '../../assets/images/locationButton.svg';
 
 export default function LocationsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
+
+  navigation.setOptions({
+    headerStyle: { height: 0 },
+    headerTitle: null,
+    headerLeft: null,
+  });
 
   const goHome = () => {
     navigation.navigate('home', {
@@ -30,63 +37,74 @@ export default function LocationsScreen({ navigation }) {
     // });
   };
 
-
-
   return useObserver(() => (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.main}>
-        <Top  style={styles.top}/>
+        <View style={styles.header}>
+          <Top style={styles.top}/>
+          <TopTitle style={styles.topTitle} />
+        </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
           <Back/>
         </TouchableOpacity>
         <View style={styles.tekst}>
-      <Stats/>
-      <View style={styles.txt}>
-      <View style={styles.stat}>
-      <Text>Km's {"\n"}Traveled</Text>
-      <Text style={styles.number}>{tripStore.distanceDone}</Text>
-      </View>
-      <Black/>
-      <View style={styles.stat}>
-      <Text>Trips {"\n"}completed</Text>
-      <Text style={styles.number}>{tripStore.trips.length}</Text>
-      </View>
-      <Black/>
-      <View style={styles.stat}>
-      <Text>Hours {"\n"}traveled</Text>
-      <Text style={styles.number}>{tripStore.timeDone}</Text>
-      </View>
-      </View>
+        <Stats/>
+        <View style={styles.txt}>
+          <View style={styles.stat}>
+            <Text>Km's {"\n"}Traveled</Text>
+            <Text style={styles.number}>{tripStore.distanceDone}</Text>
+          </View>
+          <Black/>
+          <View style={styles.stat}>
+            <Text>Trips {"\n"}completed</Text>
+            <Text style={styles.number}>{tripStore.trips.length}</Text>
+          </View>
+          <Black/>
+          <View style={styles.stat}>
+            <Text>Hours {"\n"}traveled</Text>
+            <Text style={styles.number}>{tripStore.timeDone}</Text>
+          </View>
+        </View>
       <View style={styles.bottomtxt}>
-      <View style={styles.statsBottom}>
-      <Text style={styles.numberBottom}>{uiStore.currentUser.users.length}</Text>
-      <Text style={styles.white}>People met</Text>
-      <White/>
-      <Text style={styles.numberBottom} >{locationStore.locations.length}</Text>
-      <Text style={styles.white}>Locations pinned</Text>
-      </View>
-      <TouchableOpacity onPress={() => goToLocations()}>
-      <Yellow/>
-      </TouchableOpacity>
+        <View style={styles.statsBottom}>
+          <Text style={styles.numberBottom}>{uiStore.currentUser.users.length}</Text>
+          <Text style={styles.white}>People met</Text>
+          <White/>
+          <Text style={styles.numberBottom} >{locationStore.locations.length}</Text>
+          <Text style={styles.white}>Locations pinned</Text>
+        </View>
+        <TouchableOpacity onPress={() => goToLocations()}>
+          <Yellow/>
+        </TouchableOpacity>
       </View>
       </View>
       <Bottom style={styles.bottom}/>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   ));
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flex: 1,
+    paddingTop: 28
+  },
+  topTitle: {
+    position: 'absolute',
+    right: 24,
+    top: 60
+  },
   container: {
     flex: 1,
     backgroundColor: 'rgb(103,146,137)', //rgb(103,146,137)
   },
   main : {
-    backgroundColor: "white",
+    backgroundColor: 'white'
   },
   top: {
-    zIndex: 0,
-    position: "absolute"
+    zIndex: -20,
+    position: "absolute",
+    paddingTop: 50
   },
   back: {
     marginLeft: 24,
@@ -94,8 +112,8 @@ const styles = StyleSheet.create({
   },
   tekst:{
     zIndex: 1,
-    marginTop: 100,
-    marginBottom: 300,
+    marginTop: 80,
+    marginBottom: 0,
     alignItems: "center",
   },
   txt: {
@@ -104,13 +122,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   bottomtxt: {
-    marginTop: 220,
-    alignItems: "center"
+    marginTop: 150,
+    alignItems: "center",
   },
   stat: {
     marginRight: 24,
     flexDirection: "column-reverse",
-    alignItems: "center",
+    alignItems: "flex-start",
     marginLeft: 32
   },
   number: {
@@ -136,7 +154,7 @@ const styles = StyleSheet.create({
   },
   bottom : { 
     zIndex: 0,
-   position: "absolute",
-   top: 450,
+    position: "absolute",
+    top: 375,
   }
 });
