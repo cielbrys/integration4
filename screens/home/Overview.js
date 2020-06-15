@@ -53,7 +53,7 @@ export default function HomeScreen({ navigation }) {
 
   return useObserver(() => (
     <SafeAreaView style={styles.container}>
-      <Mountain style={styles.mtn} />
+      <Mountain  style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
         <Rood>
           <Text>Start a new trip</Text>
@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
   trip: {
     backgroundColor: 'rgb(240,244,243)',
     marginRight: 16,
-    width: 145,
-    height: 99,
+    width: 170,
+    height: 120,
   },
   button: {
     alignSelf: 'center',
@@ -121,32 +121,38 @@ const styles = StyleSheet.create({
   },
   mtn: {
     marginTop: 5,
+    alignSelf: 'center',
   },
   recent: {
-    marginLeft: 32,
-    marginBottom: 8,
+    marginLeft: 24,
+    marginBottom:16,
+    marginTop:32,
+    fontSize: 20,
+
   },
   list: {
-    marginLeft: 32,
+    marginLeft: 24,
     flex: 2,
     flexDirection: 'row',
   },
   stat: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginLeft: 16,
-    marginBottom: 8,
+    marginBottom: 16,
     color: 'rgb(21,72,69)',
     fontSize: 20,
   },
   name: {
-    paddingLeft: 8,
+    paddingLeft: 16,
     paddingTop: 8,
-    marginBottom: 10,
+    marginBottom: 16,
     fontSize: 16,
   },
   tekst: {
     color: 'rgb(21,72,69)',
     marginLeft: 16,
+    fontSize: 16
   },
   title: {
     flexDirection: 'row',
