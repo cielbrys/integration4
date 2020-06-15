@@ -8,7 +8,7 @@ test('Create a new User', () => {
   const userStore = new UserStore(store);
   const user = {
     store,
-    name: 'ciel',
+    name: 'Ciel',
     van: 'VW',
     socials: {},
   };

@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default ({ navigation }) => {
 
-  const goHome = () => {
+  const goHome = (navigation) => {
     navigation.navigate("Overview"); 
   };
 

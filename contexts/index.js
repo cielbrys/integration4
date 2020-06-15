@@ -8,7 +8,7 @@ window.store = store;
 
 const userJson = {
   store: store,
-  name: 'ciel',
+  name: 'Ciel',
   email: 'ciel@gmail.com',
   van: 'VW',
   socials: {},
@@ -23,7 +23,7 @@ const fakeStopTime = new Date('June 13 2020 13:00');
 const fakeStopTime2 = new Date('June 13 2020 14:00');
 
 const trip = {
-  name: 'test',
+  name: 'Trip to Blabla',
   startTime: fakeStartTime,
   stopTime: fakeStopTime,
   distance: 100,

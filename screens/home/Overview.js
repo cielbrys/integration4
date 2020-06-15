@@ -1,14 +1,12 @@
 import * as React from 'react';
 import {
-  Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   SafeAreaView,
 } from 'react-native';
-import { ScrollView, FlatList } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 import 'mobx-react-lite/batchingForReactDom';
@@ -52,7 +50,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return useObserver(() => (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Mountain  style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
         <Rood>
@@ -92,35 +90,55 @@ export default function HomeScreen({ navigation }) {
               </View>
             </TouchableOpacity>
           ))}
+          <TouchableOpacity onPress={startNewTrip}>
+              <View style={styles.trip}>
+                <View style={styles.allRecent}>
+                  <Text style={styles.tekstSpecial}>See all my recent trips</Text>
+                  <Pijl />
+                </View>
+              </View>
+            </TouchableOpacity>
         </ScrollView>
       ) : (
         <Text>You have no trips atm</Text>
       )}
-    </SafeAreaView>
+    </ScrollView>
   ));
 }
 
 const styles = StyleSheet.create({
+  tekstSpecial: {
+    color: 'black',
+    fontSize: 16,
+    marginBottom: 15
+  },
+  allRecent: {
+    marginTop: 16,
+    marginLeft: 16
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center'
   },
   trip: {
     backgroundColor: 'rgb(240,244,243)',
     marginRight: 16,
     width: 170,
     height: 120,
+    borderRadius: 10
   },
   button: {
     alignSelf: 'center',
+    marginTop: -10,
+    marginRight: 24,
+    marginLeft: 24
   },
   border: {
     borderWidth: 1,
     borderColor: '#fff',
   },
   mtn: {
-    marginTop: 5,
+    marginTop: 60,
     alignSelf: 'center',
   },
   recent: {
@@ -134,6 +152,7 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     flex: 2,
     flexDirection: 'row',
+    marginBottom: 40
   },
   stat: {
     flexDirection: 'row',
