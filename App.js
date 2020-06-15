@@ -100,6 +100,3 @@ const styles = StyleSheet.create({
   },
 });
 
-
-//cielbrys@gmail.com
-//Kortrijk8500
