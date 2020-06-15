@@ -32,6 +32,7 @@ export default ({ navigation }) => {
   const [password, setPassword] = useState('');
 
 
+
   const goToRegisterTwo = () => {
     navigation.navigate('RegisterTwo', {
       params: { email: email, password: password, name: name },
