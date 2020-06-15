@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import Landscape from '../../assets/images/LandscapeSignin.svg';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default ({ navigation }) => {
 
@@ -50,7 +50,6 @@ export default ({ navigation }) => {
             label="eai"
             clearButtonMode="always"
             keyboardType="email-address"
-            placeholder="Fill in your email."
             value={email}
             onChangeText={(text) => setEmail(text)}
             returnKeyType = {"next"}
@@ -60,15 +59,26 @@ export default ({ navigation }) => {
             style={styles.textInput}
             clearButtonMode="always"
             secureTextEntry={true}
-            placeholder="Fill in your password."
             value={password}
             onChangeText={(text) => setPassword(text)}
           />
           <View>
-            <Button title="Login" onPress={handleSubmit} />
+            <TouchableOpacity
+              onPress={handleSubmit}
+              underlayColor='#fff'
+              style={styles.loginButton}
+            >
+              <Text style={styles.loginText}>Login</Text>  
+            </TouchableOpacity>
           </View>
           <View>
-            <Button title="Don't have an account? Create one" onPress={goToRegister} />
+          <TouchableOpacity
+              onPress={goToRegister}
+              underlayColor='#fff'
+              style={styles.loginButtonSecondary}
+            >
+              <Text style={styles.loginTextSecondary}>I don't have an account, create one</Text>  
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -78,6 +88,37 @@ export default ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
+  loginTextSecondary: {
+    color:'#C4C4C4',
+    fontSize: 16,
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
+  loginButtonSecondary: {
+    marginRight:24,
+    marginLeft:24,
+    marginTop:0,
+    paddingTop:13,
+    paddingBottom:13,
+    borderRadius: 0,
+  },
+  loginButton:{
+    marginRight:24,
+    marginLeft:24,
+    marginTop:30,
+    paddingTop:13,
+    paddingBottom:13,
+    backgroundColor:'#7FB1A7',
+    borderRadius: 0,
+  },
+  loginText: {
+    fontSize: 18,
+    color:'#fff',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
   container: {
     position: 'absolute',
     top: 80

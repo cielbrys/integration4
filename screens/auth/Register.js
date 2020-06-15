@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import TopRegister from '../../assets/images/TopRegister.svg';
 import GoogleIcon from '../../assets/images/GoogleIcon.svg';
@@ -42,63 +42,111 @@ export default ({ navigation }) => {
   };
 
   return (
-    <View style={style.container}>
-      <TopRegister style={style.topRegister} />
-      <Text style={style.textInputTitle}>Create an account</Text>
-      <View style={style.socials}>
-        <TouchableOpacity style={style.loginSocialsFB}>
-          <FacebookIcon style={style.textInputSocialIcon}/> 
-          <Text style={style.textInputSocial}>Sign in with Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.loginSocialsG}> 
-          <GoogleIcon style={style.textInputSocialIcon}/>
-          <Text style={style.textInputSocial}>Sign in with Google</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={style.form}>
-        <Text style={style.textInput}>Travellers name</Text>
-        <TextInput
-          style={style.input}
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <Text style={style.textInput}>Email</Text>
-        <TextInput
-          style={style.input}
-          keyboardType="email-address"
-          clearButtonMode="always"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Text style={style.textInput}>Password</Text>
-        <TextInput
-          style={style.input}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <Text style={style.textInput}>Password confirmation</Text>
-        <TextInput
-          style={style.input}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <View style={style.buttonWrapper}>
-          <Button title="Create account" onPress={goToRegisterTwo} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "margin" : "height"}
+      style={{flex: 1}}
+    >
+      <View style={style.container}>
+        <TopRegister style={style.topRegister} />
+        <Text style={style.textInputTitle}>Create an account</Text>
+        <View style={style.socials}>
+          <TouchableOpacity style={style.loginSocialsFB}>
+            <FacebookIcon style={style.textInputSocialIcon}/> 
+            <Text style={style.textInputSocial}>Sign in with Facebook</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={style.loginSocialsG}> 
+            <GoogleIcon style={style.textInputSocialIcon}/>
+            <Text style={style.textInputSocial}>Sign in with Google</Text>
+          </TouchableOpacity>
         </View>
-        <View style={style.buttonWrapper}>
-          <Button title="I already have an account! Sign in" onPress={goToLogin} />
+        <View style={style.form}>
+          <Text style={style.textInput}>Travellers name</Text>
+          <TextInput
+            style={style.input}
+            value={name}
+            onChangeText={(text) => setName(text)}
+          />
+          <Text style={style.textInput}>Email</Text>
+          <TextInput
+            style={style.input}
+            keyboardType="email-address"
+            clearButtonMode="always"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <Text style={style.textInput}>Password</Text>
+          <TextInput
+            style={style.input}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <Text style={style.textInput}>Password confirmation</Text>
+          <TextInput
+            style={style.input}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <View style={style.buttonWrapper}>
+          <TouchableOpacity
+              onPress={goToRegisterTwo}
+              underlayColor='#fff'
+              style={style.loginButton}
+            >
+              <Text style={style.loginText}>Create account</Text>  
+            </TouchableOpacity>
+          </View>
+          <View style={style.buttonWrapper}>
+          <TouchableOpacity
+              onPress={goToLogin}
+              underlayColor='#fff'
+              style={style.loginButtonSecondary}
+            >
+              <Text style={style.loginTextSecondary}>I already have an account, sign in</Text>  
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 
 const style = StyleSheet.create({
+  loginButtonSecondary: {
+    marginRight:24,
+    marginLeft:24,
+    marginTop:0,
+    paddingTop:13,
+    paddingBottom:13,
+    borderRadius: 0,
+  },
+  loginTextSecondary: { 
+    color:'#4E4E4E',
+    fontSize: 16,
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
+  loginButton: {
+    marginRight:24,
+    marginLeft:24,
+    marginTop:30,
+    paddingTop:13,
+    paddingBottom:13,
+    backgroundColor:'#7FB1A7',
+    borderRadius: 0,
+  },
+  loginText: {
+    fontSize: 18,
+    color:'#fff',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
   loginSocialsFB: {
     marginRight:24,
     marginLeft:24,
