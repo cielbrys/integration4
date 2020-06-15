@@ -31,14 +31,11 @@ export default ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
-
   const goToRegisterTwo = () => {
     navigation.navigate('RegisterTwo', {
       params: { email: email, password: password, name: name },
     });
   };
-
 
   return (
     <View style={style.container}>
@@ -86,7 +83,7 @@ export default ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
         <View style={style.buttonWrapper}>
-          <Button title="Create account" onPress={goToRegisterTwo()} />
+          <Button title="Create account" onPress={() => goToRegisterTwo()} />
         </View>
         <View style={style.buttonWrapper}>
           <Button
