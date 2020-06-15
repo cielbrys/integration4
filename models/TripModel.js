@@ -32,20 +32,13 @@ class TripModel {
     this.users.push(user);
   };
 
-  updateFromJson = ({
-    startTime = undefined,
-    stopTime = undefined,
-    distance = undefined,
-    users = undefined,
-    user = undefined,
-    name = undefined,
-  }) => {
-    this.name = name !== undefined ? name : this.name;
-    this.user = user !== undefined ? user : this.user;
-    this.users = users !== undefined ? users : this.users;
-    this.distance = distance !== undefined ? distance : this.distance;
-    this.stopTime = stopTime !== undefined ? stopTime : this.stopTime;
-    this.startTime = startTime !== undefined ? startTime : this.startTime;
+  updateFromJson = (json) => {
+    this.name = json.name !== undefined ? json.name : this.name;
+    this.user = json.user !== undefined ? json.user : this.user;
+    this.users = json.users !== undefined ? json.users : this.users;
+    this.distance = json.distance !== undefined ? json.distance : this.distance;
+    this.stopTime = json.stopTime !== undefined ? json.stopTime : this.stopTime;
+    this.startTime = json.startTime !== undefined ? json.startTime : this.startTime;
   };
 
   setStopTime() {

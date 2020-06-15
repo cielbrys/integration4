@@ -12,7 +12,7 @@ export default ({ route }) => {
       <>
         <Text>Name: {trip.name}</Text>
         <Text>{trip.distance}km</Text>
-        <Text>{trip.time}min.</Text>
+        <Text>{trip.duration}h.</Text>
       </>
     );
   });

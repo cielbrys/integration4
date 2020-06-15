@@ -33,6 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           backgroundColor: '#1D7874',
         },
         activeTintColor: '#91B7AC',
+        inactiveTintColor: '#fff',
       }}
     >
       <BottomTab.Screen

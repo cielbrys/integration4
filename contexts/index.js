@@ -19,11 +19,13 @@ const user = new UserModel(userJson);
 store.uiStore.setCurrentUser(user);
 
 const fakeStartTime = new Date('June 12 2020 13:00');
+const fakeStopTime = new Date('June 13 2020 13:00');
+const fakeStopTime2 = new Date('June 13 2020 14:00');
 
 const trip = {
   name: 'test',
   startTime: fakeStartTime,
-  stopTime: new Date(),
+  stopTime: fakeStopTime,
   distance: 100,
   photos: {},
   user: store.uiStore.currentUser,
@@ -35,7 +37,7 @@ const trip2 = {
   name: 'Anotherone',
   startTime: fakeStartTime,
   distance: 238,
-  stopTime: new Date(),
+  stopTime: fakeStopTime2,
   photos: {},
   user: store.uiStore.currentUser,
   locations: {},
