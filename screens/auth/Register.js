@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
 import TopRegister from '../../assets/images/TopRegister.svg';
 import GoogleIcon from '../../assets/images/GoogleIcon.svg';
@@ -8,9 +15,8 @@ import FacebookIcon from '../../assets/images/FacebookIcon.svg';
 import { useStore } from '../../hooks/useStore';
 
 export default ({ navigation }) => {
-
   const goToLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate('Login');
   };
 
   navigation.setOptions({
@@ -21,21 +27,17 @@ export default ({ navigation }) => {
 
   const { uiStore } = useStore();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = async () => {
-    try {
-      await uiStore.register({
-        name,
-        email,
-        password
-      });
-    } catch (error) {
-      console.log(error);
-    }
+
+  const goToRegisterTwo = () => {
+    navigation.navigate('RegisterTwo', {
+      params: { email: email, password: password, name: name },
+    });
   };
+
 
   return (
     <View style={style.container}>
@@ -43,11 +45,11 @@ export default ({ navigation }) => {
       <Text style={style.textInputTitle}>Create an account</Text>
       <View style={style.socials}>
         <TouchableOpacity style={style.loginSocialsFB}>
-          <FacebookIcon style={style.textInputSocialIcon}/> 
+          <FacebookIcon style={style.textInputSocialIcon} />
           <Text style={style.textInputSocial}>Sign in with Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={style.loginSocialsG}> 
-          <GoogleIcon style={style.textInputSocialIcon}/>
+        <TouchableOpacity style={style.loginSocialsG}>
+          <GoogleIcon style={style.textInputSocialIcon} />
           <Text style={style.textInputSocial}>Sign in with Google</Text>
         </TouchableOpacity>
       </View>
@@ -83,62 +85,64 @@ export default ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
         <View style={style.buttonWrapper}>
-          <Button title="Create account" onPress={handleSubmit} />
+          <Button title="Create account" onPress={goToRegisterTwo()} />
         </View>
         <View style={style.buttonWrapper}>
-          <Button title="I already have an account! Sign in" onPress={goToLogin} />
+          <Button
+            title="I already have an account! Sign in"
+            onPress={goToLogin}
+          />
         </View>
       </View>
     </View>
   );
 };
 
-
 const style = StyleSheet.create({
   loginSocialsFB: {
-    marginRight:24,
-    marginLeft:24,
+    marginRight: 24,
+    marginLeft: 24,
     marginTop: 10,
-    paddingTop:13,
-    paddingBottom:13,
-    backgroundColor:'#475993',
+    paddingTop: 13,
+    paddingBottom: 13,
+    backgroundColor: '#475993',
     borderRadius: 5,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingRight: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   loginSocialsG: {
-    marginRight:24,
-    marginLeft:24,
-    marginTop:10,
+    marginRight: 24,
+    marginLeft: 24,
+    marginTop: 10,
     marginBottom: 20,
-    paddingTop:13,
-    paddingBottom:13,
-    backgroundColor:'#D4514C',
+    paddingTop: 13,
+    paddingBottom: 13,
+    backgroundColor: '#D4514C',
     borderRadius: 5,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingRight: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   textInputSocial: {
     fontSize: 16,
     fontWeight: '600',
-    color: 'white'
+    color: 'white',
   },
   textInputTitle: {
-    marginLeft:24,
-    fontSize: 18
+    marginLeft: 24,
+    fontSize: 18,
   },
   textInput: {
-    marginLeft:24,
+    marginLeft: 24,
     fontSize: 16,
-    marginBottom: 12
+    marginBottom: 12,
   },
   topRegister: {
     position: 'absolute',
@@ -149,20 +153,20 @@ const style = StyleSheet.create({
   },
   input: {
     paddingLeft: 10,
-    marginRight:24,
-    marginLeft:24,
+    marginRight: 24,
+    marginLeft: 24,
     marginBottom: 20,
-    marginTop:0,
-    paddingTop:13,
-    paddingBottom:13,
-    backgroundColor:'#EAEAEA',
+    marginTop: 0,
+    paddingTop: 13,
+    paddingBottom: 13,
+    backgroundColor: '#EAEAEA',
     borderRadius: 0,
   },
   buttonWrapper: {
-    marginBottom: 16
+    marginBottom: 16,
   },
   textInputSocialIcon: {
     width: 25,
-    height: 25
-  }
+    height: 25,
+  },
 });

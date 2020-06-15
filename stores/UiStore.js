@@ -5,6 +5,7 @@ class UiStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     this.currentUser = undefined;
+    this.loggedIn = false;
     this.authService = new AuthService({
       firebase: this.rootStore.firebase,
       onAuthStateChanged: this.onAuthStateChanged,
@@ -33,8 +34,9 @@ class UiStore {
   onAuthStateChanged = async (data) => {
     if (data) {
       console.log('ingelogd');
-      const user = this.rootStore.userStore.updateUserFromServer(data);
-      this.setCurrentUser(user);
+      this.loggedIn = true;
+      // const user = this.rootStore.userStore.updateUserFromServer(data);
+      //this.setCurrentUser(user);
     } else {
       console.log('niet ingelogd');
       this.setCurrentUser(undefined);
@@ -47,6 +49,9 @@ class UiStore {
 
 decorate(UiStore, {
   currentUser: observable,
+  loggedIn: observable,
+  updateUserFromServer: action,
+  onAuthStateChanged: action,
   setCurrentUser: action,
 });
 

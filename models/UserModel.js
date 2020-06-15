@@ -37,20 +37,13 @@ class UserModel {
     this.trips.push(trip);
   }
 
-  updateFromJson = ({
-    email = undefined,
-    name = undefined,
-    van = undefined,
-    trips = undefined,
-    status = undefined,
-    socials = undefined,
-  }) => {
-    this.name = name !== undefined ? name : this.name;
-    this.email = email !== undefined ? email : this.email;
-    this.van = van !== undefined ? van : this.van;
-    this.status = status !== undefined ? status : this.status;
-    this.socials = socials !== undefined ? socials : this.socials;
-    if (trips !== undefined) {
+  updateFromJson = (json) => {
+    this.name = json.name !== undefined ? json.name : this.name;
+    this.email = json.email !== undefined ? json.email : this.email;
+    this.van = json.van !== undefined ? json.van : this.van;
+    this.status = json.status !== undefined ? json.status : this.status;
+    this.socials = json.socials !== undefined ? json.socials : this.socials;
+    if (json.trips !== undefined) {
       const oldGroups = this.trips.concat();
       oldGroups.forEach((trip) => trip.unlinkUser(this));
       trips.forEach((trip) => {

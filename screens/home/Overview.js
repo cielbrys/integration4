@@ -13,19 +13,16 @@ import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 import 'mobx-react-lite/batchingForReactDom';
 
-
 import Mountain from '../../assets/images/home.svg';
-import Rood from  "../../assets/images/rood.svg";
-import Groen from  "../../assets/images/groen.svg";
-import Timer from  "../../assets/images/timerYellow";
-import Location from  "../../assets/images/locationYellow";
-import Pijl from  "../../assets/images/arrow.svg";
-
+import Rood from '../../assets/images/rood.svg';
+import Groen from '../../assets/images/groen.svg';
+import Timer from '../../assets/images/timerYellow';
+import Location from '../../assets/images/locationYellow';
+import Pijl from '../../assets/images/arrow.svg';
 
 export default function HomeScreen({ navigation }) {
   const { tripStore, uiStore } = useStore();
   const trips = tripStore.trips;
-
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -54,32 +51,47 @@ export default function HomeScreen({ navigation }) {
     });
   };
 
-
   return useObserver(() => (
     <SafeAreaView style={styles.container}>
-      <Mountain style={styles.mtn}/>
+      <Mountain style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
-      <Rood><Text>Start a new trip</Text></Rood>
+        <Rood>
+          <Text>Start a new trip</Text>
+        </Rood>
       </TouchableOpacity>
-      {/* {uiStore.currentUser.status === 'beginner' ? (
+      {uiStore.currentUser.status === 'beginner' ? (
         <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
-         <Groen> <Text>Tips 'n tricks</Text></Groen>
+          <Groen>
+            {' '}
+            <Text>Tips 'n tricks</Text>
+          </Groen>
         </TouchableOpacity>
       ) : (
-        ''
-      )} */}
-      <Text style={styles.recent}>{/*uiStore.currentUser.name*/}'s' recent trips</Text>
+        <></>
+      )}
+      <Text style={styles.recent}>
+        {uiStore.currentUser.name}'s' recent trips
+      </Text>
       {trips.length !== 0 ? (
         <ScrollView style={styles.list} horizontal={true}>
-        {trips.map((item) =>
-         <TouchableOpacity onPress={() => goToDetail(item)}>
-         <View  style={styles.trip}>
-           <View style={styles.title}><Text style={styles.name}>{item.name}</Text><Pijl/></View> 
-           <View style={styles.stat}><Timer/><Text style={styles.tekst}>{item.duration}h.</Text></View>
-           <View style={styles.stat}><Location/><Text style={styles.tekst}>{item.distance}km</Text></View>
-         </View>
-       </TouchableOpacity>
-        )}
+          {trips.map((item) => (
+            <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+              <View style={styles.trip}>
+                <View style={styles.title}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Pijl />
+                </View>
+                <View style={styles.stat}>
+                  <Timer />
+                  <Text style={styles.tekst}>{item.duration}h.</Text>
+                </View>
+                <View style={styles.stat}>
+                  <Location />
+                  <Text style={styles.tekst}>{item.distance}km</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       ) : (
         <Text>You have no trips atm</Text>
@@ -98,33 +110,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(240,244,243)',
     marginRight: 16,
     width: 145,
-    height: 99
+    height: 99,
   },
   button: {
-      alignSelf: "center"
+    alignSelf: 'center',
   },
   border: {
     borderWidth: 1,
     borderColor: '#fff',
   },
-  mtn: {
-   marginTop: 5
+  mtn: {
+    marginTop: 5,
   },
   recent: {
     marginLeft: 32,
-    marginBottom: 8
+    marginBottom: 8,
   },
   list: {
     marginLeft: 32,
     flex: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   stat: {
     flexDirection: 'row',
     marginLeft: 16,
     marginBottom: 8,
     color: 'rgb(21,72,69)',
-    fontSize: 20
+    fontSize: 20,
   },
   name: {
     paddingLeft: 8,
@@ -134,14 +146,13 @@ const styles = StyleSheet.create({
   },
   tekst: {
     color: 'rgb(21,72,69)',
-    marginLeft: 16
+    marginLeft: 16,
   },
   title: {
     flexDirection: 'row',
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginRight: 8,
-    marginTop: 8
-  }
-
+    marginTop: 8,
+  },
 });

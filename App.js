@@ -21,6 +21,7 @@ import { useObserver } from 'mobx-react-lite';
 
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
+import RegisterTwo from './screens/auth/RegisterTwo';
 import Start from './screens/auth/Start';
 
 const Stack = createStackNavigator();
@@ -32,8 +33,6 @@ export default function App(props) {
   const { getInitialState } = useLinking(containerRef);
 
   const { uiStore } = useStore();
-
-  const isLoggedIn = true;
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -75,7 +74,7 @@ export default function App(props) {
             ref={containerRef}
             initialState={initialNavigationState}
           >
-            {isLoggedIn ? (
+            {uiStore.loggedIn ? (
               <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>
@@ -84,6 +83,7 @@ export default function App(props) {
                 <Stack.Screen name="Start" component={Start} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
               </Stack.Navigator>
             )}
           </NavigationContainer>
