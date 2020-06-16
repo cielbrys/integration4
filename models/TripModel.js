@@ -9,7 +9,6 @@ class TripModel {
     id = v4(),
     stopTime = new Date(),
     distance = 0,
-    locations = [],
     store,
     ...json
   }) {
@@ -17,7 +16,6 @@ class TripModel {
     this.stopTime = stopTime;
     this.duration = undefined;
     this.distance = distance;
-    this.locations = locations;
     if (!store) {
       throw Error('voorzie een store');
     }

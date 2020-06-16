@@ -10,6 +10,7 @@ class UserModel {
     locations = [],
     trips = [],
     store,
+    system = 'km',
     ...json
   }) {
     this.id = id;
@@ -20,11 +21,16 @@ class UserModel {
     }
     this.rootStore = store;
     this.users = users;
+    this.system = system;
     this.updateFromJson(json);
   }
 
   changeName(newName) {
     this.name = newName;
+  }
+
+  changeSystem(newSystem) {
+    this.system = newSystem;
   }
 
   changeEmail(newEmail) {
@@ -62,6 +68,8 @@ class UserModel {
 
 decorate(UserModel, {
   name: observable,
+  system: observable,
+  changeSystem: action,
 });
 
 export default UserModel;

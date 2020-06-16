@@ -90,7 +90,7 @@ export default function TripView({ navigation }) {
   };
 
   const updateDistance = (newLoc) => {
-    const newDistance = haversine(pervLatLng, newLoc) || 0;
+    const newDistance = haversine(pervLatLng, newLoc, {unit: uiStore.currentUser.system}) || 0;
     pervLatLng = newLoc;
     setDistance(newDistance.toFixed(2));
   };
@@ -109,7 +109,6 @@ export default function TripView({ navigation }) {
       distance: distance,
       photos: {},
       user: uiStore.currentUser,
-      locations: pins,
       store: tripStore.rootStore,
     };
 
