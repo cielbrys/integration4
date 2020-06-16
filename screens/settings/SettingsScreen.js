@@ -108,6 +108,7 @@ export default function GalleryScreen({ navigation }) {
           <View style={styles.insta}>
             <Text style={styles.title}>Instagram</Text>
             <Text style={styles.tekst}>Connect to instagram to stay in contact with fellow travellers</Text>
+            <Text style={styles.tekst}>Fill in your instagram page name and connect</Text>
             <TextInput
               style={styles.instaInput}
               label="eai"
