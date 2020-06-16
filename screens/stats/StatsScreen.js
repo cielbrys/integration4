@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/StatsTop.svg';
+import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/StatsTitle.svg';
 import Bottom from '../../assets/images/statsBottom.svg';
 import Back from '../../assets/images/back.svg';
