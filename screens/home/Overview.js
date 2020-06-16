@@ -51,12 +51,14 @@ export default function HomeScreen({ navigation }) {
 
   return useObserver(() => (
     <ScrollView style={styles.container}>
-      <Button style={styles.logout} onPress={() => uiStore.logout()} title="signout" />
       <Mountain  style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
         <Rood>
           <Text>Start a new trip</Text>
         </Rood>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.logout} onPress={() => uiStore.logout()}>
+        <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
       {uiStore.currentUser.status === 'beginner' ? (
         <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
@@ -108,8 +110,17 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  logout: {
+    position: 'absolute',
+    right: 24,
+    top: 60
+  },
+  logoutText: {
+    fontSize: 16
+  },
   tekstSpecial: {
     color: 'black',
+
     fontSize: 16,
     marginBottom: 15
   },
@@ -180,9 +191,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginRight: 8,
     marginTop: 8,
-  },
-  logout: {
-    position: "absolute",
-    right: 24
   }
 });
