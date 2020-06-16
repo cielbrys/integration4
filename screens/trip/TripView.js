@@ -6,7 +6,6 @@ import {
   ScrollView,
   Dimensions,
   Image,
-  KeyboardAvoidingView,
   SafeAreaView,
 } from 'react-native';
 import * as Location from 'expo-location';
@@ -18,20 +17,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import TripModel from '../../models/TripModel';
 import haversine from 'haversine';
 import LocationModel from '../../models/LocationModel';
-
+import Dialog from 'react-native-dialog';
+import endLocations from '../../constants/Locations';
+let pins = [];
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
-
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
   const [startTime, setStartTime] = useState();
+  const [popUpSave, setPopUpSave] = useState(false);
+  const [popUpPin, setPopUpPin] = useState(false);
+
+  const [pinName, setPinName] = useState(
+    `Location #${locationStore.locations.length + 1}`
+  );
 
   navigation.setOptions({ headerTitle: name });
 
   let pervLatLng = {};
-  let pins = [];
   useEffect(() => {
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
@@ -51,9 +56,11 @@ export default function TripView({ navigation }) {
     config();
   }, []);
 
+  const locationNumber = Math.floor(Math.random() * endLocations.length);
+  const endLocation = endLocations[locationNumber];
   let p2 = {
-    x: 50.820345,
-    y: 3.273269,
+    latitude: endLocation.latitude,
+    longitude: endLocation.longitude,
   };
 
   let p1 = {
@@ -76,7 +83,9 @@ export default function TripView({ navigation }) {
         updateDistance(p1);
 
         const angleDeg =
-          (Math.atan2(p2.y - p1.longitude, p2.x - p1.latitude) * 180) / Math.PI;
+          (Math.atan2(p2.longitude - p1.longitude, p2.latitude - p1.latitude) *
+            180) /
+          Math.PI;
         setDegree(angleDeg);
         console.log('degree', degree);
         region = {
@@ -90,7 +99,8 @@ export default function TripView({ navigation }) {
   };
 
   const updateDistance = (newLoc) => {
-    const newDistance = haversine(pervLatLng, newLoc, {unit: uiStore.currentUser.system}) || 0;
+    const newDistance =
+      haversine(pervLatLng, newLoc, { unit: uiStore.currentUser.system }) || 0;
     pervLatLng = newLoc;
     setDistance(newDistance.toFixed(2));
   };
@@ -102,26 +112,34 @@ export default function TripView({ navigation }) {
     longitudeDelta: 0.002,
   };
 
+  const deleteTrip = () => {
+    navigation.navigate('Home', {
+      screen: 'Overview',
+    });
+  };
+
   const stopTrip = () => {
     const tripJson = {
       name: name,
       startTime: startTime,
       distance: distance,
-      photos: {},
       user: uiStore.currentUser,
       store: tripStore.rootStore,
     };
-
     const trip = new TripModel(tripJson);
     pins.forEach((pin) => {
       pin.setTripId(trip.id);
     });
-    console.log('start:', trip.startTime, 'Stop:', trip.stopTime);
+    console.log(pins);
+    navigation.navigate('Home', {
+      screen: 'Overview',
+    });
+    setPopUpSave(false);
   };
 
   const pinLocation = () => {
     const cords = p1;
-    const name = `Location #${locationStore.locations.length + 1}`;
+    const name = pinName;
     const pin = new LocationModel({
       cords,
       name,
@@ -129,6 +147,9 @@ export default function TripView({ navigation }) {
       store: locationStore.rootStore,
     });
     pins.push(pin);
+    console.log(pins);
+    setPinName(`Location #${locationStore.locations.length + 1}`);
+    setPopUpPin(false);
   };
 
   return useObserver(() => {
@@ -147,26 +168,53 @@ export default function TripView({ navigation }) {
           />
         </View>
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => pinLocation()}>
+          <TouchableOpacity onPress={() => setPopUpPin(true)}>
             <Text>Pin Location</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => stopTrip()}>
+          <TouchableOpacity onPress={() => setPopUpSave(true)}>
             <Text>Stop Trip</Text>
           </TouchableOpacity>
-          {/* <MapView
-            style={styles.mapStyle}
-            loadingEnabled={true}
-            pitchEnabled={false}
-            rotateEnabled={false}
-            scrollEnabled={false}
-            showsMyLocationButton={true}
-            zoomEnabled={false}
-            followUserLocation={true}
-            showsUserLocation={true}
-            region={region}
-          >
-            {<Marker coordinate={{ longitude: p2.y, latitude: p2.x }} />}
-          </MapView> */}
+          <Text>{distance}</Text>
+          <Dialog.Container visible={popUpSave}>
+            <Dialog.Title>Trip Title</Dialog.Title>
+            <Dialog.Input
+              onChangeText={(tripName) => setName(tripName)}
+              value={name}
+            ></Dialog.Input>
+            <Dialog.Button
+              color={'red'}
+              label="Delete"
+              onPress={() => deleteTrip()}
+            />
+            <Dialog.Button
+              color={'gray'}
+              label="Cancel"
+              onPress={() => setPopUpSave(false)}
+            />
+            <Dialog.Button
+              bold={true}
+              label="Save"
+              onPress={() => stopTrip()}
+            />
+          </Dialog.Container>
+
+          <Dialog.Container visible={popUpPin}>
+            <Dialog.Title>Safe location?</Dialog.Title>
+            <Dialog.Input
+              onChangeText={(newPinName) => setPinName(newPinName)}
+              value={pinName}
+            ></Dialog.Input>
+            <Dialog.Button
+              color={'gray'}
+              label="Cancel"
+              onPress={() => setPopUpPin(false)}
+            />
+            <Dialog.Button
+              bold={true}
+              label="Save"
+              onPress={() => pinLocation()}
+            />
+          </Dialog.Container>
         </View>
       </SafeAreaView>
     );

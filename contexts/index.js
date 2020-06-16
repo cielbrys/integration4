@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import RootStore from '../stores';
 import UserModel from '../models/UserModel';
 import TripModel from '../models/TripModel';
+import LocationModel from '../models/LocationModel';
 
 const store = new RootStore();
 
@@ -12,7 +13,7 @@ const userJson = {
   name: 'Ciel',
   email: 'ciel@gmail.com',
   van: 'VW',
-  socials: {},
+  socials: '',
   status: 'beginner',
 };
 
@@ -43,7 +44,15 @@ const trip2 = {
   store: store,
 };
 
-new TripModel(trip)
-new TripModel(trip2)
+const newTrip1 = new TripModel(trip);
+const newTrip2 = new TripModel(trip2);
+
+new LocationModel({
+  name: 'Chillspot',
+  tripId: newTrip1.id,
+  cords: { latitude: 50.81646, longitude: 3.271364 },
+  user: user,
+  store: store,
+});
 
 export const storeContext = createContext(store);

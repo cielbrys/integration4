@@ -23,6 +23,7 @@ class LocationModel {
 
   setTripId(id) {
     this.tripId = id;
+    console.log('id:', this.tripId);
   }
 }
 

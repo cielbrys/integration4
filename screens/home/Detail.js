@@ -16,6 +16,7 @@ export default ({ route }) => {
   const { tripStore, uiStore, locationStore } = useStore();
   const trip = tripStore.resolveTrip(id);
   const locations = locationStore.getLocationsForTrip(trip.id);
+  console.log(locations);
   const handlePress = async (cords) => {
     const scheme = Platform.select({
       ios: 'maps:0,0?q=',
@@ -32,7 +33,10 @@ export default ({ route }) => {
   return useObserver(() => (
     <View>
       <Text>Name: {trip.name}</Text>
-      <Text>{trip.distance}{uiStore.currentUser.system}</Text>
+      <Text>
+        {trip.distance}
+        {uiStore.currentUser.system}
+      </Text>
       <Text>{trip.duration}h.</Text>
       {locations.map((location) => (
         <TouchableOpacity

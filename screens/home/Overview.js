@@ -21,7 +21,15 @@ import Pijl from '../../assets/images/arrow.svg';
 
 export default function HomeScreen({ navigation }) {
   const { tripStore, uiStore } = useStore();
+  let lastTrips;
+  const begin = tripStore.trips.length - 5;
+  const end = tripStore.trips.length;
   const trips = tripStore.trips;
+  if (trips.length >= 5) {
+    lastTrips = trips.slice(begin, end);
+  } else {
+    lastTrips = trips;
+  }
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -76,7 +84,7 @@ export default function HomeScreen({ navigation }) {
       </Text>
       {trips.length !== 0 ? (
         <ScrollView style={styles.list} horizontal={true}>
-          {trips.map((item) => (
+          {lastTrips.map((item) => (
             <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
               <View style={styles.trip}>
                 <View style={styles.title}>
@@ -90,7 +98,8 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.stat}>
                   <Location />
                   <Text style={styles.tekst}>
-                    {item.distance}{uiStore.currentUser.system}
+                    {item.distance}
+                    {uiStore.currentUser.system}
                   </Text>
                 </View>
               </View>

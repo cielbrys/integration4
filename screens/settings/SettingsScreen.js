@@ -31,7 +31,6 @@ export default function GalleryScreen({ navigation }) {
   };
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [insta, setInsta] = useState('');
 
   const [isActive, setActive] = useState(false);
 
@@ -40,12 +39,17 @@ export default function GalleryScreen({ navigation }) {
     console.log(uiStore.currentUser.system);
   };
 
+  const setInsta = (insta) => {
+    uiStore.currentUser.setSocials(insta);
+    console.log(uiStore.currentUser.socials);
+  };
+
   const changeToMile = () => {
     uiStore.currentUser.changeSystem('mile');
     console.log(uiStore.currentUser.system);
   };
 
-  return useObserver(() =>(
+  return useObserver(() => (
     <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
@@ -98,23 +102,39 @@ export default function GalleryScreen({ navigation }) {
             />
           </View>
           <View style={styles.eenheid}>
-            <TouchableOpacity  style={uiStore.currentUser.system === 'km' ? styles.active : styles.km} onPress={() => changeToKm()}>
+            <TouchableOpacity
+              style={
+                uiStore.currentUser.system === 'km' ? styles.active : styles.km
+              }
+              onPress={() => changeToKm()}
+            >
               <Text style={styles.txt}>Km</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={uiStore.currentUser.system === 'mile' ? styles.active : styles.miles} onPress={() => changeToMile()}>
+            <TouchableOpacity
+              style={
+                uiStore.currentUser.system === 'mile'
+                  ? styles.active
+                  : styles.miles
+              }
+              onPress={() => changeToMile()}
+            >
               <Text style={styles.txt}>Miles</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.insta}>
             <Text style={styles.title}>Instagram</Text>
-            <Text style={styles.tekst}>Connect to instagram to stay in contact with fellow travellers</Text>
-            <Text style={styles.tekst}>Fill in your instagram page name and connect</Text>
+            <Text style={styles.tekst}>
+              Connect to instagram to stay in contact with fellow travellers
+            </Text>
+            <Text style={styles.tekst}>
+              Fill in your instagram page name and connect
+            </Text>
             <TextInput
               style={styles.instaInput}
               label="eai"
-              placeholder= "@example"
+              placeholder="@example"
               clearButtonMode="always"
-              value={insta}
+              value={uiStore.currentUser.socials}
               onChangeText={(text) => setInsta(text)}
               returnKeyType={'next'}
             />
@@ -174,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 16
+    marginTop: 16,
   },
   text: {
     fontSize: 16,
@@ -196,7 +216,7 @@ const styles = StyleSheet.create({
     top: 500,
   },
   save: {
-    zIndex: 8
+    zIndex: 8,
   },
   input: {
     marginRight: 24,
@@ -212,49 +232,49 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   eenheid: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 40
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 40,
   },
   km: {
-    backgroundColor: "rgb(197,212,209)",
+    backgroundColor: 'rgb(197,212,209)',
     width: 160,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   miles: {
-    backgroundColor: "rgb(197,212,209)",
+    backgroundColor: 'rgb(197,212,209)',
     width: 160,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   active: {
     backgroundColor: 'rgb(29,120,116)',
     width: 160,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   txt: {
     color: 'white',
-    fontSize: 18
+    fontSize: 18,
   },
   insta: {
-    marginTop: 110
+    marginTop: 110,
   },
   title: {
     color: 'white',
-    fontWeight: "700",
-    fontSize: 18
+    fontWeight: '700',
+    fontSize: 18,
   },
   tekst: {
     color: 'white',
-    marginTop: 10
+    marginTop: 10,
   },
   instaInput: {
     paddingLeft: 10,
@@ -264,5 +284,5 @@ const styles = StyleSheet.create({
     paddingBottom: 13,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
-  }
+  },
 });

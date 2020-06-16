@@ -41,6 +41,10 @@ class UserModel {
     this.trips.push(trip);
   }
 
+  setSocials(url){
+    this.socials = url
+  }
+
   updateFromJson = (json) => {
     this.name = json.name !== undefined ? json.name : this.name;
     this.email = json.email !== undefined ? json.email : this.email;
@@ -69,7 +73,9 @@ class UserModel {
 decorate(UserModel, {
   name: observable,
   system: observable,
+  socials: observable,
   changeSystem: action,
+  setSocials: action
 });
 
 export default UserModel;
