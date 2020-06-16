@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView,Button 
+  SafeAreaView,
+  Button,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
@@ -49,7 +50,7 @@ export default function HomeScreen({ navigation }) {
 
   return useObserver(() => (
     <ScrollView style={styles.container}>
-      <Mountain  style={styles.mtn} />
+      <Mountain style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
         <Rood>
           <Text>Start a new trip</Text>
@@ -86,19 +87,21 @@ export default function HomeScreen({ navigation }) {
                 </View>
                 <View style={styles.stat}>
                   <Location />
-                  <Text style={styles.tekst}>{item.distance}km</Text>
+                  <Text style={styles.tekst}>
+                    {item.distance}{uiStore.currentUser.system}
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
           ))}
           <TouchableOpacity onPress={startNewTrip}>
-              <View style={styles.trip}>
-                <View style={styles.allRecent}>
-                  <Text style={styles.tekstSpecial}>See all my recent trips</Text>
-                  <Pijl />
-                </View>
+            <View style={styles.trip}>
+              <View style={styles.allRecent}>
+                <Text style={styles.tekstSpecial}>See all my recent trips</Text>
+                <Pijl />
               </View>
-            </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       ) : (
         <Text>You have no trips atm</Text>
@@ -111,20 +114,20 @@ const styles = StyleSheet.create({
   logout: {
     position: 'absolute',
     right: 24,
-    top: 60
+    top: 60,
   },
   logoutText: {
-    fontSize: 16
+    fontSize: 16,
   },
   tekstSpecial: {
     color: 'black',
 
     fontSize: 16,
-    marginBottom: 15
+    marginBottom: 15,
   },
   allRecent: {
     marginTop: 16,
-    marginLeft: 16
+    marginLeft: 16,
   },
   container: {
     flex: 1,
@@ -135,13 +138,13 @@ const styles = StyleSheet.create({
     marginRight: 16,
     width: 170,
     height: 120,
-    borderRadius: 10
+    borderRadius: 10,
   },
   button: {
     alignSelf: 'center',
     marginTop: -10,
     marginRight: 24,
-    marginLeft: 24
+    marginLeft: 24,
   },
   border: {
     borderWidth: 1,
@@ -153,16 +156,15 @@ const styles = StyleSheet.create({
   },
   recent: {
     marginLeft: 24,
-    marginBottom:16,
-    marginTop:32,
+    marginBottom: 16,
+    marginTop: 32,
     fontSize: 20,
-
   },
   list: {
     marginLeft: 24,
     flex: 2,
     flexDirection: 'row',
-    marginBottom: 40
+    marginBottom: 40,
   },
   stat: {
     flexDirection: 'row',
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
   tekst: {
     color: 'rgb(21,72,69)',
     marginLeft: 16,
-    fontSize: 16
+    fontSize: 16,
   },
   title: {
     flexDirection: 'row',
@@ -189,5 +191,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginRight: 8,
     marginTop: 8,
-  }
+  },
 });
