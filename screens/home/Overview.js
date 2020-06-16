@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView,
+  SafeAreaView,Button 
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
@@ -51,6 +51,7 @@ export default function HomeScreen({ navigation }) {
 
   return useObserver(() => (
     <ScrollView style={styles.container}>
+      <Button style={styles.logout} onPress={() => uiStore.logout()} title="signout" />
       <Mountain  style={styles.mtn} />
       <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
         <Rood>
@@ -180,4 +181,8 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginTop: 8,
   },
+  logout: {
+    position: "absolute",
+    right: 24
+  }
 });

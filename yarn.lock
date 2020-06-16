@@ -5354,6 +5354,11 @@ lodash.camelcase@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
 
+lodash.capitalize@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/lodash.capitalize/-/lodash.capitalize-4.2.1.tgz#f826c9b4e2a8511d84e3aca29db05e1a4f3b72a9"
+  integrity sha1-+CbJtOKoUR2E46yinbBeGk87cqk=
+
 lodash.clone@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
@@ -6770,6 +6775,14 @@ react-native-elements@^2.0.2:
     prop-types "^15.7.2"
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.2.0"
+
+react-native-flip-toggle-button@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-flip-toggle-button/-/react-native-flip-toggle-button-1.0.8.tgz#4763e43308521328e649bd8eb7fc5a58dbdbd77d"
+  integrity sha512-yIietb8bDAx+0EdrQ37SKfnGO1IzxgN6/WBZE57FcR/QJH4xXzTvSz4PQyKwBEz9aTxrdZHi95aYHsKZh9ZMOQ==
+  dependencies:
+    lodash.capitalize "^4.2.1"
+    prop-types "^15.7.2"
 
 react-native-gesture-handler@~1.6.0:
   version "1.6.1"
