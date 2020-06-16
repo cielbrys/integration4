@@ -67,7 +67,7 @@ export default function App(props) {
       return (
         <KeyboardAvoidingView
           style={styles.container}
-          behavior={Platform.Os == 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <NavigationContainer

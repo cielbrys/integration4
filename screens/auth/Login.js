@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Text, View, Button, TextInput, StyleSheet, ScrollView } from 'react-native';
 import { useStore } from '../../hooks/useStore';
 import { useHistory } from 'react-router-dom';
 
-import Landscape from '../../assets/images/LandscapeSignin.svg';
+import Landscape from '../../assets/images/Login/BG.svg';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -35,10 +35,6 @@ export default ({ navigation }) => {
   }
   
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "margin" : "height"}
-      style={{flex: 1}}
-    >
       <View style={styles.view}>
         <Landscape style={styles.container}/>
         <View style={styles.bottom}>
@@ -71,7 +67,7 @@ export default ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
-          <TouchableOpacity
+            <TouchableOpacity
               onPress={goToRegister}
               underlayColor='#fff'
               style={styles.loginButtonSecondary}
@@ -81,7 +77,6 @@ export default ({ navigation }) => {
           </View>
         </View>
       </View>
-    </KeyboardAvoidingView>
   )
 };
 
@@ -120,7 +115,7 @@ const styles = StyleSheet.create({
   },
   container: {
     position: 'absolute',
-    top: 80
+    top: 90
   },
   view: {
     flex: 1,
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignSelf: 'flex-end',
-    marginBottom: 48
+    marginBottom: 24
   },
   text: {
     fontSize: 16,
