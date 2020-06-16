@@ -26,7 +26,7 @@ export default function TripView({ navigation }) {
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const startTime = new Date();
+  const [startTime, setStartTime] = useState(new Date());
 
   navigation.setOptions({ headerTitle: name });
 
@@ -114,7 +114,7 @@ export default function TripView({ navigation }) {
     };
 
     const trip = new TripModel(tripJson);
-    console.log(trip);
+    console.log('start:', trip.startTime, 'Stop:', trip.startTime);
   };
 
   return useObserver(() => {
