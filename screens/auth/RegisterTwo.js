@@ -17,21 +17,13 @@ import { useParams } from 'react-router-dom';
 
 export default ({ navigation, route }) => {
   const goToLogin = () => {
-    navigation.navigate('Login');
+    navigation.navigate('home');
   };
 
-  const { email, name, password } = route.params;
-
-  const handleSubmit = async () => {
-    try {
-      await uiStore.register({
-        name,
-        email,
-        password,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = () => {
+    navigation.navigate('home', {
+      screen: 'Overview',
+    });
   };
 
   navigation.setOptions({
@@ -41,7 +33,6 @@ export default ({ navigation, route }) => {
   });
 
   const { uiStore } = useStore();
-
 
   return (
     <View>
@@ -63,7 +54,7 @@ export default ({ navigation, route }) => {
           <Text>Connect to instagram</Text>
         </TouchableOpacity>
         <View>
-          <Button title="Let's start" onPress={handleSubmit} />
+          <Button title="Let's start" onPress={handleSubmit()} />
         </View>
       </View>
     </View>

@@ -31,10 +31,17 @@ export default ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const goToRegisterTwo = () => {
-    navigation.navigate('RegisterTwo', {
-      params: { email: email, password: password, name: name },
-    });
+  const goToRegisterTwo = async () => {
+    try {
+      await uiStore.register({
+        name,
+        email,
+        password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    navigation.navigate('RegisterTwo');
   };
 
   return (

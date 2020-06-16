@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { decorate, observable, action, computed, configure } from 'mobx';
+import haversine from 'haversine';
 
 configure({ enforceActions: `observed` });
 
@@ -7,7 +8,7 @@ class TripModel {
   constructor({
     id = v4(),
     stopTime = '',
-    distance = undefined,
+    distance = 0,
     photos = [],
     locations = [],
     store,
@@ -26,6 +27,7 @@ class TripModel {
     this.updateFromJson(json);
     this.user.addTrip(this);
     this.durationTime();
+    this.rootStore.tripStore.addTrip(this);
   }
 
   addUsers = (user) => {
@@ -38,7 +40,13 @@ class TripModel {
     this.users = json.users !== undefined ? json.users : this.users;
     this.distance = json.distance !== undefined ? json.distance : this.distance;
     this.stopTime = json.stopTime !== undefined ? json.stopTime : this.stopTime;
-    this.startTime = json.startTime !== undefined ? json.startTime : this.startTime;
+    this.startTime =
+      json.startTime !== undefined ? json.startTime : this.startTime;
+  };
+
+  stopTrip = () => {
+    this.setStopTime();
+    this.durationTime();
   };
 
   setStopTime() {
@@ -58,8 +66,11 @@ class TripModel {
 decorate(TripModel, {
   name: observable,
   users: observable,
+  distance: observable,
   stopTime: observable,
   addUsers: action,
+  stopTrip: action,
+  setDistance: action,
   setStopTime: action,
   durationTime: action,
   setStopTime: action,

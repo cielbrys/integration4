@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import RootStore from '../stores';
 import UserModel from '../models/UserModel';
+import TripModel from '../models/TripModel';
 
 const store = new RootStore();
 
@@ -44,7 +45,7 @@ const trip2 = {
   store: store,
 };
 
-store.tripStore.createTrip(trip);
-store.tripStore.createTrip(trip2);
+new TripModel(trip)
+new TripModel(trip2)
 
 export const storeContext = createContext(store);

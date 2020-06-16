@@ -14,6 +14,7 @@ class TripStore {
     const newTrip = new TripModel(trip);
     if (newTrip) {
       this.addTrip(newTrip);
+      return newTrip
     }
   };
 
@@ -59,6 +60,7 @@ class TripStore {
 decorate(TripStore, {
   trips: observable,
   empty: action,
+  addTrip: action,
   distanceDone: computed,
 });
 
