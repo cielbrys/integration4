@@ -95,8 +95,8 @@ export default ({ navigation }) => {
             <ArrowTips />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={style.margExtreme} onPress={console.log('cool')}>
-            <Button title=" " disabled={true}></Button>
+          <TouchableOpacity style={style.margExtreme} onPress={console.log()}>
+            <ArrowTips style={style.noDisplay}/>
           </TouchableOpacity>
         )}
         {tip < 4 ? (
@@ -104,7 +104,9 @@ export default ({ navigation }) => {
              <ArrowTips />
           </TouchableOpacity>
         ) : (
-          <Button title=" " disabled={true}></Button>
+          <TouchableOpacity style={style.margExtreme} onPress={console.log()}>
+            <ArrowTips style={style.noDisplay}/>
+          </TouchableOpacity>
         )}
       </View>
       <View style={style.svg}>
@@ -115,6 +117,9 @@ export default ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
+  noDisplay: {
+    display: 'none'
+  },
   body: {
     backgroundColor: '#679289',
     paddingBottom: 100,
@@ -161,6 +166,6 @@ const style = StyleSheet.create({
     marginLeft: 25,
   },
   margExtreme: {
-    marginLeft: 95
+    marginLeft: 115
   }
 });
