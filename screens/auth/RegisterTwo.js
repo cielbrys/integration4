@@ -22,7 +22,7 @@ export default ({ navigation, route }) => {
 
   const handleSubmit = () => {
     navigation.navigate('home', {
-      screen: 'Overview',
+      screen: 'Home',
     });
   };
 

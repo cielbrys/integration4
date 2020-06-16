@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image } from 'react-native';
-import { useObserver } from 'mobx-react-lite';
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 
-import Camping from '../../assets/images/Camping.svg';
-import Roads from '../../assets/images/Roads.svg';
-import Showering from '../../assets/images/Showering.svg';
-import Bathroom from '../../assets/images/Bathroom.svg';
-import Supplies from '../../assets/images/Supplies.svg';
-import BottomTips from '../../assets/images/BottomTips.svg';
+import Camping from '../../assets/images/Tips/Camping.svg';
+import Roads from '../../assets/images/Tips/Roads.svg';
+import Showering from '../../assets/images/Tips/Showering.svg';
+import Bathroom from '../../assets/images/Tips/Bathroom.svg';
+import Supplies from '../../assets/images/Tips/Supplies.svg';
+import BottomTips from '../../assets/images/Tips/BottomTips.svg';
+import ArrowTips from '../../assets/images/Tips/ArrowTips.svg';
 
 import Back from '../../assets/images/back.svg';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+let deviceWidth = Dimensions.get('window').height;
+let imgTop, textTop, buttonBottom;
+console.log(deviceWidth)
+if(deviceWidth > 700){
+  imgTop = 60;
+  textTop = 50;
+  buttonBottom = 170;
+}else if(deviceWidth < 700){
+  imgTop = 20;
+  textTop = 5;
+  buttonBottom = 125;
+}
+console.log(imgTop);
 
 export default ({ navigation }) => {
 
@@ -24,7 +38,18 @@ export default ({ navigation }) => {
     headerLeft: null,
   });
 
+  // const getImgTop = () => {
+  //   if(deviceWidth < 700){
+  //     return {
+  //       marginTop: 60
+  //     }
 
+  //   }else if(deviceWidth < 670){
+  //     return {
+  //       marginTop: 20
+  //     }
+  //   }
+  // }
 
   const tips = [
     {
@@ -66,18 +91,20 @@ export default ({ navigation }) => {
       </View>
       <View style={style.buttons}>
         {tip > 0 ? (
-          <TouchableOpacity onPress={() => setTip(tip - 1)}>
-            <Back />
+          <TouchableOpacity style={style.rotate} onPress={() => setTip(tip - 1)}>
+            <ArrowTips />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={style.margExtreme} onPress={console.log('cool')}>
+            <Button title=" " disabled={true}></Button>
+          </TouchableOpacity>
+        )}
+        {tip < 4 ? (
+          <TouchableOpacity style={style.marg} onPress={() => setTip(tip + 1)}>
+             <ArrowTips />
           </TouchableOpacity>
         ) : (
           <Button title=" " disabled={true}></Button>
-        )}
-        {tip < 4 ? (
-          <TouchableOpacity style={style.rotate} onPress={() => setTip(tip + 1)}>
-            <Back />
-          </TouchableOpacity>
-        ) : (
-          <></>
         )}
       </View>
       <View style={style.svg}>
@@ -89,44 +116,51 @@ export default ({ navigation }) => {
 
 const style = StyleSheet.create({
   body: {
-    backgroundColor: '#90B7AC',
+    backgroundColor: '#679289',
     paddingBottom: 100,
-    paddingTop: 50
+    paddingTop: 50,
+    height: deviceWidth
   },
   img: {
     height: 140
   },
   back: {
     marginLeft: 24,
+    marginTop: 10
   },
   tip: {
     alignItems: 'center',
-    marginTop: 40
+    marginTop: imgTop
   },
   tipText: {
     textAlign: 'center',
     fontSize: 18,
     color: 'white',
-    marginTop: 30,
+    marginTop: textTop,
     marginLeft: 24,
     marginRight: 24,
     height: 200
   },
   buttons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginRight: 100,
-    marginLeft: 100,
-    marginTop: 40
+    position: 'absolute',
+    left: '20%',
+    right: '25%',
+    bottom: buttonBottom
   },
   svg: {
     position: 'absolute',
-    top: 350,
+    bottom: 10,
     zIndex: -1
   },
   rotate: {
+    marginRight: 25,
     transform: [{ rotate: '180deg'}]
+  },
+  marg: {
+    marginLeft: 25,
+  },
+  margExtreme: {
+    marginLeft: 95
   }
 });
-
-// <Button title="back" onPress={() => setTip(tip - 1)}></Button>
