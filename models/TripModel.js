@@ -7,9 +7,8 @@ configure({ enforceActions: `observed` });
 class TripModel {
   constructor({
     id = v4(),
-    stopTime = '',
+    stopTime = new Date(),
     distance = 0,
-    photos = [],
     locations = [],
     store,
     ...json
@@ -23,7 +22,6 @@ class TripModel {
       throw Error('voorzie een store');
     }
     this.rootStore = store;
-    this.photos = photos;
     this.updateFromJson(json);
     this.user.addTrip(this);
     this.durationTime();
@@ -45,13 +43,8 @@ class TripModel {
   };
 
   stopTrip = () => {
-    this.setStopTime();
     this.durationTime();
   };
-
-  setStopTime() {
-    this.stopTime = new Date();
-  }
 
   durationTime() {
     if (this.stopTime !== '') {

@@ -28,6 +28,7 @@ class LocationStore {
 decorate(LocationStore, {
   locations: observable,
   empty: action,
+  addLocation: action,
 });
 
 export default LocationStore;
