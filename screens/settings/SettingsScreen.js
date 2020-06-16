@@ -87,6 +87,11 @@ export default function GalleryScreen({navigation}) {
     onToggleLongPress={() => console.log('toggle long pressed!')}
       />
      </View>
+     <View style={styles.eenheid}>
+       <TouchableOpacity>
+         <Text></Text>
+       </TouchableOpacity>
+     </View>
      </View>
      <Bottom style={styles.bottom}/>
       </View>
