@@ -21,6 +21,16 @@ class LocationStore {
     this.locations.push(location);
   }
 
+  getLocationsForTrip = (id) => {
+    let locations = [];
+    this.locations.map((location) => {
+      if (location.tripId === id) {
+        locations.push(location);
+      }
+    });
+    return locations;
+  };
+
   resolveLocation = (id) =>
     this.locations.find((location) => location.id === id);
 }
