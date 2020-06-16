@@ -14,7 +14,7 @@ class TripStore {
     const newTrip = new TripModel(trip);
     if (newTrip) {
       this.addTrip(newTrip);
-      return newTrip
+      return newTrip;
     }
   };
 
@@ -41,9 +41,9 @@ class TripStore {
   get distanceDone() {
     let distance = 0;
     this.trips.map((trip) => {
-      distance = trip.distance + distance;
+      distance = distance + Number(trip.distance);
     });
-    return distance;
+    return distance.toFixed(2);
   }
 
   get timeDone() {
