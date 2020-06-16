@@ -8,7 +8,7 @@ import { useStore } from '../../hooks/useStore';
 import FlipToggle from 'react-native-flip-toggle-button'
 import { set } from 'mobx';
 
-import Top from '../../assets/images/statsTop.svg';
+import Top from '../../assets/images/StatsTop.svg';
 import TopTitle from '../../assets/images/settings.svg';
 import Back from '../../assets/images/back.svg';
 import Bottom from '../../assets/images/statsBottom.svg';
