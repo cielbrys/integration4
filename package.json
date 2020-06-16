@@ -38,6 +38,7 @@
     "react-native-flip-toggle-button": "^1.0.8",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
+    "react-native-keyboard-listener": "^1.1.0",
     "react-native-maps": "0.26.1",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",

@@ -6,11 +6,17 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  ScrollView,
+  Dimensions
 } from 'react-native';
 
 import TopRegister from '../../assets/images/TopRegister.svg';
+import Welcome from '../../assets/images/Register/Welcome.svg';
+
 import GoogleIcon from '../../assets/images/GoogleIcon.svg';
 import FacebookIcon from '../../assets/images/FacebookIcon.svg';
+
+let deviceHeight = Dimensions.get('window').height;
 
 import { useStore } from '../../hooks/useStore';
 
@@ -45,68 +51,138 @@ export default ({ navigation }) => {
   };
 
   return (
-    <View style={style.container}>
+    <ScrollView style={style.container}>
       <TopRegister style={style.topRegister} />
-      <Text style={style.textInputTitle}>Create an account</Text>
-      <View style={style.socials}>
-        <TouchableOpacity style={style.loginSocialsFB}>
-          <FacebookIcon style={style.textInputSocialIcon} />
-          <Text style={style.textInputSocial}>Sign in with Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.loginSocialsG}>
-          <GoogleIcon style={style.textInputSocialIcon} />
-          <Text style={style.textInputSocial}>Sign in with Google</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={style.form}>
-        <Text style={style.textInput}>Travellers name</Text>
-        <TextInput
-          style={style.input}
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <Text style={style.textInput}>Email</Text>
-        <TextInput
-          style={style.input}
-          keyboardType="email-address"
-          clearButtonMode="always"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Text style={style.textInput}>Password</Text>
-        <TextInput
-          style={style.input}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <Text style={style.textInput}>Password confirmation</Text>
-        <TextInput
-          style={style.input}
-          clearButtonMode="always"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <View style={style.buttonWrapper}>
-          <Button title="Create account" onPress={() => goToRegisterTwo()} />
-        </View>
-        <View style={style.buttonWrapper}>
-          <Button
-            title="I already have an account! Sign in"
-            onPress={goToLogin}
+      <Welcome style={style.welcome}/>
+
+
+
+      <View style={style.bottom}>
+        
+        <View style={style.form}>
+          {/* <Text style={style.textInputTitle}>Create an account</Text>
+           <View style={style.socials}>
+            <TouchableOpacity style={style.loginSocialsFB}>
+              <FacebookIcon style={style.textInputSocialIcon} />
+              <Text style={style.textInputSocial}>Sign in with Facebook</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.loginSocialsG}>
+              <GoogleIcon style={style.textInputSocialIcon} />
+              <Text style={style.textInputSocial}>Sign in with Google</Text>
+            </TouchableOpacity>
+          </View> */}
+
+          <Text style={style.textInput}>Travellers name</Text>
+          <TextInput
+            style={style.input}
+            value={name}
+            onChangeText={(text) => setName(text)}
           />
+          <Text style={style.textInput}>Email</Text>
+          <TextInput
+            style={style.input}
+            keyboardType="email-address"
+            clearButtonMode="always"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <Text style={style.textInput}>Password</Text>
+          <TextInput
+            style={style.input}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <Text style={style.textInput}>Password confirmation</Text>
+          <TextInput
+            style={style.input}
+            clearButtonMode="always"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <View style={style.buttonWrapper}>
+              <TouchableOpacity
+              onPress={goToRegisterTwo}
+              underlayColor='#fff'
+              style={style.loginButton}
+            >
+              <Text style={style.loginText}>Create an account</Text>  
+            </TouchableOpacity>
+          </View>
+          <View style={style.buttonWrapper}>
+          <TouchableOpacity
+              onPress={goToLogin}
+              underlayColor='#fff'
+              style={style.loginButtonSecondary}
+            >
+              <Text style={style.loginTextSecondary}>I already have an account, sign in</Text>  
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const style = StyleSheet.create({
-  loginSocialsFB: {
-    marginRight: 24,
+  welcome: {
+    position: 'absolute',
+    left: 24,
+    top: 50
+  },
+  container: {
+    flex: 1,
+  },
+  bottom: {
     marginLeft: 24,
+    marginRight: 24,
+    height: deviceHeight,
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+  },
+  topRegister:{
+    position: 'absolute',
+    top: 0
+  },
+  loginTextSecondary: {
+    color:'#4E4E4E',
+    fontSize: 16,
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
+  loginButtonSecondary: {
+    marginTop:0,
+    paddingTop:13,
+    paddingBottom:13,
+    borderRadius: 0,
+  },
+  loginText: {
+    fontSize: 18,
+    color:'#fff',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
+  loginButton: {
+    marginTop: 20,
+    paddingTop:13,
+    paddingBottom:13,
+    backgroundColor:'#7FB1A7',
+    borderRadius: 0,
+  },
+  form: {
+    flex: 1,
+    width: '100%',
+    alignSelf: 'flex-end',
+    marginBottom: 20
+  },
+
+  loginSocialsFB: {
     marginTop: 10,
     paddingTop: 13,
     paddingBottom: 13,
@@ -120,8 +196,6 @@ const style = StyleSheet.create({
     paddingLeft: 10,
   },
   loginSocialsG: {
-    marginRight: 24,
-    marginLeft: 24,
     marginTop: 10,
     marginBottom: 20,
     paddingTop: 13,
@@ -140,35 +214,22 @@ const style = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
   },
+
   textInputTitle: {
-    marginLeft: 24,
     fontSize: 18,
   },
   textInput: {
-    marginLeft: 24,
     fontSize: 16,
     marginBottom: 12,
   },
-  topRegister: {
-    position: 'absolute',
-    top: -100,
-  },
-  container: {
-    marginTop: 100,
-  },
   input: {
     paddingLeft: 10,
-    marginRight: 24,
-    marginLeft: 24,
     marginBottom: 20,
     marginTop: 0,
     paddingTop: 13,
     paddingBottom: 13,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
-  },
-  buttonWrapper: {
-    marginBottom: 16,
   },
   textInputSocialIcon: {
     width: 25,

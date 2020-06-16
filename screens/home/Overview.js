@@ -44,9 +44,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   const startNewTrip = () => {
-    navigation.navigate('home', {
-      screen: 'NewTrip',
-    });
+    navigation.navigate('NewTripChoice');
   };
 
   return useObserver(() => (

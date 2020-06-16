@@ -4,16 +4,15 @@ import {
   Text,
   View,
   Button,
-  TextInput,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 
-import TopRegister from '../../assets/images/TopRegister.svg';
-import GoogleIcon from '../../assets/images/GoogleIcon.svg';
-import FacebookIcon from '../../assets/images/FacebookIcon.svg';
-
 import { useStore } from '../../hooks/useStore';
 import { useParams } from 'react-router-dom';
+
+import TopRegister from '../../assets/images/TopRegister.svg';
+import Welcome from '../../assets/images/Register/Welcome.svg';
 
 export default ({ navigation, route }) => {
   const goToLogin = () => {
@@ -27,16 +26,18 @@ export default ({ navigation, route }) => {
   };
 
   navigation.setOptions({
-    headerStyle: { height: 50 },
+    headerStyle: { height: 0 },
     headerTitle: null,
     headerLeft: null,
   });
 
-  const { uiStore } = useStore();
 
   return (
-    <View>
+    <ScrollView style={style.container}>
+      <TopRegister style={style.topRegister} />
+      <Welcome style={style.welcome}/>
       <View>
+        <Text>Which traveller are you?</Text>
         <TouchableOpacity>
           <Text>Beginner</Text>
         </TouchableOpacity>
@@ -54,11 +55,21 @@ export default ({ navigation, route }) => {
           <Text>Connect to instagram</Text>
         </TouchableOpacity>
         <View>
-          <Button title="Let's start" onPress={handleSubmit()} />
+          <Button title="Let's start" onPress={handleSubmit} />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
-const style = StyleSheet.create({});
+const style = StyleSheet.create({
+  topRegister:{
+    position: 'absolute',
+    top: 0
+  },
+  welcome: {
+    position: 'absolute',
+    left: 24,
+    top: 50
+  },
+});
