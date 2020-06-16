@@ -6,7 +6,6 @@ configure({ enforceActions: `observed` });
 class UserModel {
   constructor({
     id = v4(),
-    photos = [],
     users = [],
     locations = [],
     trips = [],
@@ -20,7 +19,6 @@ class UserModel {
       throw Error('voorzie een store');
     }
     this.rootStore = store;
-    this.photos = photos;
     this.users = users;
     this.updateFromJson(json);
   }

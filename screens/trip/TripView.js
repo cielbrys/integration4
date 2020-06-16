@@ -17,19 +17,21 @@ import { useStore } from '../../hooks/useStore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TripModel from '../../models/TripModel';
 import haversine from 'haversine';
-import * as TaskManager from 'expo-task-manager';
+import LocationModel from '../../models/LocationModel';
 
 export default function TripView({ navigation }) {
-  const { tripStore, uiStore } = useStore();
+  const { tripStore, uiStore, locationStore } = useStore();
+
   const [heading, setHeading] = useState(0);
-  const [pervLatLng, setLatLng] = useState({});
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const [startTime, setStartTime] = useState(new Date());
+  const [startTime, setStartTime] = useState();
 
   navigation.setOptions({ headerTitle: name });
 
+  let pervLatLng = {};
+  let pins = [];
   useEffect(() => {
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
@@ -38,6 +40,7 @@ export default function TripView({ navigation }) {
         console.log('Permission to access location was denied');
       } else {
         startLocationTracking();
+        setStartTime(new Date());
         Location.watchHeadingAsync((obj) => {
           let heading = obj.magHeading;
           setHeading(heading);
@@ -70,9 +73,7 @@ export default function TripView({ navigation }) {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
         };
-        updateDistance(p1, pervLatLng);
-
-        setLatLng(p1);
+        updateDistance(p1);
 
         const angleDeg =
           (Math.atan2(p2.y - p1.longitude, p2.x - p1.latitude) * 180) / Math.PI;
@@ -88,10 +89,10 @@ export default function TripView({ navigation }) {
     );
   };
 
-  const updateDistance = (newLoc, oldLoc) => {
-    const newDistance = haversine(oldLoc, newLoc, { unit: 'km' }) || 0;
-    console.log(newDistance);
-    setDistance(newDistance);
+  const updateDistance = (newLoc) => {
+    const newDistance = haversine(pervLatLng, newLoc) || 0;
+    pervLatLng = newLoc;
+    setDistance(newDistance.toFixed(2));
   };
 
   let region = {
@@ -105,23 +106,36 @@ export default function TripView({ navigation }) {
     const tripJson = {
       name: name,
       startTime: startTime,
-      stopTime: new Date(),
       distance: distance,
       photos: {},
       user: uiStore.currentUser,
-      locations: {},
+      locations: pins,
       store: tripStore.rootStore,
     };
 
     const trip = new TripModel(tripJson);
-    console.log('start:', trip.startTime, 'Stop:', trip.startTime);
+    pins.forEach((pin) => {
+      pin.setTripId(trip.id);
+    });
+    console.log('start:', trip.startTime, 'Stop:', trip.stopTime);
+  };
+
+  const pinLocation = () => {
+    const cords = p1;
+    const name = `Location #${locationStore.locations.length + 1}`;
+    const pin = new LocationModel({
+      cords,
+      name,
+      user: uiStore.currentUser,
+      store: locationStore.rootStore,
+    });
+    pins.push(pin);
   };
 
   return useObserver(() => {
     return (
       <SafeAreaView style={styles.scroll}>
         <View style={styles.arrow}>
-          <Text>{degree}</Text>
           <Image
             source={require('../../assets/images/navArrow.png')}
             style={{
@@ -133,8 +147,10 @@ export default function TripView({ navigation }) {
             resizeMode="contain"
           />
         </View>
-        <Text>{heading}</Text>
         <View style={styles.container}>
+          <TouchableOpacity onPress={() => pinLocation()}>
+            <Text>Pin Location</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => stopTrip()}>
             <Text>Stop Trip</Text>
           </TouchableOpacity>
@@ -180,16 +196,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50,
   },
-});
-
-TaskManager.defineTask('Test', async ({ data, error }) => {
-  if (error) {
-    console.log('LOCATION_TRACKING task ERROR:', error);
-    return;
-  }
-  if (data) {
-    const { locations } = data;
-    cords = locations.coords;
-    console.log('location', cords);
-  }
 });
