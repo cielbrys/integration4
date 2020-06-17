@@ -40,10 +40,11 @@ class UiStore {
     if (data) {
       console.log('ingelogd:');
       const userJson = await this.rootStore.userStore.getUser(data.email);
-      console.log('userJson:',userJson)
+      console.log('userJson:', userJson);
       const user = this.rootStore.userStore.updateUserFromServer(userJson);
       this.setCurrentUser(user);
       await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
+      await this.rootStore.locationStore.loadLocationsForUser(this.currentUser);
       this.loggedInTrue();
     } else {
       console.log('niet ingelogd');

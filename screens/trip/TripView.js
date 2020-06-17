@@ -129,6 +129,7 @@ export default function TripView({ navigation, route }) {
     const trip = new TripModel(tripJson);
     pins.forEach((pin) => {
       pin.setTripId(trip.id);
+      locationStore.addNewLocation(pin)
     });
     console.log(pins);
     tripStore.createTrip(trip);
