@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useObserver } from 'mobx-react-lite';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
+<<<<<<< HEAD
+=======
+import TripModel from '../../models/TripModel';
+import Locations from '../../constants/Locations';
+>>>>>>> 8c5d9f3345800e845a1904fdc7a0889a7385b81e
 
 import SafetyWarning from '../../assets/images/Warning/safetyWarning.svg';
 
@@ -24,7 +29,37 @@ export default ({ navigation }) => {
     uiStore.setCurrentTrip(true);
     navigation.navigate('home', {
       screen: 'TripView',
+    })
+  }
+  
+  let endLocation = {};
+  const { uiStore } = useStore();
+
+  const getLocation = () => {
+    let filteredLocations = [];
+    Locations.forEach((location) => {
+      if (location.category === uiStore.tripFeeling) {
+        filteredLocations.push(location);
+      }
     });
+    const locationNumber = Math.floor(Math.random() * filteredLocations.length);
+    console.log(locationNumber);
+    console.log(filteredLocations[locationNumber]);
+    endLocation = filteredLocations[locationNumber];
+  };
+
+  const goToTripView = () => {
+    getLocation();
+    console.log('endloca', endLocation);
+    if (endLocation !== {}) {
+      navigation.navigate('home', {
+        screen: 'TripView',
+        params: {
+          endLocationLat: endLocation.latitude,
+          endLocationLng: endLocation.longitude,
+        },
+      });
+    }
   };
 
   navigation.setOptions({

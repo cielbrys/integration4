@@ -13,8 +13,7 @@ class TripModel {
     ...json
   }) {
     this.id = id;
-    this.stopTime = stopTime;
-    this.duration = undefined;
+    this.stopTime = new Date(stopTime);
     this.distance = distance;
     if (!store) {
       throw Error('voorzie een store');
@@ -35,9 +34,9 @@ class TripModel {
     this.user = json.user !== undefined ? json.user : this.user;
     this.users = json.users !== undefined ? json.users : this.users;
     this.distance = json.distance !== undefined ? json.distance : this.distance;
-    this.stopTime = json.stopTime !== undefined ? json.stopTime : this.stopTime;
+    this.duration = json.duration !== undefined ? json.duration : this.duration;
     this.startTime =
-      json.startTime !== undefined ? json.startTime : this.startTime;
+      json.startTime !== undefined ? new Date(json.startTime) : this.startTime;
   };
 
   stopTrip = () => {
@@ -52,11 +51,23 @@ class TripModel {
       this.duration = hours;
     }
   }
+
+  get asJson() {
+    return {
+      id: this.id,
+      name: this.name,
+      userId: this.user.id,
+      distance: this.distance,
+      duration: this.duration,
+      time: this.duration,
+      users: 0,
+    };
+  }
 }
 
 decorate(TripModel, {
+  updateFromJson: action,
   name: observable,
-  users: observable,
   distance: observable,
   stopTime: observable,
   addUsers: action,
@@ -65,6 +76,7 @@ decorate(TripModel, {
   setStopTime: action,
   durationTime: action,
   setStopTime: action,
+  asJson: computed,
 });
 
 export default TripModel;

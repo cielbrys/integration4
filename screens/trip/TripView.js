@@ -21,7 +21,9 @@ import LocationModel from '../../models/LocationModel';
 import Dialog from 'react-native-dialog';
 import endLocations from '../../constants/Locations';
 let pins = [];
-export default function TripView({ navigation }) {
+
+export default function TripView({ navigation, route }) {
+  const { endLocationLng, endLocationLat } = route.params;
   const { tripStore, uiStore, locationStore } = useStore();
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
@@ -57,11 +59,9 @@ export default function TripView({ navigation }) {
     config();
   }, []);
 
-  const locationNumber = Math.floor(Math.random() * endLocations.length);
-  const endLocation = endLocations[locationNumber];
   let p2 = {
-    latitude: endLocation.latitude,
-    longitude: endLocation.longitude,
+    latitude: endLocationLat,
+    longitude: endLocationLng,
   };
 
   let p1 = {
@@ -132,6 +132,7 @@ export default function TripView({ navigation }) {
       pin.setTripId(trip.id);
     });
     console.log(pins);
+    tripStore.createTrip(trip);
     navigation.navigate('Home', {
       screen: 'Overview',
     });

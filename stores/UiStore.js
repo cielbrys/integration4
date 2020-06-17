@@ -7,6 +7,7 @@ class UiStore {
     this.currentUser = undefined;
     this.currentTrip = false;
     this.loggedIn = false;
+    this.tripFeeling = '';
     this.authService = new AuthService({
       firebase: this.rootStore.firebase,
       onAuthStateChanged: this.onAuthStateChanged,
@@ -36,12 +37,19 @@ class UiStore {
     await this.rootStore.userStore.createUser(newUser.asJson);
   };
 
+  loggedInTrue() {
+    this.loggedIn = true;
+  }
+
   onAuthStateChanged = async (data) => {
     if (data) {
-      console.log('ingelogd');
-      this.loggedIn = true;
-      // const user = this.rootStore.userStore.updateUserFromServer(data);
-      //this.setCurrentUser(user);
+      console.log('ingelogd:');
+      const userJson = await this.rootStore.userStore.getUser(data.email);
+      console.log('userJson:',userJson)
+      const user = this.rootStore.userStore.updateUserFromServer(userJson);
+      this.setCurrentUser(user);
+      await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
+      this.loggedInTrue();
     } else {
       console.log('niet ingelogd');
       this.setCurrentUser(undefined);
@@ -50,6 +58,10 @@ class UiStore {
       this.rootStore.locationStore.empty();
     }
   };
+
+  setTripFeeling(feeling) {
+    this.tripFeeling = feeling;
+  }
 }
 
 decorate(UiStore, {
@@ -59,7 +71,10 @@ decorate(UiStore, {
   updateUserFromServer: action,
   onAuthStateChanged: action,
   setCurrentUser: action,
-  setCurrentTrip: action
+  setCurrentTrip: action,
+  loggedInTrue: action,
+  tripFeeling: observable,
+  setTripFeeling: action,
 });
 
 export default UiStore;

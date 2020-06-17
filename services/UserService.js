@@ -1,4 +1,4 @@
-import "firebase/firestore";
+import 'firebase/firestore';
 
 class UserService {
   constructor({ firebase }) {
@@ -6,19 +6,21 @@ class UserService {
   }
 
   create = async (user) => {
-    return await this.db.collection("users").doc(user.email).set(user);
+    return await this.db.collection('users').doc(user.email).set(user);
   };
 
   getUserByEmail = async (email) => {
-    const data = (await this.db.collection("users").doc(email).get()).data();
+    const data = (await this.db.collection('users').doc(email).get()).data();
+    console.log(data)
     if (!data.id) {
       data.id = data.userId; // quick fix to make it compatible with koens db
     }
+    console.log('user', email);
     return data;
   };
 
   getAll = async () => {
-    const snapshot = await this.db.collection("users").get();
+    const snapshot = await this.db.collection('users').get();
     return snapshot.docs
       .map((o) => o.data())
       .map((u) => {
@@ -29,9 +31,9 @@ class UserService {
 
   getContactsForUser = async (user) => {
     const contacts = await this.db
-      .collection("users")
+      .collection('users')
       .doc(user.email)
-      .collection("contacts")
+      .collection('contacts')
       .get();
     return contacts.docs.map((u) => u.data());
   };
@@ -42,9 +44,9 @@ class UserService {
       throw new Error(`User ${contactEmail} does not exist`);
     }
     await this.db
-      .collection("users")
+      .collection('users')
       .doc(user.email)
-      .collection("contacts")
+      .collection('contacts')
       .doc(contact.email)
       .set(contact);
 

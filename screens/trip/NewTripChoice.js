@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
 import NewTripBG from '../../assets/images/NewTrip/NewTripBG.svg';
 import Back from '../../assets/images/back.svg';
 import BackgroundButton from '../../assets/images/Trips/backgroundButton.svg';
+import { useStore } from '../../hooks/useStore';
 
 import Busyness from '../../assets/images/Choice/Busyness.svg';
 import Calmness from '../../assets/images/Choice/Calmness.svg';
@@ -18,6 +25,8 @@ let deviceWidth = Dimensions.get('window').width;
 
 export default ({ navigation }) => {
 
+  const { uiStore } = useStore();
+
   navigation.setOptions({
     headerStyle: { height: 0 },
     headerTitle: null,
@@ -31,30 +40,26 @@ export default ({ navigation }) => {
   };
 
   const goToWarning = () => {
-    navigation.navigate("NewTripWarning");
-  }
-
-  const [feeling, setFeeling] = useState("");
+    navigation.navigate('NewTripWarning');
+  };
 
   return (
     <View style={{backgroundColor: 'white'}}>
       <NewTripBG style={style.background}/>
       <TouchableOpacity  style={style.back} onPress={goHome}>
         <Back />
-        
       </TouchableOpacity>
       <Text style={style.pageTitle}>New Trip</Text>
       <Text style={style.pageText}>Which is your preferred feeling?</Text>
       <View style={style.options}>
-
         <View style={style.option}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={style.option1}
-            onPress={() => setFeeling('calm')}
+            onPress={() => uiStore.setTripFeeling('calm')}
           >
             <View style={style.square}>
               {
-                feeling === 'calm' ? 
+                uiStore.tripFeeling === 'calm' ? 
                   <>
                     <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
                     <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
@@ -69,14 +74,14 @@ export default ({ navigation }) => {
             </View>
             <Text style={style.text}>Calmness</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={style.option2}
-            onPress={() => setFeeling('busy')}
+            onPress={() => uiStore.setTripFeeling('busy')}
           >
             <View style={style.square}>
 
               {
-                feeling === 'busy' ? 
+                uiStore.tripFeeling === 'busy' ? 
                   <>
                     <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
                     <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
@@ -93,13 +98,13 @@ export default ({ navigation }) => {
         </View>
 
         <View style={style.option}>
-          <TouchableOpacity  
+          <TouchableOpacity
             style={style.option3}
-            onPress={() => setFeeling('open')}
+            onPress={() => uiStore.setTripFeeling('open')}
           >
             <View style={style.square}>
               {
-                feeling === 'open' ? 
+                uiStore.tripFeeling === 'open' ? 
                   <>
                     <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
                     <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
@@ -112,13 +117,13 @@ export default ({ navigation }) => {
             </View>
             <Text style={style.text}>Openness</Text>
           </TouchableOpacity>
-          <TouchableOpacity  
+          <TouchableOpacity
             style={style.option4}
-            onPress={() => setFeeling('closed')}
+            onPress={() => uiStore.setTripFeeling('free')}
           >
             <View style={style.square}>
               {
-                feeling === 'closed' ? 
+                uiStore.tripFeeling === 'closed' ? 
                   <>
                     <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
                     <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
@@ -133,22 +138,15 @@ export default ({ navigation }) => {
             <Text style={style.text}>Closed</Text>
           </TouchableOpacity>
         </View>
-
       </View>
 
-      <View  style={style.view}>
-
+      <View style={style.view}>
         <View style={style.bottom}>
-          <TouchableOpacity 
-            style={style.nextButton}
-            onPress={goToWarning}
-          >
-            <BackgroundButton/>
-          </TouchableOpacity> 
+          <TouchableOpacity style={style.nextButton} onPress={goToWarning}>
+            <BackgroundButton />
+          </TouchableOpacity>
         </View>
-             
       </View>
-
     </View>
   );
 };
@@ -171,11 +169,9 @@ const style = StyleSheet.create({
     zIndex: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '90%'
+    height: '90%',
   },
-  bottom: {
-
-  },
+  bottom: {},
   // bottom: {
   //   marginTop: deviceHeight/2.3
   // },
@@ -190,10 +186,10 @@ const style = StyleSheet.create({
   // },
   background: {
     position: 'absolute',
-    top: -35
+    top: -35,
   },
   text: {
-    marginTop: 10
+    marginTop: 10,
   },
   back: {
     position: 'absolute',
