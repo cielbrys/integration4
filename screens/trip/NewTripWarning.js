@@ -21,16 +21,8 @@ let deviceWidth = Dimensions.get('window').width;
 export default ({ navigation }) => {
   const [read, setRead] = useState(false);
   const { uiStore } = useStore();
-
-  const goToTripView = () => {
-    uiStore.setCurrentTrip(true);
-    navigation.navigate('home', {
-      screen: 'TripView',
-    })
-  }
   
   let endLocation = {};
-  const { uiStore } = useStore();
 
   const getLocation = () => {
     let filteredLocations = [];
@@ -48,6 +40,7 @@ export default ({ navigation }) => {
   const goToTripView = () => {
     getLocation();
     console.log('endloca', endLocation);
+    uiStore.setCurrentTrip(true);
     if (endLocation !== {}) {
       navigation.navigate('home', {
         screen: 'TripView',
