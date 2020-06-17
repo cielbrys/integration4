@@ -21,12 +21,12 @@
     },
     "extra": {
       "REACT_APP_apiKey": "AIzaSyDWDmktlG0SQqG3NUmDUlCTFQxa0uBR9vY",
-      "REACT_APP_authDomain": "thatsapp-cbefb.firebaseapp.com",
-      "REACT_APP_databaseURL": "https://thatsapp-cbefb.firebaseio.com",
-      "REACT_APP_projectId": "thatsapp-cbefb",
-      "REACT_APP_storageBucket": "thatsapp-cbefb.appspot.com",
-      "REACT_APP_messagingSenderId": "928218687027",
-      "REACT_APP_appId": "1:928218687027:web:edb7d00cf0066edbcda546",
+      "REACT_APP_authDomain": "int4-48df9.firebaseapp.com",
+      "REACT_APP_databaseURL": "https://int4-48df9.firebaseio.com",
+      "REACT_APP_projectId": "int4-48df9",
+      "REACT_APP_storageBucket": "int4-48df9.appspot.com",
+      "REACT_APP_messagingSenderId": "949452326106",
+      "REACT_APP_appId": "1:949452326106:web:48e15af38c41f4eba651e3",
       "REACT_APP_measurementId": ""
     },
     "web": {

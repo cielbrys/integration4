@@ -41,8 +41,8 @@ class UserModel {
     this.trips.push(trip);
   }
 
-  setSocials(url){
-    this.socials = url
+  setSocials(url) {
+    this.socials = url;
   }
 
   updateFromJson = (json) => {
@@ -68,6 +68,17 @@ class UserModel {
   addLocation(location) {
     this.locations.push(location);
   }
+  get asJson() {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      van: this.van,
+      soical: this.socials,
+      system: this.system,
+      status: this.status,
+    };
+  }
 }
 
 decorate(UserModel, {
@@ -75,7 +86,7 @@ decorate(UserModel, {
   system: observable,
   socials: observable,
   changeSystem: action,
-  setSocials: action
+  setSocials: action,
 });
 
 export default UserModel;
