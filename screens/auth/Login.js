@@ -56,6 +56,7 @@ export default ({ navigation }) => {
             secureTextEntry={true}
             value={password}
             onChangeText={(text) => setPassword(text)}
+            returnKeyType = {"done"}
           />
           <View>
             <TouchableOpacity
