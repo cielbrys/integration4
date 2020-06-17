@@ -3,11 +3,8 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useObserver } from 'mobx-react-lite';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
-<<<<<<< HEAD
-=======
 import TripModel from '../../models/TripModel';
 import Locations from '../../constants/Locations';
->>>>>>> 8c5d9f3345800e845a1904fdc7a0889a7385b81e
 
 import SafetyWarning from '../../assets/images/Warning/safetyWarning.svg';
 
