@@ -25,9 +25,7 @@ export default function GalleryScreen({ navigation }) {
   });
 
   const goHome = () => {
-    navigation.navigate('home', {
-      screen: 'Overview',
-    });
+    navigation.goBack();
   };
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -225,7 +223,7 @@ const styles = StyleSheet.create({
   },
   back: {
     marginLeft: 24,
-    marginTop: 32,
+    marginTop: 40,
   },
   description: {
     color: 'rgb(29,120,116)',

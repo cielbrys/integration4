@@ -17,9 +17,7 @@ export default function PeopleScreen({navigation}) {
   const { uiStore } = useStore();
 
   const goHome = () => {
-    navigation.navigate('home', {
-      screen: 'Overview',
-    });
+    navigation.goBack();
   };
 
   const insta = "kfcheist"
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
     top: 70,
   },
   back: {
-    marginLeft: 32,
+    marginLeft: 24,
     marginTop: 32
   },
   top: {

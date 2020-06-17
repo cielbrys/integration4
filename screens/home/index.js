@@ -7,6 +7,8 @@ import Overview from './Overview';
 import Tips from './Tips';
 import { createStackNavigator } from '@react-navigation/stack';
 import TripView from '../trip/TripView';
+import LocationsScreen from '../locations/LocationsScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,7 @@ export default () => {
       <Stack.Screen name="NewTripChoice" component={NewTripChoice} />
       <Stack.Screen name="Tips" component={Tips} />
       <Stack.Screen name="TripView" component={TripView} />
+      <Stack.Screen name="locations" component={LocationsScreen} />
     </Stack.Navigator>
   );
 };
