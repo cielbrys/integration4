@@ -14,6 +14,7 @@ import 'mobx-react-lite/batchingForReactDom';
 
 import Mountain from '../../assets/images/home.svg';
 import Rood from '../../assets/images/rood.svg';
+import CurrentTrip from '../../assets/images/currentTrip.svg';
 import Groen from '../../assets/images/groen.svg';
 import Timer from '../../assets/images/timerYellow';
 import Location from '../../assets/images/locationYellow';
@@ -56,15 +57,40 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('NewTripChoice');
   };
 
+  const goToCurrentTrip = () => {
+    navigation.navigate('TripView');
+  }
+
+  const log = () => {
+    console.log(uiStore.currentTrip)
+  }
+
   return useObserver(() => (
     <ScrollView style={styles.container}>
       <Mountain style={styles.mtn} />
-      <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
-        <Rood>
-          <Text>Start a new trip</Text>
-        </Rood>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.logout} onPress={() => uiStore.logout()}>
+
+      {
+        uiStore.currentTrip === false ?
+        <>
+          <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
+            <Rood>
+              <Text>Start a new trip</Text>
+            </Rood>
+          </TouchableOpacity>
+        </>
+        : 
+        <>
+          <TouchableOpacity style={styles.button} onPress={() => goToCurrentTrip()}>
+            <CurrentTrip>
+              <Text>GoToTrip</Text>
+            </CurrentTrip>
+          </TouchableOpacity>
+        </>
+      }
+
+      
+
+      <TouchableOpacity style={styles.logout} onPress={log}>
         <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
       {uiStore.currentUser.status === 'beginner' ? (
@@ -202,3 +228,5 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
+
+//() => uiStore.logout()

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-
+import { useObserver } from 'mobx-react-lite';
 import NewTripBG from '../../assets/images/NewTrip/NewTripBG.svg';
 import Back from '../../assets/images/back.svg';
 import BackgroundButton from '../../assets/images/Trips/backgroundButton.svg';
@@ -43,7 +43,7 @@ export default ({ navigation }) => {
     navigation.navigate('NewTripWarning');
   };
 
-  return (
+  return useObserver(() => (
     <View style={{backgroundColor: 'white'}}>
       <NewTripBG style={style.background}/>
       <TouchableOpacity  style={style.back} onPress={goHome}>
@@ -66,7 +66,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
               
 
@@ -88,7 +88,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
 
               <Busyness />
@@ -111,7 +111,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
               <Openness />
             </View>
@@ -119,7 +119,7 @@ export default ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={style.option4}
-            onPress={() => uiStore.setTripFeeling('free')}
+            onPress={() => uiStore.setTripFeeling('closed')}
           >
             <View style={style.square}>
               {
@@ -130,7 +130,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
 
               <Closed />
@@ -148,7 +148,7 @@ export default ({ navigation }) => {
         </View>
       </View>
     </View>
-  );
+  ));
 };
 
 const style = StyleSheet.create({

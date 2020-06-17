@@ -5,6 +5,7 @@ class UiStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     this.currentUser = undefined;
+    this.currentTrip = false;
     this.loggedIn = false;
     this.tripFeeling = '';
     this.authService = new AuthService({
@@ -16,6 +17,10 @@ class UiStore {
   setCurrentUser = (user) => {
     this.currentUser = user;
   };
+
+  setCurrentTrip = (status) => {
+    this.currentTrip = status;
+  }
 
   login = async (email, password) => {
     return await this.authService.login(email, password);
@@ -62,10 +67,12 @@ class UiStore {
 
 decorate(UiStore, {
   currentUser: observable,
+  currentTrip: observable,
   loggedIn: observable,
   updateUserFromServer: action,
   onAuthStateChanged: action,
   setCurrentUser: action,
+  setCurrentTrip: action,
   loggedInTrue: action,
   tripFeeling: observable,
   setTripFeeling: action,

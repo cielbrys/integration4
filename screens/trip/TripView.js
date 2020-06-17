@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  Button,
   SafeAreaView,
 } from 'react-native';
 import * as Location from 'expo-location';
@@ -137,6 +138,7 @@ export default function TripView({ navigation, route }) {
       screen: 'Overview',
     });
     setPopUpSave(false);
+    uiStore.setCurrentTrip(false);
   };
 
   const pinLocation = () => {
@@ -154,9 +156,18 @@ export default function TripView({ navigation, route }) {
     setPopUpPin(false);
   };
 
+  const log = () => {
+    console.log(uiStore.currentTrip)
+  }
+
   return useObserver(() => {
     return (
       <SafeAreaView style={styles.scroll}>
+        <TouchableOpacity
+          onPress={log}
+        >
+          <Text>Hello</Text>
+        </TouchableOpacity>
         <View style={styles.arrow}>
           <Image
             source={require('../../assets/images/navArrow.png')}
@@ -218,6 +229,7 @@ export default function TripView({ navigation, route }) {
             />
           </Dialog.Container>
         </View>
+
       </SafeAreaView>
     );
   });
