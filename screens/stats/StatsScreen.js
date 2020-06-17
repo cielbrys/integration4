@@ -16,7 +16,7 @@ import White from '../../assets/images/whiteLine.svg';
 import Yellow from '../../assets/images/locationButton.svg';
 
 
-export default function LocationsScreen({ navigation }) {
+export default function StatsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
 
   navigation.setOptions({
@@ -26,15 +26,13 @@ export default function LocationsScreen({ navigation }) {
   });
 
   const goHome = () => {
-    navigation.navigate('home', {
-      screen: 'Overview',
-    });
+    navigation.goBack()
   };
 
   const goToLocations = () => {
-    // navigation.navigate('home', {
-    //   screen: 'Overview',
-    // });
+    navigation.navigate('locations', {
+      screen: 'LocationsScreen',
+    });
   };
 
   return useObserver(() => (
@@ -114,6 +112,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     marginTop: 80,
     marginBottom: 0,
+    
     alignItems: "center",
   },
   txt: {
