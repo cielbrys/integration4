@@ -1,49 +1,118 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Linking } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../hooks/useStore';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function PeopleScreen() {
+import Back from '../assets/images/back.svg';
+import Top from '../assets/images/statsTop.svg';
+import TopTitle from '../assets/images/people.svg';
+import Boom from '../assets/images/boom.svg';
+import Insta from '../assets/images/instagram.svg';
+
+
+export default function PeopleScreen({navigation}) {
   const { uiStore } = useStore();
+
+  const goHome = () => {
+    navigation.navigate('home', {
+      screen: 'Overview',
+    });
+  };
+
+  const insta = "kfcheist"
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>People you have met</Text>
+    <ScrollView style={styles.container}>
+       <View style={styles.main}>
+        <View style={styles.header}>
+          <Top style={styles.top}/>
+          <TopTitle style={styles.topTitle} />
+        </View>
+        <TouchableOpacity style={styles.back} onPress={() => goHome()}>
+          <Back/>
+        </TouchableOpacity>
+        <View style={styles.title}>
+      <Text style={styles.met}>People you have met</Text>
       {uiStore.currentUser.users.length === 0 ? (
-        <Text>No friends met yet... </Text>
+        <Text style={styles.txt}>No friends met yet... </Text>
       ) : (
-        <Text>Friends </Text>
+        <>
+        <Text style={styles.txt}>Friends </Text>
+        <View style={styles.friends}>
+        <Text style={styles.name}>Your Friends Name</Text>
+        <Insta  onPress={() => Linking.openURL(`https://www.instagram.com/${insta}`)}></Insta>
+        </View>
+        </>
       )}
-    </SafeAreaView>
+      <Boom style={styles.bottom}/>
+      </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
   },
-  contentContainer: {
-    paddingTop: 15,
+  main: {
+    backgroundColor: 'white'
   },
-  optionIconContainer: {
-    marginRight: 12,
+  bottom : { 
+    zIndex: -20,
+    position: "absolute",
+    top: 70,
   },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
+  back: {
+    marginLeft: 32,
+    marginTop: 32
   },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  top: {
+    zIndex: -20,
+    position: "absolute",
+    paddingTop: 50
   },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
+  header: {
+    flex: 1,
+    paddingTop: 28
+  },
+  topTitle: {
+    position: 'absolute',
+    right: 24,
+    top: 60
+  },
+  txt: {
+    marginLeft: 24
+  },
+  title: {
+    marginTop: 80,
+    zIndex: 300
+  },
+  friends: {
+    marginLeft: 24,
+    marginRight: 24,
+    marginTop: 16,
+    backgroundColor: "rgb(240,244,243)",
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingRight: 16,
+    paddingLeft: 16,
+    borderRadius: 4
+  },
+  name: {
+    fontSize: 16
+  },
+  met: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginLeft: 24,
+    marginBottom: 16
   },
 });
