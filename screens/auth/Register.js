@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native';
 
-import TopRegister from '../../assets/images/TopRegister.svg';
+import TopRegister from '../../assets/images/Register/RegisterTopBG.svg';
 import Welcome from '../../assets/images/Register/Welcome.svg';
 
 import GoogleIcon from '../../assets/images/GoogleIcon.svg';

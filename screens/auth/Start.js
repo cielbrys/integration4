@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import StartExploring from '../../assets/images/StartExploring.svg';
-import Landscape from '../../assets/images/Landscape.svg';
+import Landscape from '../../assets/images/Start/BGstart.svg';
 
 export default ({ navigation }) => {
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   container: {
     position: 'absolute',
-    top: 80
+    top: 240
   },
   body: {
     backgroundColor: 'white'
