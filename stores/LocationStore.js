@@ -21,6 +21,11 @@ class LocationStore {
     }
   };
 
+  updateLocation = async (location) => {
+    const updateLocation = await this.locationsService.update(location.asJson);
+    console.log(updateLocation);
+  };
+
   addNewLocation = async (location) => {
     const newLocation = await this.locationsService.create(location.asJson);
     console.log(newLocation);
@@ -63,9 +68,10 @@ class LocationStore {
   }
 
   getLocationsForTrip = (id) => {
+    console.log(id)
     let locations = [];
     this.locations.map((location) => {
-      if (location.locationId === id) {
+      if (location.tripId === id) {
         locations.push(location);
       }
     });

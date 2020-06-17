@@ -130,9 +130,7 @@ export default function TripView({ navigation, route }) {
     const trip = new TripModel(tripJson);
     pins.forEach((pin) => {
       pin.setTripId(trip.id);
-      locationStore.addNewLocation(pin)
     });
-    console.log(pins);
     tripStore.createTrip(trip);
     navigation.navigate('Home', {
       screen: 'Overview',
@@ -142,30 +140,28 @@ export default function TripView({ navigation, route }) {
   };
 
   const pinLocation = () => {
-    const cords = p1;
     const name = pinName;
     const pin = new LocationModel({
-      cords,
+      longitude: p1.longitude,
+      latitude: p1.latitude,
       name,
       user: uiStore.currentUser,
       store: locationStore.rootStore,
     });
+    locationStore.addNewLocation(pin);
     pins.push(pin);
-    console.log(pins);
     setPinName(`Location #${locationStore.locations.length + 1}`);
     setPopUpPin(false);
   };
 
   const log = () => {
-    console.log(uiStore.currentTrip)
-  }
+    console.log(uiStore.currentTrip);
+  };
 
   return useObserver(() => {
     return (
       <SafeAreaView style={styles.scroll}>
-        <TouchableOpacity
-          onPress={log}
-        >
+        <TouchableOpacity onPress={log}>
           <Text>Hello</Text>
         </TouchableOpacity>
         <View style={styles.arrow}>
@@ -229,7 +225,6 @@ export default function TripView({ navigation, route }) {
             />
           </Dialog.Container>
         </View>
-
       </SafeAreaView>
     );
   });

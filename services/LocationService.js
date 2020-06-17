@@ -19,7 +19,12 @@ class LocationService {
   };
 
   create = async (location) => {
-    location.timestamp = firestore.Timestamp.fromDate(new Date());
+    const locationRef = await this.db.collection('locations').doc(location.id);
+    await locationRef.set(location);
+    return location;
+  };
+
+  update = async (location) => {
     const locationRef = await this.db.collection('locations').doc(location.id);
     await locationRef.set(location);
     return location;

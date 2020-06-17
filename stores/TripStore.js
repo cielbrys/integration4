@@ -6,7 +6,9 @@ class TripStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
     this.trips = [];
-    this.tripsService = new TripService({ firebase: this.rootStore.firebase });
+    this.tripsService = new TripService({
+      firebase: this.rootStore.firebase,
+    });
   }
   empty() {
     this.trips = [];

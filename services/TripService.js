@@ -13,11 +13,6 @@ class TripService {
     this.logOutActions = [];
   }
 
-  getAll = async () => {
-    const snapshot = await this.db.collection('trips').get();
-    return snapshot.docs.map((o) => o.data());
-  };
-
   getById = async (id) => {
     console.log(id);
     return (await this.db.collection('trips').doc(id).get()).data();
@@ -39,7 +34,6 @@ class TripService {
       snapshot.docChanges().forEach(async (change) => {
         console.log('change', change.type);
         if (change.type === 'added') {
-          console.log('id', change.doc.ref.parent['CP']['segments'][6]);
           const tripId = change.doc.ref.parent['CP']['segments'][6];
           onGroupAdded(tripId);
         }

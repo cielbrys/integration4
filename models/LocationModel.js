@@ -21,25 +21,26 @@ class LocationModel {
 
   updateFromJson = (json) => {
     this.name = json.name !== undefined ? json.name : this.name;
-    this.tripId = json.tripId !== undefined ? json.tripId : this.tripId;
-    if (json.cords) {
+    this.tripId = json.tripId !== undefined ? json.tripId : '';
+    if (json.latitude) {
       this.cords = {
-        latitude: json.cords[0],
-        longitude: json.cords[1],
+        latitude: json.latitude,
+        longitude: json.longitude,
       };
     }
   };
 
   setTripId(id) {
     this.tripId = id;
-    console.log('id:', this.tripId);
+    this.rootStore.locationStore.updateLocation(this);
   }
 
   get asJson() {
     return {
       id: this.id,
       name: this.name,
-      cords: this.cords,
+      latitude: this.cords.latitude,
+      longitude: this.cords.longitude,
       userId: this.user.id,
       tripId: this.tripId,
     };
