@@ -61,7 +61,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
               
 
@@ -83,7 +83,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
 
               <Busyness />
@@ -106,7 +106,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
               <Openness />
             </View>
@@ -125,7 +125,7 @@ export default ({ navigation }) => {
                     <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
                     <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
                   </>
-                : console.log('not ok')
+                : <></>
               }
 
               <Closed />

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useObserver } from 'mobx-react-lite';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
-import TripModel from '../../models/TripModel';
 
 import SafetyWarning from '../../assets/images/Warning/safetyWarning.svg';
 
@@ -19,8 +18,10 @@ let deviceWidth = Dimensions.get('window').width;
 
 export default ({ navigation }) => {
   const [read, setRead] = useState(false);
+  const { uiStore } = useStore();
 
   const goToTripView = () => {
+    uiStore.setCurrentTrip(true);
     navigation.navigate('home', {
       screen: 'TripView',
     });
