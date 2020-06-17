@@ -10,11 +10,14 @@ import {
 
 import { useStore } from '../../hooks/useStore';
 import { useParams } from 'react-router-dom';
+import { useObserver } from 'mobx-react-lite';
+
 
 import TopRegister from '../../assets/images/TopRegister.svg';
 import Welcome from '../../assets/images/Register/Welcome.svg';
 
 export default ({ navigation, route }) => {
+
   const goToLogin = () => {
     navigation.navigate('home');
   };
@@ -31,19 +34,24 @@ export default ({ navigation, route }) => {
     headerLeft: null,
   });
 
-
-  return (
+  return useObserver(() => (
     <ScrollView style={style.container}>
       <TopRegister style={style.topRegister} />
       <Welcome style={style.welcome}/>
-      <View>
-        <Text>Which traveller are you?</Text>
-        <TouchableOpacity>
-          <Text>Beginner</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Experienced</Text>
-        </TouchableOpacity>
+      <View style={style.status}>
+        <Text style={style.statusTitle}>Which traveller are you?</Text>
+        <View style={style.options}>
+          <TouchableOpacity
+            style={style.begin}
+          >
+            <Text>Beginner</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={style.end}
+          >
+            <Text>Experienced</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View>
         <Text>Instagram</Text>
@@ -55,14 +63,20 @@ export default ({ navigation, route }) => {
           <Text>Connect to instagram</Text>
         </TouchableOpacity>
         <View>
-          <Button title="Let's start" onPress={handleSubmit} />
+          <TouchableOpacity
+          >
+            <Text>Connect to instagram</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
-  );
+  ));
 };
 
 const style = StyleSheet.create({
+  container: {
+    backgroundColor: 'white'
+  },
   topRegister:{
     position: 'absolute',
     top: 0
@@ -72,4 +86,38 @@ const style = StyleSheet.create({
     left: 24,
     top: 50
   },
+  active: {
+    backgroundColor: 'red'
+  },
+  options: {
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  begin:{
+    height: 99,
+    backgroundColor: '#F0F4F3',
+    width: '45%',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#1D7874'
+  },
+  end:{
+    height: 99,
+    backgroundColor: '#F0F4F3',
+    width: '45%',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#1D7874'
+  },
+  status: {
+    marginLeft: 24,
+    marginRight: 24
+  },
+  statusTitle: {
+    fontSize: 18
+  }
 });
