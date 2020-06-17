@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View,TouchableOpacity, Dimensions } from 'react-native';
 
 import NewTripBG from '../../assets/images/NewTrip/NewTripBG.svg';
 import Back from '../../assets/images/back.svg';
+import BackgroundButton from '../../assets/images/Trips/backgroundButton.svg';
 
 
 let deviceWidth = Dimensions.get('window').height;
@@ -17,50 +18,102 @@ export default ({ navigation }) => {
 
   const goHome = () => {
     navigation.navigate('home', {
-      screen: 'Overview',
+      screen: 'Home',
     });
   };
+
+  const goToWarning = () => {
+    navigation.navigate("NewTripWarning");
+  }
+
+  const [feeling, setFeeling] = useState("");
 
   return (
     <View>
       <NewTripBG style={style.background}/>
-      <TouchableOpacity onPress={goHome}>
-        <Back style={style.back}/>
+      <TouchableOpacity  style={style.back} onPress={goHome}>
+        <Back />
+        
       </TouchableOpacity>
+      <Text>New Trip</Text>
       <Text>Which is your preferred feeling?</Text>
       <View style={style.options}>
 
         <View style={style.option}>
-          <View style={style.option1}>
+          <TouchableOpacity 
+            style={style.option1}
+            onPress={() => setFeeling('calm')}
+          >
             <View style={style.square} />
             <Text style={style.text}>Calmness</Text>
-          </View>
-          <View style={style.option2}>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={style.option2}
+            onPress={() => setFeeling('busy')}
+          >
             <View style={style.square} />
             <Text style={style.text}>Busyness</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={style.option}>
-          <View  style={style.option3}>
+          <TouchableOpacity  
+            style={style.option3}
+            onPress={() => setFeeling('open')}
+          >
             <View style={style.square} />
             <Text style={style.text}>Openness</Text>
-          </View>
-          <View  style={style.option4}>
+          </TouchableOpacity>
+          <TouchableOpacity  
+            style={style.option4}
+            onPress={() => setFeeling('free')}
+          >
             <View style={style.square} />
-            <Text style={style.text}>Connection</Text>
-          </View>
+            <Text style={style.text}>Freely</Text>
+          </TouchableOpacity>
         </View>
 
       </View>
-      <TouchableOpacity>
-        <Text>Next</Text>
-      </TouchableOpacity>
+
+      <View  style={style.view}>
+
+        <View style={style.bottom}>
+          <TouchableOpacity 
+            style={style.nextButton}
+            onPress={goToWarning}
+          >
+            <BackgroundButton/>
+          </TouchableOpacity> 
+        </View>
+             
+      </View>
+
     </View>
   );
 };
 
 const style = StyleSheet.create({
+  view:{
+    zIndex: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '90%'
+  },
+  bottom: {
+
+  },
+  // bottom: {
+  //   marginTop: deviceWidth/2.3
+  // },
+  // nextButton: {
+  //   alignItems: 'center',
+  // },
+  // buttontext: {
+  //   position: 'absolute',
+  //   top: 25,
+  //   left: 180,
+  //   fontSize: 18
+  // },
   background: {
     position: 'absolute',
     top: -35
@@ -71,7 +124,7 @@ const style = StyleSheet.create({
   back: {
     position: 'absolute',
     left: 24,
-    top: 60
+    top: 60,
   },
   square: {
     width: 70,
@@ -102,6 +155,7 @@ const style = StyleSheet.create({
     alignItems: 'center'
   },
   options: {
-    marginTop: deviceWidth/3
+    marginTop: deviceWidth/4,
+    zIndex: 50
   }
 });
