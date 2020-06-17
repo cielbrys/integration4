@@ -24,6 +24,7 @@ class TripService {
   };
 
   create = async (trip) => {
+    trip.timestamp = firestore.Timestamp.fromDate(new Date());
     const tripRef = await this.db.collection('trips').doc(trip.id);
     await tripRef.set(trip);
     return trip;
@@ -32,13 +33,14 @@ class TripService {
   getTripsForUser = async (userId, onGroupAdded) => {
     const r = await this.db
       .collectionGroup('trips')
-      .where('userId', '==', userId);
+      .where('userId', '==', userId)
+      .orderBy('timestamp');
     const unsub = r.onSnapshot(async (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
         console.log('change', change.type);
         if (change.type === 'added') {
-          console.log('id', change.doc.ref.parent["CP"]["segments"][6]);
-          const tripId = change.doc.ref.parent["CP"]["segments"][6];
+          console.log('id', change.doc.ref.parent['CP']['segments'][6]);
+          const tripId = change.doc.ref.parent['CP']['segments'][6];
           onGroupAdded(tripId);
         }
       });

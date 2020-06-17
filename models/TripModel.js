@@ -59,6 +59,7 @@ class TripModel {
       userId: this.user.id,
       distance: this.distance,
       duration: this.duration,
+      time: this.duration,
       users: 0,
     };
   }

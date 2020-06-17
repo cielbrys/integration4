@@ -12,7 +12,16 @@ import Back from '../../assets/images/back.svg';
 import BackgroundButton from '../../assets/images/Trips/backgroundButton.svg';
 import { useStore } from '../../hooks/useStore';
 
-let deviceWidth = Dimensions.get('window').height;
+import Busyness from '../../assets/images/Choice/Busyness.svg';
+import Calmness from '../../assets/images/Choice/Calmness.svg';
+import Closed from '../../assets/images/Choice/Closed.svg';
+import Openness from '../../assets/images/Choice/Openness.svg';
+
+import BorderSelect from '../../assets/images/Choice/borderSelect.svg'
+
+
+let deviceHeight = Dimensions.get('window').height;
+let deviceWidth = Dimensions.get('window').width;
 
 export default ({ navigation }) => {
 
@@ -35,27 +44,55 @@ export default ({ navigation }) => {
   };
 
   return (
-    <View>
-      <NewTripBG style={style.background} />
-      <TouchableOpacity style={style.back} onPress={goHome}>
+    <View style={{backgroundColor: 'white'}}>
+      <NewTripBG style={style.background}/>
+      <TouchableOpacity  style={style.back} onPress={goHome}>
         <Back />
       </TouchableOpacity>
-      <Text>New Trip</Text>
-      <Text>Which is your preferred feeling?</Text>
+      <Text style={style.pageTitle}>New Trip</Text>
+      <Text style={style.pageText}>Which is your preferred feeling?</Text>
       <View style={style.options}>
         <View style={style.option}>
           <TouchableOpacity
             style={style.option1}
             onPress={() => uiStore.setTripFeeling('calm')}
           >
-            <View style={style.square} />
+            <View style={style.square}>
+              {
+                uiStore.tripFeeling === 'calm' ? 
+                  <>
+                    <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
+                    <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
+                  </>
+                : console.log('not ok')
+              }
+              
+
+              <Calmness />
+            </View>
             <Text style={style.text}>Calmness</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={style.option2}
             onPress={() => uiStore.setTripFeeling('busy')}
           >
-            <View style={style.square} />
+            <View style={style.square}>
+
+              {
+                uiStore.tripFeeling === 'busy' ? 
+                  <>
+                    <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
+                    <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
+                  </>
+                : console.log('not ok')
+              }
+
+              <Busyness />
+            </View>
             <Text style={style.text}>Busyness</Text>
           </TouchableOpacity>
         </View>
@@ -65,15 +102,40 @@ export default ({ navigation }) => {
             style={style.option3}
             onPress={() => uiStore.setTripFeeling('open')}
           >
-            <View style={style.square} />
+            <View style={style.square}>
+              {
+                uiStore.tripFeeling === 'open' ? 
+                  <>
+                    <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
+                    <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
+                  </>
+                : console.log('not ok')
+              }
+              <Openness />
+            </View>
             <Text style={style.text}>Openness</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={style.option4}
             onPress={() => uiStore.setTripFeeling('free')}
           >
-            <View style={style.square} />
-            <Text style={style.text}>Freely</Text>
+            <View style={style.square}>
+              {
+                uiStore.tripFeeling === 'closed' ? 
+                  <>
+                    <BorderSelect style={{position: 'absolute', top: -3, left: -2}} />
+                    <BorderSelect style={{position: 'absolute', top: 5, right: -10, transform: [{ rotate: '90deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: -2, right: -2, transform: [{ rotate: '180deg'}]}} />
+                    <BorderSelect style={{position: 'absolute', bottom: 5, left: -10, transform: [{ rotate: '-90deg'}]}} />
+                  </>
+                : console.log('not ok')
+              }
+
+              <Closed />
+            </View>
+            <Text style={style.text}>Closed</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,7 +152,20 @@ export default ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
-  view: {
+  pageText: {
+    position: 'absolute',
+    left: 40,
+    top: deviceHeight/4.5,
+    fontSize: 18
+  },
+  pageTitle: {
+    position: 'absolute',
+    top: 64,
+    left: deviceWidth/2.45,
+    fontSize: 20,
+    color:'white'
+  },
+  view:{
     zIndex: 0,
     justifyContent: 'center',
     alignItems: 'center',
@@ -98,7 +173,7 @@ const style = StyleSheet.create({
   },
   bottom: {},
   // bottom: {
-  //   marginTop: deviceWidth/2.3
+  //   marginTop: deviceHeight/2.3
   // },
   // nextButton: {
   //   alignItems: 'center',
@@ -122,35 +197,37 @@ const style = StyleSheet.create({
     top: 60,
   },
   square: {
-    width: 70,
-    height: 70,
+    width: deviceWidth/3,
+    height: deviceHeight/8,
     backgroundColor: '#CDCDCD',
     borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   option1: {
     position: 'absolute',
-    left: 80,
-    alignItems: 'center',
+    left: 40,
+    alignItems: 'center'
   },
   option2: {
     position: 'absolute',
-    right: 80,
-    alignItems: 'center',
+    right: 40,
+    alignItems: 'center'
   },
   option3: {
     position: 'absolute',
-    left: 80,
-    top: 160,
-    alignItems: 'center',
+    left: 40,
+    top: deviceHeight/4.5,
+    alignItems: 'center'
   },
   option4: {
     position: 'absolute',
-    right: 80,
-    top: 160,
-    alignItems: 'center',
+    right: 40,
+    top: deviceHeight/4.5,
+    alignItems: 'center'
   },
   options: {
-    marginTop: deviceWidth / 4,
-    zIndex: 50,
-  },
+    marginTop: deviceHeight/3.4,
+    zIndex: 50
+  }
 });
