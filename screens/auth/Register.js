@@ -51,14 +51,16 @@ export default ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={style.container}>
+    <ScrollView style={{flex:1}}>
+    <View style={style.container}>
       <TopRegister style={style.topRegister} />
-      <Welcome style={style.welcome}/>
+      
 
 
 
       <View style={style.bottom}>
         
+        <Welcome style={style.welcome}/>
         <View style={style.form}>
           {/* <Text style={style.textInputTitle}>Create an account</Text>
            <View style={style.socials}>
@@ -71,37 +73,55 @@ export default ({ navigation }) => {
               <Text style={style.textInputSocial}>Sign in with Google</Text>
             </TouchableOpacity>
           </View> */}
-
-          <Text style={style.textInput}>Travellers name</Text>
-          <TextInput
-            style={style.input}
-            value={name}
-            onChangeText={(text) => setName(text)}
-          />
-          <Text style={style.textInput}>Email</Text>
-          <TextInput
-            style={style.input}
-            keyboardType="email-address"
-            clearButtonMode="always"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <Text style={style.textInput}>Password</Text>
-          <TextInput
-            style={style.input}
-            clearButtonMode="always"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <Text style={style.textInput}>Password confirmation</Text>
-          <TextInput
-            style={style.input}
-            clearButtonMode="always"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
+          <View>
+            <Text style={style.textInput}>Travellers name</Text>
+            <TextInput
+              style={style.input}
+              value={name}
+              keyboardType="default"
+              autoCorrect={false}
+              onChangeText={(text) => setName(text)}
+              returnKeyType = {"next"}
+            />
+          </View>
+          
+          <View>
+            <Text style={style.textInput}>Email</Text>
+            <TextInput
+              style={style.input}
+              keyboardType="email-address"
+              clearButtonMode="always"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              returnKeyType = {"next"}
+            />
+          </View>
+          
+          <View>
+            <Text style={style.textInput}>Password</Text>
+            <TextInput
+              style={style.input}
+              clearButtonMode="always"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              returnKeyType = {"next"}
+              textContentType={'oneTimeCode'}
+            />
+          </View>
+          
+          <View>
+            <Text style={style.textInput}>Password confirmation</Text>
+            <TextInput
+              style={style.input}
+              clearButtonMode="always"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              returnKeyType = {"done"}
+            />
+          </View>
+          
           <View style={style.buttonWrapper}>
               <TouchableOpacity
               onPress={goToRegisterTwo}
@@ -122,15 +142,16 @@ export default ({ navigation }) => {
           </View>
         </View>
       </View>
+    </View>
     </ScrollView>
   );
 };
 
 const style = StyleSheet.create({
   welcome: {
-    position: 'absolute',
-    left: 24,
-    top: 50
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 56
   },
   container: {
     flex: 1,
@@ -140,9 +161,8 @@ const style = StyleSheet.create({
     marginRight: 24,
     height: deviceHeight,
     flex:1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
   topRegister:{
     position: 'absolute',
@@ -178,7 +198,7 @@ const style = StyleSheet.create({
   form: {
     flex: 1,
     width: '100%',
-    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
     marginBottom: 20
   },
 

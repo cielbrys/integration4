@@ -26,6 +26,8 @@ import Start from './screens/auth/Start';
 
 const Stack = createStackNavigator();
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
