@@ -5,6 +5,7 @@ import NewTripWarning from './NewTripWarning';
 import TripView from './TripView';
 import { createStackNavigator } from '@react-navigation/stack';
 import Overview from '../home/Overview';
+import PeopleScreen from '../people/PeopleScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default () => {
       <Stack.Screen name="NewTripWarning" component={NewTripWarning} />
       <Stack.Screen name="NewTripChoice" component={NewTripChoice} />
       <Stack.Screen name="TripView" component={TripView} />
+      <Stack.Screen name="People" component={PeopleScreen} />
     </Stack.Navigator>
   );
 };

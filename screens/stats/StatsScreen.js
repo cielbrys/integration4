@@ -15,7 +15,6 @@ import Black from '../../assets/images/blackLine.svg';
 import White from '../../assets/images/whiteLine.svg';
 import Yellow from '../../assets/images/locationButton.svg';
 
-
 export default function StatsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
 
@@ -26,57 +25,61 @@ export default function StatsScreen({ navigation }) {
   });
 
   const goHome = () => {
-    navigation.goBack()
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
 
   const goToLocations = () => {
-    navigation.navigate('locations', {
-      screen: 'LocationsScreen',
-    });
+    navigation.navigate('Locations');
   };
 
   return useObserver(() => (
     <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top}/>
+          <Top style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
-          <Back/>
+          <Back />
         </TouchableOpacity>
         <View style={styles.tekst}>
-        <Stats/>
-        <View style={styles.txt}>
-          <View style={styles.stat}>
-            <Text>Km's {"\n"}Traveled</Text>
-            <Text style={styles.number}>{tripStore.distanceDone}</Text>
+          <Stats />
+          <View style={styles.txt}>
+            <View style={styles.stat}>
+              <Text>Km's {'\n'}Traveled</Text>
+              <Text style={styles.number}>{tripStore.distanceDone}</Text>
+            </View>
+            <Black />
+            <View style={styles.stat}>
+              <Text>Trips {'\n'}completed</Text>
+              <Text style={styles.number}>{tripStore.trips.length}</Text>
+            </View>
+            <Black />
+            <View style={styles.stat}>
+              <Text>Hours {'\n'}traveled</Text>
+              <Text style={styles.number}>{tripStore.timeDone}</Text>
+            </View>
           </View>
-          <Black/>
-          <View style={styles.stat}>
-            <Text>Trips {"\n"}completed</Text>
-            <Text style={styles.number}>{tripStore.trips.length}</Text>
-          </View>
-          <Black/>
-          <View style={styles.stat}>
-            <Text>Hours {"\n"}traveled</Text>
-            <Text style={styles.number}>{tripStore.timeDone}</Text>
+          <View style={styles.bottomtxt}>
+            <View style={styles.statsBottom}>
+              <Text style={styles.numberBottom}>
+                {uiStore.currentUser.users.length}
+              </Text>
+              <Text style={styles.white}>People met</Text>
+              <White />
+              <Text style={styles.numberBottom}>
+                {locationStore.locations.length}
+              </Text>
+              <Text style={styles.white}>Locations pinned</Text>
+            </View>
+            <TouchableOpacity onPress={() => goToLocations()}>
+              <Yellow />
+            </TouchableOpacity>
           </View>
         </View>
-      <View style={styles.bottomtxt}>
-        <View style={styles.statsBottom}>
-          <Text style={styles.numberBottom}>{uiStore.currentUser.users.length}</Text>
-          <Text style={styles.white}>People met</Text>
-          <White/>
-          <Text style={styles.numberBottom} >{locationStore.locations.length}</Text>
-          <Text style={styles.white}>Locations pinned</Text>
-        </View>
-        <TouchableOpacity onPress={() => goToLocations()}>
-          <Yellow/>
-        </TouchableOpacity>
-      </View>
-      </View>
-      <Bottom style={styles.bottom}/>
+        <Bottom style={styles.bottom} />
       </View>
     </ScrollView>
   ));
@@ -85,75 +88,75 @@ export default function StatsScreen({ navigation }) {
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-    paddingTop: 28
+    paddingTop: 28,
   },
   topTitle: {
     position: 'absolute',
     right: 24,
-    top: 60
+    top: 60,
   },
   container: {
     flex: 1,
     backgroundColor: 'rgb(103,146,137)', //rgb(103,146,137)
   },
-  main : {
-    backgroundColor: 'white'
+  main: {
+    backgroundColor: 'white',
   },
   top: {
     zIndex: -20,
-    position: "absolute",
-    paddingTop: 50
+    position: 'absolute',
+    paddingTop: 50,
   },
   back: {
     marginLeft: 24,
-    marginTop: 32
+    marginTop: 32,
   },
-  tekst:{
+  tekst: {
     zIndex: 1,
     marginTop: 80,
     marginBottom: 0,
-    
-    alignItems: "center",
+
+    alignItems: 'center',
   },
   txt: {
-    flexDirection:'row',
+    flexDirection: 'row',
     marginTop: 32,
-    alignItems: "center"
+    alignItems: 'center',
   },
   bottomtxt: {
     marginTop: 150,
-    alignItems: "center",
+    alignItems: 'center',
   },
   stat: {
     marginRight: 24,
-    flexDirection: "column-reverse",
-    alignItems: "flex-start",
-    marginLeft: 32
+    flexDirection: 'column-reverse',
+    alignItems: 'flex-start',
+    marginLeft: 32,
   },
   number: {
     fontSize: 32,
-    marginBottom: 8
+    marginBottom: 8,
   },
   numberBottom: {
     fontSize: 32,
     marginBottom: 8,
-    color: "white",
+    color: 'white',
     marginRight: 16,
-    marginLeft: 24
+    marginLeft: 24,
   },
   statsBottom: {
-    flexDirection: "row",
-    alignItems: "center",    
-    marginBottom: 24
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 24,
   },
   white: {
-    color: "white",
+    color: 'white',
     marginRight: 24,
-    alignSelf: "center"
+    alignSelf: 'center',
   },
-  bottom : { 
+  bottom: {
     zIndex: 0,
-    position: "absolute",
+    position: 'absolute',
     top: 375,
-  }
+  },
 });

@@ -44,11 +44,13 @@ export default function LocationsScreen({ navigation }) {
   };
 
   const goHome = () => {
-    navigation.goBack();
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
 
   return useObserver(() => (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
           <Top style={styles.top} />
@@ -57,7 +59,7 @@ export default function LocationsScreen({ navigation }) {
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
           <Back />
         </TouchableOpacity>
-        <View style={styles.locations}>
+        <ScrollView style={styles.locations}>
           {locationStore.locations.map((location) => (
             <View style={styles.location} key={location.id}>
               <View style={styles.text}>
@@ -72,10 +74,10 @@ export default function LocationsScreen({ navigation }) {
               <Map />
             </View>
           ))}
-        </View>
+        </ScrollView>
         <Boom style={styles.bottom} />
       </View>
-    </ScrollView>
+    </View>
   ));
 }
 

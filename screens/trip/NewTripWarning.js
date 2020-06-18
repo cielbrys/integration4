@@ -21,8 +21,6 @@ let deviceWidth = Dimensions.get('window').width;
 export default ({ navigation }) => {
   const [read, setRead] = useState(false);
   const { uiStore } = useStore();
-  
-  let endLocation = {};
 
   const getLocation = () => {
     let filteredLocations = [];
@@ -34,20 +32,15 @@ export default ({ navigation }) => {
     const locationNumber = Math.floor(Math.random() * filteredLocations.length);
     console.log(locationNumber);
     console.log(filteredLocations[locationNumber]);
-    endLocation = filteredLocations[locationNumber];
+    uiStore.setEndLocation(filteredLocations[locationNumber]);
   };
 
   const goToTripView = () => {
     getLocation();
-    console.log('endloca', endLocation);
     uiStore.setCurrentTrip(true);
-    if (endLocation !== {}) {
+    if (uiStore.endLocation) {
       navigation.navigate('home', {
         screen: 'TripView',
-        params: {
-          endLocationLat: endLocation.latitude,
-          endLocationLng: endLocation.longitude,
-        },
       });
     }
   };
@@ -59,35 +52,40 @@ export default ({ navigation }) => {
   });
 
   return useObserver(() => (
-    <View style={{flex: 1, backgroundColor: '#3E8C86', alignItems: 'center', justifyContent: 'center'}}>
-      <BackgroundWarning style={{position:'absolute'}}/>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#3E8C86',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <BackgroundWarning style={{ position: 'absolute' }} />
       <SafetyWarning />
-      <Text style={{fontSize: 18, color: 'white', marginTop: 40}}>
-        Using your phone while driving is illegal! {"\n"} We advice you to mount your
-        phone.
+      <Text style={{ fontSize: 18, color: 'white', marginTop: 40 }}>
+        Using your phone while driving is illegal! {'\n'} We advice you to mount
+        your phone.
       </Text>
-      <View style={{marginTop: 20}}>
-      <TouchableOpacity style={{flexDirection: 'row', alignItems:'center'}} onPress={() => setRead(true)}>
-        <Text style={{marginRight: 30, fontSize: 16, color: 'white'}}>I have read the safety warning!</Text>
-        {
-          read !== false 
-          ? <Checked />
-          : <Unchecked />
-        }
-        
-      </TouchableOpacity>
+      <View style={{ marginTop: 20 }}>
+        <TouchableOpacity
+          style={{ flexDirection: 'row', alignItems: 'center' }}
+          onPress={() => setRead(true)}
+        >
+          <Text style={{ marginRight: 30, fontSize: 16, color: 'white' }}>
+            I have read the safety warning!
+          </Text>
+          {read !== false ? <Checked /> : <Unchecked />}
+        </TouchableOpacity>
       </View>
-      <View  style={style.view}>
-
+      <View style={style.view}>
         <View style={style.bottom}>
-          <TouchableOpacity 
+          <TouchableOpacity
             disabled={read !== false ? false : true}
             onPress={() => goToTripView()}
           >
-            <BackgroundButton style={{opacity: read == false ? 0.5 : 1}}/>
-          </TouchableOpacity> 
+            <BackgroundButton style={{ opacity: read == false ? 0.5 : 1 }} />
+          </TouchableOpacity>
         </View>
-             
       </View>
     </View>
   ));
@@ -100,6 +98,6 @@ const style = StyleSheet.create({
   },
   view: {
     position: 'absolute',
-    bottom: 45
-  }
+    bottom: 45,
+  },
 });

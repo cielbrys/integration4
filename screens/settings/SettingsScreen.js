@@ -14,9 +14,11 @@ import TopTitle from '../../assets/images/settings.svg';
 import Back from '../../assets/images/back.svg';
 import Bottom from '../../assets/images/statsBottom.svg';
 import Save from '../../assets/images/save.svg';
+import { useHistory } from 'react-router-dom';
 
 export default function GalleryScreen({ navigation }) {
   const { uiStore, userStore } = useStore();
+  const history = useHistory();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -25,8 +27,11 @@ export default function GalleryScreen({ navigation }) {
   });
 
   const goHome = () => {
-    navigation.goBack();
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 

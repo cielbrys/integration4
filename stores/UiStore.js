@@ -8,10 +8,15 @@ class UiStore {
     this.currentTrip = false;
     this.loggedIn = false;
     this.tripFeeling = '';
+    this.endLocation = undefined;
     this.authService = new AuthService({
       firebase: this.rootStore.firebase,
       onAuthStateChanged: this.onAuthStateChanged,
     });
+  }
+
+  setEndLocation(cords) {
+    this.endLocation = cords;
   }
 
   setCurrentUser = (user) => {
