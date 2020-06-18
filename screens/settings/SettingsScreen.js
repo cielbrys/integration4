@@ -79,7 +79,7 @@ export default function GalleryScreen({ navigation }) {
             />
           </View>
           <View style={styles.visible}>
-            <Text style={styles.description}>Visibile to other travellers</Text>
+            <Text style={styles.description}>Visibility to other travellers</Text>
             <FlipToggle
               value={isActive}
               buttonWidth={100}
@@ -122,10 +122,10 @@ export default function GalleryScreen({ navigation }) {
           <View style={styles.insta}>
             <Text style={styles.title}>Instagram</Text>
             <Text style={styles.tekst}>
-              Connect to instagram to stay in contact with fellow travellers
+              Connect to instagram to stay in contact with fellow travellers!
             </Text>
             <Text style={styles.tekst}>
-              Fill in your instagram page name and connect
+              Fill in your instagram username and connect.
             </Text>
             <TextInput
               style={styles.instaInput}
@@ -134,7 +134,7 @@ export default function GalleryScreen({ navigation }) {
               clearButtonMode="always"
               value={uiStore.currentUser.socials}
               onChangeText={(text) => setInsta(text)}
-              returnKeyType={'next'}
+              returnKeyType={'done'}
             />
           </View>
         </View>

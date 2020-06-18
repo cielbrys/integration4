@@ -232,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//() => uiStore.logout()
+//

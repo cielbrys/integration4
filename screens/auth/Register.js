@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity,
   ScrollView,
@@ -55,17 +54,17 @@ export default ({ navigation }) => {
         <View style={style.bottom}>
           <Welcome style={style.welcome} />
           <View style={style.form}>
-            {/* <Text style={style.textInputTitle}>Create an account</Text>
-           <View style={style.socials}>
-            <TouchableOpacity style={style.loginSocialsFB}>
-              <FacebookIcon style={style.textInputSocialIcon} />
-              <Text style={style.textInputSocial}>Sign in with Facebook</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.loginSocialsG}>
-              <GoogleIcon style={style.textInputSocialIcon} />
-              <Text style={style.textInputSocial}>Sign in with Google</Text>
-            </TouchableOpacity>
-          </View> */}
+            <Text style={style.textInputTitle}>Create an account</Text>
+            <View style={style.socials}>
+              <TouchableOpacity style={style.loginSocialsFB}>
+                <FacebookIcon style={style.textInputSocialIcon} />
+                <Text style={style.textInputSocial}>Sign in with Facebook</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={style.loginSocialsG}>
+                <GoogleIcon style={style.textInputSocialIcon} />
+                <Text style={style.textInputSocial}>Sign in with Google</Text>
+              </TouchableOpacity>
+            </View>
             <View>
               <Text style={style.textInput}>Travellers name</Text>
               <TextInput
@@ -144,9 +143,8 @@ export default ({ navigation }) => {
 
 const style = StyleSheet.create({
   welcome: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 56,
+    marginBottom: deviceHeight/8,
+    marginTop: deviceHeight/14
   },
   container: {
     flex: 1,
@@ -154,10 +152,6 @@ const style = StyleSheet.create({
   bottom: {
     marginLeft: 24,
     marginRight: 24,
-    height: deviceHeight,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
   },
   topRegister: {
     position: 'absolute',
@@ -250,4 +244,7 @@ const style = StyleSheet.create({
     width: 25,
     height: 25,
   },
+  socials: {
+    marginBottom: 10
+  }
 });
