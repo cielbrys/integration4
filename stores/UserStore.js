@@ -16,6 +16,11 @@ class UserStore {
     await this.usersService.create(user);
   };
 
+  setSystem = async (user) => {
+    console.log('emailuser:', user.email);
+    await this.usersService.setSystem(user.asJson);
+  };
+
   updateUserFromServer(json) {
     let user = this.users.find((user) => user.id === json.id);
     if (!user) {

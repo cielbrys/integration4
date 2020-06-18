@@ -9,9 +9,17 @@ class UserService {
     return await this.db.collection('users').doc(user.email).set(user);
   };
 
+  setSystem = async (user) => {
+    await this.db
+      .collection('users')
+      .doc(user.email)
+      .update({ system: user.system });
+  };
+
   getUserByEmail = async (email) => {
     const data = (await this.db.collection('users').doc(email).get()).data();
-    console.log(data)
+    console.log('data:', data);
+    console.log(data);
     if (!data.id) {
       data.id = data.userId; // quick fix to make it compatible with koens db
     }
@@ -28,8 +36,6 @@ class UserService {
         return u;
       });
   };
-
-
 }
 
 export default UserService;

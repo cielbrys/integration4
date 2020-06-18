@@ -37,12 +37,11 @@ export default ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const goToRegisterTwo = () => {
+    console.log(email);
     navigation.navigate('RegisterTwo', {
-      params: {
-        email: email,
-        name: name,
-        password: password,
-      },
+      email: email,
+      name: name,
+      password: password,
     });
   };
 
@@ -143,8 +142,8 @@ export default ({ navigation }) => {
 
 const style = StyleSheet.create({
   welcome: {
-    marginBottom: deviceHeight/8,
-    marginTop: deviceHeight/14
+    marginBottom: deviceHeight / 8,
+    marginTop: deviceHeight / 14,
   },
   container: {
     flex: 1,
@@ -245,6 +244,6 @@ const style = StyleSheet.create({
     height: 25,
   },
   socials: {
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });

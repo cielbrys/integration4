@@ -20,7 +20,7 @@ class UiStore {
 
   setCurrentTrip = (status) => {
     this.currentTrip = status;
-  }
+  };
 
   login = async (email, password) => {
     return await this.authService.login(email, password);
@@ -30,10 +30,11 @@ class UiStore {
   };
   register = async (user) => {
     const result = await this.authService.register(user);
+    console.log('r:', result);
     user.id = result.uid;
     //
     const newUser = this.rootStore.userStore.updateUserFromServer(user);
-
+    console.log('user:', newUser);
     await this.rootStore.userStore.createUser(newUser.asJson);
   };
 
@@ -43,7 +44,7 @@ class UiStore {
 
   onAuthStateChanged = async (data) => {
     if (data) {
-      console.log('ingelogd:');
+      console.log('ingelogd:', data.email);
       const userJson = await this.rootStore.userStore.getUser(data.email);
       console.log('userJson:', userJson);
       const user = this.rootStore.userStore.updateUserFromServer(userJson);

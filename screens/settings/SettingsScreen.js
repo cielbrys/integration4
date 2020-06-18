@@ -16,7 +16,7 @@ import Bottom from '../../assets/images/statsBottom.svg';
 import Save from '../../assets/images/save.svg';
 
 export default function GalleryScreen({ navigation }) {
-  const { uiStore } = useStore();
+  const { uiStore, userStore } = useStore();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -35,6 +35,7 @@ export default function GalleryScreen({ navigation }) {
   const changeToKm = () => {
     uiStore.currentUser.changeSystem('km');
     console.log(uiStore.currentUser.system);
+    userStore.setSystem(uiStore.currentUser);
   };
 
   const setInsta = (insta) => {
@@ -45,6 +46,7 @@ export default function GalleryScreen({ navigation }) {
   const changeToMile = () => {
     uiStore.currentUser.changeSystem('mile');
     console.log(uiStore.currentUser.system);
+    userStore.setSystem(uiStore.currentUser);
   };
 
   return useObserver(() => (
@@ -79,7 +81,9 @@ export default function GalleryScreen({ navigation }) {
             />
           </View>
           <View style={styles.visible}>
-            <Text style={styles.description}>Visibility to other travellers</Text>
+            <Text style={styles.description}>
+              Visibility to other travellers
+            </Text>
             <FlipToggle
               value={isActive}
               buttonWidth={100}

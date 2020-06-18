@@ -34,9 +34,9 @@ class TripService {
     const unsub = r.onSnapshot(async (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
         console.log('change', change.type);
-        console.log('id', change.doc.ref.parent['CP']['segments'][6]);
+        console.log('id', change.doc.ref.id);
         if (change.type === 'added') {
-          const tripId = change.doc.ref.parent['CP']['segments'][6];
+          const tripId = change.doc.ref.id;
           onGroupAdded(tripId);
         }
       });

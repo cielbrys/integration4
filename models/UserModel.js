@@ -10,7 +10,6 @@ class UserModel {
     locations = [],
     trips = [],
     store,
-    system = 'km',
     ...json
   }) {
     this.id = id;
@@ -21,7 +20,6 @@ class UserModel {
     }
     this.rootStore = store;
     this.users = users;
-    this.system = system;
     this.updateFromJson(json);
   }
 
@@ -48,7 +46,7 @@ class UserModel {
   updateFromJson = (json) => {
     this.name = json.name !== undefined ? json.name : this.name;
     this.email = json.email !== undefined ? json.email : this.email;
-    this.van = json.van !== undefined ? json.van : this.van;
+    this.system = json.system !== undefined ? json.system : this.system;
     this.status = json.status !== undefined ? json.status : this.status;
     this.socials = json.socials !== undefined ? json.socials : this.socials;
     if (json.trips !== undefined) {
@@ -73,8 +71,7 @@ class UserModel {
       id: this.id,
       name: this.name,
       email: this.email,
-      van: this.van,
-      soical: this.socials,
+      socials: this.socials,
       system: this.system,
       status: this.status,
     };

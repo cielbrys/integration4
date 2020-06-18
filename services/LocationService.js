@@ -38,8 +38,8 @@ class LocationService {
       snapshot.docChanges().forEach(async (change) => {
         console.log('change', change.type);
         if (change.type === 'added') {
-          console.log('id', change.doc.ref.parent['CP']['segments'][6]);
-          const locationId = change.doc.ref.parent['CP']['segments'][6];
+          console.log('id', change.doc.ref.id);
+          const locationId = change.doc.ref.id;
           onLocationAdd(locationId);
         }
       });

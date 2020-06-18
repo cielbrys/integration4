@@ -5,7 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from 'react-native';
 
 import { useStore } from '../../hooks/useStore';
@@ -20,18 +20,20 @@ let deviceWidth = Dimensions.get('window').width;
 export default ({ navigation, route }) => {
   const { name, email, password } = route.params;
 
-  const [insta, setInsta] = useState("");
+  const [insta, setInsta] = useState('');
   const [status, setStatus] = useState('beginner');
 
   const { uiStore } = useStore();
 
-
   const handleSubmit = async () => {
+    console.log(email);
     try {
       await uiStore.register({
         name: name,
         email: email,
         password: password,
+        status: status,
+        socials: insta,
       });
       history.push(ROUTES.home);
     } catch (error) {
@@ -50,9 +52,19 @@ export default ({ navigation, route }) => {
       <TopRegister style={style.topRegister} />
       <Welcome style={style.welcome} />
 
-      <View style={{marginTop: 90, marginLeft: 24, marginRight: 24, marginTop: 180, marginBottom: 30}}>
-        <Text style={{fontWeight: '600',fontSize: 18,marginBottom: 10}}>Instagram</Text>
-        <Text style={{fontSize: 16}}>
+      <View
+        style={{
+          marginTop: 90,
+          marginLeft: 24,
+          marginRight: 24,
+          marginTop: 180,
+          marginBottom: 30,
+        }}
+      >
+        <Text style={{ fontWeight: '600', fontSize: 18, marginBottom: 10 }}>
+          Instagram
+        </Text>
+        <Text style={{ fontSize: 16 }}>
           Connecting to instagram makes it easier to stay in contact with fellow
           travellers
         </Text>
@@ -66,34 +78,63 @@ export default ({ navigation, route }) => {
           onChangeText={(text) => setInsta(text)}
         />
       </View>
-      
+
       <View style={style.status}>
         <Text style={style.statusTitle}>Which traveller are you?</Text>
         <View style={style.options}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={status === 'beginner' ? style.active : style.opt}
             onPress={() => setStatus('beginner')}
           >
-            <Text style={{color: status === 'beginner' ? 'white' : 'black'}}>Beginner</Text>
+            <Text style={{ color: status === 'beginner' ? 'white' : 'black' }}>
+              Beginner
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={status === 'experienced' ? style.active : style.opt}
             onPress={() => setStatus('experienced')}
           >
-            <Text style={{color: status === 'experienced' ? 'white' : 'black'}}>Experienced</Text>
+            <Text
+              style={{ color: status === 'experienced' ? 'white' : 'black' }}
+            >
+              Experienced
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
-      
-      <View style={{flex: 1, justifyContent:'flex-end', alignItems: 'center', marginBottom: 56, marginLeft: 24, marginRight: 24}}>
+
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          marginBottom: 56,
+          marginLeft: 24,
+          marginRight: 24,
+        }}
+      >
         <TouchableOpacity
           onPress={handleSubmit}
-          style={{paddingTop: 13, paddingBottom: 13, backgroundColor: '#7FB1A7', width: '100%'}}
+          style={{
+            paddingTop: 13,
+            paddingBottom: 13,
+            backgroundColor: '#7FB1A7',
+            width: '100%',
+          }}
         >
-          <Text style={{fontSize: 18, color: '#fff', textAlign: 'center', paddingLeft: 10, paddingRight: 10}}>Start exploring</Text>
+          <Text
+            style={{
+              fontSize: 18,
+              color: '#fff',
+              textAlign: 'center',
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            Start exploring
+          </Text>
         </TouchableOpacity>
       </View>
-      
     </View>
   ));
 };
@@ -101,7 +142,7 @@ export default ({ navigation, route }) => {
 const style = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    height: deviceHeight
+    height: deviceHeight,
   },
   topRegister: {
     position: 'absolute',
@@ -115,23 +156,23 @@ const style = StyleSheet.create({
   options: {
     marginTop: 12,
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent: 'space-between',
   },
   opt: {
-    height: deviceHeight/8,
-    width: deviceWidth/2.5,
+    height: deviceHeight / 8,
+    width: deviceWidth / 2.5,
     backgroundColor: '#E2E2E2',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   active: {
-    height: deviceHeight/8,
-    width: deviceWidth/2.5,
+    height: deviceHeight / 8,
+    width: deviceWidth / 2.5,
     backgroundColor: '#154945',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   status: {
     marginLeft: 24,
