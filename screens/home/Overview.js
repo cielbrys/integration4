@@ -59,38 +59,41 @@ export default function HomeScreen({ navigation }) {
 
   const goToCurrentTrip = () => {
     navigation.navigate('TripView');
-  }
+  };
 
   const log = () => {
-    console.log(uiStore.currentTrip)
-  }
+    console.log(uiStore.currentTrip);
+  };
 
   return useObserver(() => (
     <ScrollView style={styles.container}>
       <Mountain style={styles.mtn} />
 
-      {
-        uiStore.currentTrip === false ?
+      {uiStore.currentTrip === false ? (
         <>
-          <TouchableOpacity style={styles.button} onPress={() => startNewTrip()}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => startNewTrip()}
+          >
             <Rood>
               <Text>Start a new trip</Text>
             </Rood>
           </TouchableOpacity>
         </>
-        : 
+      ) : (
         <>
-          <TouchableOpacity style={styles.button} onPress={() => goToCurrentTrip()}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => goToCurrentTrip()}
+          >
             <CurrentTrip>
               <Text>GoToTrip</Text>
             </CurrentTrip>
           </TouchableOpacity>
         </>
-      }
+      )}
 
-      
-
-      <TouchableOpacity style={styles.logout} onPress={log}>
+      <TouchableOpacity style={styles.logout} onPress={() => uiStore.logout()}>
         <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
       {uiStore.currentUser.status === 'beginner' ? (
