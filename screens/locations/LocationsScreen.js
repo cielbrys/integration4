@@ -44,7 +44,9 @@ export default function LocationsScreen({ navigation }) {
   };
 
   const goHome = () => {
-    navigation.goBack();
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
 
   return useObserver(() => (

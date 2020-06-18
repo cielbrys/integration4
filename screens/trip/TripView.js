@@ -22,6 +22,17 @@ import Dialog from 'react-native-dialog';
 import endLocations from '../../constants/Locations';
 let pins = [];
 
+let deviceHeight = Dimensions.get('window').height;
+let deviceWidth = Dimensions.get('window').width;
+
+import TripTop from '../../assets/images/currentTrip/tripBackground.svg';
+import Back from '../../assets/images/back.svg';
+import TripTitle from '../../assets/images/currentTrip/TripTitle.svg';
+import ArrowUp from '../../assets/images/currentTrip/arrowUp.svg';
+import AmountMiles from '../../assets/images/currentTrip/amountMiles.svg';
+import PinLocation from '../../assets/images/currentTrip/pinLocation.svg';
+import Friends from '../../assets/images/currentTrip/friends.svg';
+
 export default function TripView({ navigation, route }) {
   const { endLocationLng, endLocationLat } = route.params;
   const { tripStore, uiStore, locationStore } = useStore();
@@ -157,17 +168,47 @@ export default function TripView({ navigation, route }) {
     setPopUpPin(false);
   };
 
-  const log = () => {
-    console.log(uiStore.currentTrip);
+  navigation.setOptions({
+    headerStyle: { height: 0 },
+    headerTitle: null,
+    headerLeft: null,
+  });
+
+  const goHome = () => {
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
+
+  const goToFriends = () => {
+    navigation.navigate('People');
+  }
+
+  const [isToggled, setToggled] = useState(true);
+
+  const toggleTrueFalse = () => setToggled(!isToggled);
 
   return useObserver(() => {
     return (
-      <SafeAreaView style={styles.scroll}>
-        <TouchableOpacity onPress={log}>
-          <Text>Hello</Text>
-        </TouchableOpacity>
-        <View style={styles.arrow}>
+      <View style={{flex:1, backgroundColor: 'white'}}>
+        <View style={{width: 48, height: 48, backgroundColor: '#E1E9E7', position: 'absolute', zIndex: -1, bottom: 75, right: 24, borderRadius: 50}}>
+          <TouchableOpacity 
+            style={{height: 48, alignItems: 'center', justifyContent: 'center'}}
+            onPress={goToFriends}
+          >
+            <Friends />
+          </TouchableOpacity>
+        </View>
+        <View style={{backgroundColor: 'green', height: 0}}>
+          <TripTop style={{marginTop: -10}} /> 
+          <TripTitle style={{position: 'absolute', right: 24, top: 56}} />
+        </View>
+        <View style={{ position: 'absolute', left: 24, top: 59.5, Zindex: 9999}}>
+          <TouchableOpacity onPress={goHome}>
+            <Back />
+          </TouchableOpacity>
+        </View>
+        <View style={{alignItems: 'center', marginTop: deviceHeight/4}}>
           <Image
             source={require('../../assets/images/navArrow.png')}
             style={{
@@ -179,16 +220,48 @@ export default function TripView({ navigation, route }) {
             resizeMode="contain"
           />
         </View>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => setPopUpPin(true)}>
-            <Text>Pin Location</Text>
+        <View style={{backgroundColor: '#175E5A', borderRadius: 10, height: 300, width: deviceWidth, position: 'absolute', bottom: isToggled === true ? -240 : -22.5}}>
+
+          <TouchableOpacity 
+            style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', height: 65}}
+            onPress={toggleTrueFalse}
+          >
+            <ArrowUp style={{opacity: 0, marginRight: 24}}  />
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', display: isToggled === true ? 'visible' : 'none'}} >
+              <AmountMiles />
+              <Text style={{fontSize: 22, color: 'white', marginLeft: 6}} >{distance} miles</Text>
+            </View>
+            <ArrowUp style={{marginRight: 24, transform: [{ rotate: isToggled === true ? '0deg' : '180deg' }], }} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setPopUpSave(true)}>
-            <Text>Stop Trip</Text>
-          </TouchableOpacity>
-          <Text>{distance}</Text>
+
+
+
+          <View style={{display: isToggled === true ? 'none' : 'visible'}}>
+            <View style={{marginLeft: 24, flexDirection: 'row', alignItems: 'center', marginBottom: 30}}>
+              <AmountMiles />
+              <Text style={{fontSize: 36, color: 'white', marginLeft: 6}}>{distance} miles</Text>
+            </View>
+            <View>
+              <TouchableOpacity 
+                onPress={() => setPopUpPin(true)}
+                style={{backgroundColor: '#FFFFFF', marginRight: 24, marginLeft: 24, paddingTop: 8, paddingBottom: 8, alignItems: 'center'}}
+              >
+                <PinLocation />
+              </TouchableOpacity>
+              <TouchableOpacity 
+                onPress={() => setPopUpSave(true)}
+                style={{marginTop: 16, backgroundColor: '#FF0000', marginRight: 24, marginLeft: 24, paddingTop: 13, paddingBottom: 13}}
+              >
+                <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>Stop Trip</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          
+
+
+          
           <Dialog.Container visible={popUpSave}>
-            <Dialog.Title>Trip Title</Dialog.Title>
+            <Dialog.Title>Name your trip</Dialog.Title>
             <Dialog.Input
               onChangeText={(tripName) => setName(tripName)}
               value={name}
@@ -211,7 +284,7 @@ export default function TripView({ navigation, route }) {
           </Dialog.Container>
 
           <Dialog.Container visible={popUpPin}>
-            <Dialog.Title>Safe location?</Dialog.Title>
+            <Dialog.Title>Pin current location?</Dialog.Title>
             <Dialog.Input
               onChangeText={(newPinName) => setPinName(newPinName)}
               value={pinName}
@@ -228,31 +301,11 @@ export default function TripView({ navigation, route }) {
             />
           </Dialog.Container>
         </View>
-      </SafeAreaView>
+      </View>
     );
   });
 }
 
 const styles = StyleSheet.create({
-  scroll: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  mapStyle: {
-    width: Dimensions.get('window').width - 50,
-    height: Dimensions.get('window').width - 50,
-    borderRadius: (Dimensions.get('window').width - 50) / 2,
-  },
-  arrow: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50,
-  },
+  
 });

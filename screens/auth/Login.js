@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, Button, TextInput, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useStore } from '../../hooks/useStore';
 import { useHistory } from 'react-router-dom';
 
 import Landscape from '../../assets/images/Login/BG.svg';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+let deviceHeight = Dimensions.get('window').height;
+
+console.log(deviceHeight)
 
 export default ({ navigation }) => {
 
@@ -25,6 +29,8 @@ export default ({ navigation }) => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  const [focus, setFocus] = useState("light");
+
   const handleSubmit = async () => {
     try {
       await uiStore.login(email, password);
@@ -33,30 +39,55 @@ export default ({ navigation }) => {
       console.log(error);
     }
   }
+
+  const onFocus = () => {
+    if(deviceHeight < 700){
+      setFocus('dark')
+    }
+  }
+
+  const onBlur = () => {
+    if(deviceHeight < 700){
+      setFocus('light')
+    }
+  }
   
   return (
       <View style={styles.view}>
         <Landscape style={styles.container}/>
         <View style={styles.bottom}>
           
-          <Text style={styles.text}>Email</Text>
+          <Text 
+            style={
+              focus === 'light'
+              ? styles.text 
+              : styles.textDark}
+          >
+            Email
+          </Text>
           <TextInput
             style={styles.textInput}
             label="eai"
             clearButtonMode="always"
             keyboardType="email-address"
+            placeholder="someone@example.com"
             value={email}
             onChangeText={(text) => setEmail(text)}
             returnKeyType = {"next"}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
-          <Text style={styles.text}>Password</Text>
+          <Text style={focus === 'light' ? styles.text : styles.textDark}>Password</Text>
           <TextInput
             style={styles.textInput}
             clearButtonMode="always"
             secureTextEntry={true}
+            placeholder="•••••••"
             value={password}
             onChangeText={(text) => setPassword(text)}
             returnKeyType = {"done"}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
           <View>
             <TouchableOpacity
@@ -121,6 +152,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'white'
   },
   bottom: {
     flex: 1,
@@ -133,6 +165,14 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft:24,
     marginBottom: 12
+  },
+  textDark: {
+    fontSize: 16,
+    color: '#154945',
+    marginLeft:24,
+    marginBottom: 12,
+    width: '100%',
+    paddingLeft: 10,
   },
   textInput: {
     paddingLeft: 10,

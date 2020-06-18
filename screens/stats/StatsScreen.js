@@ -24,9 +24,11 @@ export default function StatsScreen({ navigation }) {
     headerTitle: null,
     headerLeft: null,
   });
-
+  
   const goHome = () => {
-    navigation.goBack()
+    navigation.navigate('home', {
+      screen: 'Home',
+    });
   };
 
   const goToLocations = () => {

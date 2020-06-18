@@ -8,6 +8,8 @@ import Tips from './Tips';
 import { createStackNavigator } from '@react-navigation/stack';
 import TripView from '../trip/TripView';
 import LocationsScreen from '../locations/LocationsScreen';
+import SettingsScreen from '../settings/SettingsScreen';
+import PeopleScreen from '../people/PeopleScreen';
 
 
 const Stack = createStackNavigator();
@@ -21,7 +23,9 @@ export default () => {
       <Stack.Screen name="NewTripChoice" component={NewTripChoice} />
       <Stack.Screen name="Tips" component={Tips} />
       <Stack.Screen name="TripView" component={TripView} />
-      <Stack.Screen name="locations" component={LocationsScreen} />
+      <Stack.Screen name="Locations" component={LocationsScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="People" component={PeopleScreen} />
     </Stack.Navigator>
   );
 };
