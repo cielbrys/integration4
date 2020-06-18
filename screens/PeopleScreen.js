@@ -12,41 +12,44 @@ import TopTitle from '../assets/images/people.svg';
 import Boom from '../assets/images/boom.svg';
 import Insta from '../assets/images/instagram.svg';
 
-
-export default function PeopleScreen({navigation}) {
+export default function PeopleScreen({ navigation }) {
   const { uiStore } = useStore();
 
   const goHome = () => {
     navigation.goBack();
   };
 
-  const insta = "kfcheist"
-
   return (
     <ScrollView style={styles.container}>
-       <View style={styles.main}>
+      <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top}/>
+          <Top style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
-          <Back/>
+          <Back />
         </TouchableOpacity>
         <View style={styles.title}>
-      <Text style={styles.met}>People you have met</Text>
-      {uiStore.currentUser.users.length === 0 ? (
-        <Text style={styles.txt}>No friends met yet... </Text>
-      ) : (
-        <>
-        <Text style={styles.txt}>Friends </Text>
-        <View style={styles.friends}>
-        <Text style={styles.name}>Your Friends Name</Text>
-        <Insta  onPress={() => Linking.openURL(`https://www.instagram.com/${insta}`)}></Insta>
+          <Text style={styles.met}>People you have met</Text>
+          {uiStore.currentUser.users.length === 0 ? (
+            <Text style={styles.txt}>No friends met yet... </Text>
+          ) : (
+            <>
+              <Text style={styles.txt}>Friends </Text>
+              <View style={styles.friends}>
+                <Text style={styles.name}>Your Friends Name</Text>
+                <Insta
+                  onPress={() =>
+                    Linking.openURL(
+                      `https://www.instagram.com/${uiStore.currentUser.socials}`
+                    )
+                  }
+                ></Insta>
+              </View>
+            </>
+          )}
+          <Boom style={styles.bottom} />
         </View>
-        </>
-      )}
-      <Boom style={styles.bottom}/>
-      </View>
       </View>
     </ScrollView>
   );
@@ -58,59 +61,59 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   main: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
-  bottom : { 
+  bottom: {
     zIndex: -20,
-    position: "absolute",
+    position: 'absolute',
     top: 70,
   },
   back: {
     marginLeft: 24,
-    marginTop: 32
+    marginTop: 32,
   },
   top: {
     zIndex: -20,
-    position: "absolute",
-    paddingTop: 50
+    position: 'absolute',
+    paddingTop: 50,
   },
   header: {
     flex: 1,
-    paddingTop: 28
+    paddingTop: 28,
   },
   topTitle: {
     position: 'absolute',
     right: 24,
-    top: 60
+    top: 60,
   },
   txt: {
-    marginLeft: 24
+    marginLeft: 24,
   },
   title: {
     marginTop: 80,
-    zIndex: 300
+    zIndex: 300,
   },
   friends: {
     marginLeft: 24,
     marginRight: 24,
     marginTop: 16,
-    backgroundColor: "rgb(240,244,243)",
+    backgroundColor: 'rgb(240,244,243)',
     flexDirection: 'row',
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingTop: 8,
     paddingBottom: 8,
     paddingRight: 16,
     paddingLeft: 16,
-    borderRadius: 4
+    borderRadius: 4,
   },
   name: {
-    fontSize: 16
+    fontSize: 16,
   },
   met: {
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: '700',
     marginLeft: 24,
-    marginBottom: 16
+    marginBottom: 16,
   },
 });

@@ -50,7 +50,6 @@ class UiStore {
       this.setCurrentUser(user);
       await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
       await this.rootStore.locationStore.loadLocationsForUser(this.currentUser);
-      this.loggedInTrue();
     } else {
       console.log('niet ingelogd');
       this.setCurrentUser(undefined);

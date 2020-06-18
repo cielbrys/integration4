@@ -1,4 +1,5 @@
 import 'firebase/firestore';
+import { firestore } from 'firebase/app';
 
 class TripService {
   constructor({ firebase }) {
@@ -33,6 +34,7 @@ class TripService {
     const unsub = r.onSnapshot(async (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
         console.log('change', change.type);
+        console.log('id', change.doc.ref.parent['CP']['segments'][6]);
         if (change.type === 'added') {
           const tripId = change.doc.ref.parent['CP']['segments'][6];
           onGroupAdded(tripId);

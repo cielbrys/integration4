@@ -76,7 +76,7 @@ export default function App(props) {
             ref={containerRef}
             initialState={initialNavigationState}
           >
-            {uiStore.loggedIn ? (
+            {uiStore.currentUser ? (
               <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>

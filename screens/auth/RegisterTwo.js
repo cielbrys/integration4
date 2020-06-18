@@ -12,17 +12,28 @@ import { useStore } from '../../hooks/useStore';
 import { useParams } from 'react-router-dom';
 import { useObserver } from 'mobx-react-lite';
 
-
 import TopRegister from '../../assets/images/TopRegister.svg';
 import Welcome from '../../assets/images/Register/Welcome.svg';
 
 export default ({ navigation, route }) => {
+  const { name, email, password } = route.params;
+
+  const { uiStore } = useStore();
 
   const goToLogin = () => {
     navigation.navigate('home');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      await uiStore.register({
+        name: name,
+        email: email,
+        password: password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
     navigation.navigate('home', {
       screen: 'Home',
     });
@@ -37,18 +48,14 @@ export default ({ navigation, route }) => {
   return useObserver(() => (
     <ScrollView style={style.container}>
       <TopRegister style={style.topRegister} />
-      <Welcome style={style.welcome}/>
+      <Welcome style={style.welcome} />
       <View style={style.status}>
         <Text style={style.statusTitle}>Which traveller are you?</Text>
         <View style={style.options}>
-          <TouchableOpacity
-            style={style.begin}
-          >
+          <TouchableOpacity style={style.begin}>
             <Text>Beginner</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={style.end}
-          >
+          <TouchableOpacity style={style.end}>
             <Text>Experienced</Text>
           </TouchableOpacity>
         </View>
@@ -63,8 +70,7 @@ export default ({ navigation, route }) => {
           <Text>Connect to instagram</Text>
         </TouchableOpacity>
         <View>
-          <TouchableOpacity
-          >
+          <TouchableOpacity>
             <Text>Connect to instagram</Text>
           </TouchableOpacity>
         </View>
@@ -74,50 +80,50 @@ export default ({ navigation, route }) => {
 };
 
 const style = StyleSheet.create({
-  container: {
-    backgroundColor: 'white'
+  container: {
+    backgroundColor: 'white',
   },
-  topRegister:{
+  topRegister: {
     position: 'absolute',
-    top: 0
+    top: 0,
   },
   welcome: {
     position: 'absolute',
     left: 24,
-    top: 50
+    top: 50,
   },
   active: {
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   options: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  begin:{
+  begin: {
     height: 99,
     backgroundColor: '#F0F4F3',
     width: '45%',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#1D7874'
+    color: '#1D7874',
   },
-  end:{
+  end: {
     height: 99,
     backgroundColor: '#F0F4F3',
     width: '45%',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#1D7874'
+    color: '#1D7874',
   },
   status: {
     marginLeft: 24,
-    marginRight: 24
+    marginRight: 24,
   },
   statusTitle: {
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });

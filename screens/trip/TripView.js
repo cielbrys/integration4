@@ -114,12 +114,14 @@ export default function TripView({ navigation, route }) {
   };
 
   const deleteTrip = () => {
+    uiStore.setCurrentTrip(false);
+    uiStore.setTripFeeling('');
     navigation.navigate('Home', {
       screen: 'Overview',
     });
   };
 
-  const stopTrip = () => {
+  const stopTrip = async () => {
     const tripJson = {
       name: name,
       startTime: startTime,
@@ -131,11 +133,12 @@ export default function TripView({ navigation, route }) {
     pins.forEach((pin) => {
       pin.setTripId(trip.id);
     });
-    tripStore.createTrip(trip);
+    await tripStore.createTrip(trip);
     navigation.navigate('Home', {
       screen: 'Overview',
     });
     setPopUpSave(false);
+    uiStore.setTripFeeling('');
     uiStore.setCurrentTrip(false);
   };
 

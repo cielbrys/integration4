@@ -12,11 +12,8 @@ class UserStore {
     this.users = [];
   }
 
-  createUser = (user) => {
-    const newUser = new UserModel(user);
-    if (newUser) {
-      this.addUser(newUser);
-    }
+  createUser = async (user) => {
+    await this.usersService.create(user);
   };
 
   updateUserFromServer(json) {

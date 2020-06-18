@@ -21,14 +21,13 @@ class AuthService {
     return await this.auth.signOut();
   };
 
-  register = async ({ name, email, password, avatar }) => {
+  register = async ({ name, email, password }) => {
     const userCredential = await this.auth.createUserWithEmailAndPassword(
       email,
       password
     );
     await userCredential.user.updateProfile({
       displayName: name,
-      photoURL: avatar,
     });
     return userCredential.user;
   };

@@ -29,29 +29,7 @@ class UserService {
       });
   };
 
-  getContactsForUser = async (user) => {
-    const contacts = await this.db
-      .collection('users')
-      .doc(user.email)
-      .collection('contacts')
-      .get();
-    return contacts.docs.map((u) => u.data());
-  };
 
-  createContactForUser = async (user, contactEmail) => {
-    const contact = await this.getUserByEmail(contactEmail);
-    if (!contact) {
-      throw new Error(`User ${contactEmail} does not exist`);
-    }
-    await this.db
-      .collection('users')
-      .doc(user.email)
-      .collection('contacts')
-      .doc(contact.email)
-      .set(contact);
-
-    return contact;
-  };
 }
 
 export default UserService;

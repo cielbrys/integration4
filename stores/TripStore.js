@@ -32,12 +32,14 @@ class TripStore {
   loadTrip = async (id) => {
     const jsonTrip = await this.tripsService.getById(id);
     this.updateTripFromServer(jsonTrip);
-    return this.resolveTrip(id);
+    return jsonTrip;
   };
 
   updateTripFromServer(json) {
+    console.log('json', json.id);
     let trip = this.trips.find((trip) => trip.id === json.id);
     if (!trip) {
+      
       trip = new TripModel({
         id: json.id,
         store: this.rootStore,
