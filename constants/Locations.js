@@ -22,4 +22,19 @@ export default [
     longitude: 3.332546,
     category: 'nature',
   },
+  {
+    latitude: 54.173039,
+    longitude: 3.191238,
+    category: 'calm',
+  },
+  {
+    latitude: 51.146773,
+    longitude: 4.301916,
+    category: 'closed',
+  },
+  {
+    latitude: 50.776886,
+    longitude: 4.963233,
+    category: 'open',
+  },
 ];
