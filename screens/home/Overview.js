@@ -90,7 +90,7 @@ export default function HomeScreen({ navigation }) {
 
       
 
-      <TouchableOpacity style={styles.logout} onPress={log}>
+      <TouchableOpacity style={styles.logout} onPress={() => uiStore.logout()}>
         <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
       {uiStore.currentUser.status === 'beginner' ? (
@@ -229,4 +229,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//() => uiStore.logout()
+//

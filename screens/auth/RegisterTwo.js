@@ -3,26 +3,28 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  ScrollView,
+  Dimensions,
   TouchableOpacity,
+  TextInput
 } from 'react-native';
 
 import { useStore } from '../../hooks/useStore';
-import { useParams } from 'react-router-dom';
 import { useObserver } from 'mobx-react-lite';
 
-import TopRegister from '../../assets/images/TopRegister.svg';
+import TopRegister from '../../assets/images/Register/RegisterTopBG.svg';
 import Welcome from '../../assets/images/Register/Welcome.svg';
+
+let deviceHeight = Dimensions.get('window').height;
+let deviceWidth = Dimensions.get('window').width;
 
 export default ({ navigation, route }) => {
   const { name, email, password } = route.params;
 
+  const [insta, setInsta] = useState("");
+  const [status, setStatus] = useState('beginner');
+
   const { uiStore } = useStore();
 
-  const goToLogin = () => {
-    navigation.navigate('home');
-  };
 
   const handleSubmit = async () => {
     try {
@@ -31,12 +33,10 @@ export default ({ navigation, route }) => {
         email: email,
         password: password,
       });
+      history.push(ROUTES.home);
     } catch (error) {
       console.log(error);
     }
-    navigation.navigate('home', {
-      screen: 'Home',
-    });
   };
 
   navigation.setOptions({
@@ -46,42 +46,62 @@ export default ({ navigation, route }) => {
   });
 
   return useObserver(() => (
-    <ScrollView style={style.container}>
+    <View style={style.container}>
       <TopRegister style={style.topRegister} />
       <Welcome style={style.welcome} />
-      <View style={style.status}>
-        <Text style={style.statusTitle}>Which traveller are you?</Text>
-        <View style={style.options}>
-          <TouchableOpacity style={style.begin}>
-            <Text>Beginner</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.end}>
-            <Text>Experienced</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View>
-        <Text>Instagram</Text>
-        <Text>
+
+      <View style={{marginTop: 90, marginLeft: 24, marginRight: 24, marginTop: 180, marginBottom: 30}}>
+        <Text style={{fontWeight: '600',fontSize: 18,marginBottom: 10}}>Instagram</Text>
+        <Text style={{fontSize: 16}}>
           Connecting to instagram makes it easier to stay in contact with fellow
           travellers
         </Text>
-        <TouchableOpacity>
-          <Text>Connect to instagram</Text>
-        </TouchableOpacity>
-        <View>
-          <TouchableOpacity>
-            <Text>Connect to instagram</Text>
+        <TextInput
+          style={style.instaInput}
+          label="eai"
+          placeholder="@example"
+          clearButtonMode="always"
+          returnKeyType={'done'}
+          value={insta}
+          onChangeText={(text) => setInsta(text)}
+        />
+      </View>
+      
+      <View style={style.status}>
+        <Text style={style.statusTitle}>Which traveller are you?</Text>
+        <View style={style.options}>
+          <TouchableOpacity 
+            style={status === 'beginner' ? style.active : style.opt}
+            onPress={() => setStatus('beginner')}
+          >
+            <Text style={{color: status === 'beginner' ? 'white' : 'black'}}>Beginner</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={status === 'experienced' ? style.active : style.opt}
+            onPress={() => setStatus('experienced')}
+          >
+            <Text style={{color: status === 'experienced' ? 'white' : 'black'}}>Experienced</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </ScrollView>
+      
+      <View style={{flex: 1, justifyContent:'flex-end', alignItems: 'center', marginBottom: 56, marginLeft: 24, marginRight: 24}}>
+        <TouchableOpacity
+          onPress={handleSubmit}
+          style={{paddingTop: 13, paddingBottom: 13, backgroundColor: '#7FB1A7', width: '100%'}}
+        >
+          <Text style={{fontSize: 18, color: '#fff', textAlign: 'center', paddingLeft: 10, paddingRight: 10}}>Start exploring</Text>
+        </TouchableOpacity>
+      </View>
+      
+    </View>
   ));
 };
 
 const style = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    height: deviceHeight
   },
   topRegister: {
     position: 'absolute',
@@ -92,32 +112,26 @@ const style = StyleSheet.create({
     left: 24,
     top: 50,
   },
-  active: {
-    backgroundColor: 'red',
-  },
   options: {
-    flex: 1,
+    marginTop: 12,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent:'space-between'
   },
-  begin: {
-    height: 99,
-    backgroundColor: '#F0F4F3',
-    width: '45%',
-    borderRadius: 5,
+  opt: {
+    height: deviceHeight/8,
+    width: deviceWidth/2.5,
+    backgroundColor: '#E2E2E2',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#1D7874',
+    borderRadius: 5
   },
-  end: {
-    height: 99,
-    backgroundColor: '#F0F4F3',
-    width: '45%',
-    borderRadius: 5,
+  active: {
+    height: deviceHeight/8,
+    width: deviceWidth/2.5,
+    backgroundColor: '#154945',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#1D7874',
+    borderRadius: 5
   },
   status: {
     marginLeft: 24,
@@ -125,5 +139,14 @@ const style = StyleSheet.create({
   },
   statusTitle: {
     fontSize: 18,
+  },
+  instaInput: {
+    paddingLeft: 10,
+    marginBottom: 20,
+    marginTop: 20,
+    paddingTop: 13,
+    paddingBottom: 13,
+    backgroundColor: '#EAEAEA',
+    borderRadius: 0,
   },
 });
