@@ -96,13 +96,17 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity style={styles.logout} onPress={() => uiStore.logout()}>
         <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
-      {uiStore.currentUser.status === 'beginner' ? (
-        <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
-          <Groen>
-            {' '}
-            <Text>Tips 'n tricks</Text>
-          </Groen>
-        </TouchableOpacity>
+      {uiStore.currentUser.status ? (
+        uiStore.currentUser.status === 'beginner' ? (
+          <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
+            <Groen>
+              {' '}
+              <Text>Tips 'n tricks</Text>
+            </Groen>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )
       ) : (
         <></>
       )}
