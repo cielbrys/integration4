@@ -65,10 +65,10 @@ class UserStore {
     return user;
   }
 
-  getUser(email) {
-    const user = this.usersService.getUserByEmail(email);
+  getUser = async (email) => {
+    const user = await this.usersService.getUserByEmail(email);
     return user;
-  }
+  };
 
   loadUser = async (email) => {
     const jsonUser = await this.usersService.getUserByEmail(email);

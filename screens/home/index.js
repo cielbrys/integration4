@@ -10,14 +10,15 @@ import TripView from '../trip/TripView';
 import LocationsScreen from '../locations/LocationsScreen';
 import SettingsScreen from '../settings/SettingsScreen';
 import PeopleScreen from '../people/PeopleScreen';
-
+import Start from '../auth/Start';
 
 const Stack = createStackNavigator();
 
 export default () => {
   return (
-    <Stack.Navigator >
+    <Stack.Navigator>
       <Stack.Screen name="Home" component={Overview} />
+      <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Detail" component={Detail} />
       <Stack.Screen name="NewTripWarning" component={NewTripWarning} />
       <Stack.Screen name="NewTripChoice" component={NewTripChoice} />
@@ -36,6 +37,6 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
   },
   nav: {
-    backgroundColor: 'black'
-  }
+    backgroundColor: 'black',
+  },
 });

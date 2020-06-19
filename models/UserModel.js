@@ -11,6 +11,7 @@ class UserModel {
     trips = [],
     store,
     system = 'km',
+    visible = false,
     ...json
   }) {
     this.id = id;
@@ -21,6 +22,7 @@ class UserModel {
     }
     this.system = system;
     this.rootStore = store;
+    this.visible = visible;
     this.friends = [];
     this.updateFromJson(json);
     this.rootStore.userStore.addUser(this);
