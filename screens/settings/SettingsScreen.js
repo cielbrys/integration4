@@ -90,7 +90,7 @@ export default function GalleryScreen({ navigation }) {
               Visibility to other travellers
             </Text>
             <FlipToggle
-              value={isActive}
+              value={uiStore.currentUser.visible}
               buttonWidth={100}
               buttonHeight={40}
               buttonRadius={40}
@@ -104,7 +104,11 @@ export default function GalleryScreen({ navigation }) {
               onLabel={'On'}
               offLabel={'Off'}
               labelStyle={{ color: 'white' }} //
-              onToggle={() => (isActive ? setActive(false) : setActive(true))}
+              onToggle={() =>
+                uiStore.currentUser.visible
+                  ? userStore.toogleVisible(false, uiStore.currentUser)
+                  : userStore.toogleVisible(true, uiStore.currentUser)
+              }
               onToggleLongPress={() => console.log('toggle long pressed!')}
             />
           </View>

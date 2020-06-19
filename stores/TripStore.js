@@ -39,7 +39,6 @@ class TripStore {
     console.log('json', json.id);
     let trip = this.trips.find((trip) => trip.id === json.id);
     if (!trip) {
-      
       trip = new TripModel({
         id: json.id,
         store: this.rootStore,
@@ -59,7 +58,10 @@ class TripStore {
     this.trips.map((trip) => {
       distance = distance + Number(trip.distance);
     });
-    return distance.toFixed(2);
+    if (this.rootStore.uiStore.currentUser.system === 'mile') {
+      distance = distance * 0.6213;
+    }
+    return distance.toFixed(1);
   }
 
   get timeDone() {

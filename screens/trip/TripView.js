@@ -34,7 +34,7 @@ import PinLocation from '../../assets/images/currentTrip/pinLocation.svg';
 import Friends from '../../assets/images/currentTrip/friends.svg';
 
 export default function TripView({ navigation }) {
-  const { tripStore, uiStore, locationStore } = useStore();
+  const { tripStore, uiStore, locationStore, userStore } = useStore();
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
@@ -42,12 +42,45 @@ export default function TripView({ navigation }) {
   const [startTime, setStartTime] = useState();
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
+  const [nearbyPop, setNearbyPop] = useState(false);
+  const [pinLocationButton, setLocationButton] = useState(true);
+  const meetUserMail = 'ciel@gmail.com';
 
   const [pinName, setPinName] = useState(
     `Location #${locationStore.locations.length + 1}`
   );
 
+  if (uiStore.currentUser.visible === true) {
+    timeout();
+  }
+
+  function timeout() {
+    setTimeout(function () {
+      if (meetUserMail !== uiStore.currentUser.email) {
+        setNearbyPop(true);
+      }
+    }, 20000);
+  }
+
   navigation.setOptions({ headerTitle: name });
+
+  const addNewFriend = async (friendMail) => {
+    await userStore.setNewFriend(friendMail, uiStore.currentUser);
+  };
+
+  const meetUser = async () => {
+    console.log('meetfriend', meetUserMail);
+    uiStore.currentUser.friends.map((friend) => {
+      if (friend.email !== uiStore.currentUser.email) {
+        addNewFriend(meetUserMail);
+      }
+      const newCords = { latitude: 50.820583, longitude: 3.272017 };
+      uiStore.setMeetLocation(newCords);
+
+      uiStore.setEndLocation();
+    });
+    setNearbyPop(false);
+  };
 
   let pervLatLng = {};
   useEffect(() => {
@@ -70,8 +103,12 @@ export default function TripView({ navigation }) {
   }, []);
 
   let p2 = {
-    latitude: uiStore.endLocation.latitude,
-    longitude: uiStore.endLocation.longitude,
+    latitude: uiStore.meetLocation
+      ? uiStore.meetLocation.latitude
+      : uiStore.endLocation.latitude,
+    longitude: uiStore.meetLocation
+      ? uiStore.meetLocation.longitude
+      : uiStore.endLocation.longitude,
   };
 
   let p1 = {
@@ -84,13 +121,23 @@ export default function TripView({ navigation }) {
       {
         enableHighAccuracy: false,
         distanceInterval: 1,
-        timeInterval: 10000,
+        timeInterval: 1000,
       },
       (location) => {
         p1 = {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
         };
+        if (uiStore.meetLocation) {
+          p2 = {
+            latitude: uiStore.meetLocation.latitude,
+            longitude: uiStore.meetLocation.longitude,
+          };
+        }
+
+        if (location.coords.speed <= 5) {
+          setLocationButton(false);
+        }
         updateDistance(p1);
 
         const angleDeg =
@@ -110,8 +157,7 @@ export default function TripView({ navigation }) {
   };
 
   const updateDistance = (newLoc) => {
-    const newDistance =
-      haversine(pervLatLng, newLoc, { unit: uiStore.currentUser.system }) || 0;
+    const newDistance = haversine(pervLatLng, newLoc, { unit: 'km' }) || 0;
     pervLatLng = newLoc;
     setDistance(newDistance.toFixed(2));
   };
@@ -302,6 +348,7 @@ export default function TripView({ navigation }) {
                   paddingBottom: 8,
                   alignItems: 'center',
                 }}
+                disabled={pinLocationButton}
               >
                 <PinLocation />
               </TouchableOpacity>
@@ -364,6 +411,16 @@ export default function TripView({ navigation }) {
               label="Save"
               onPress={() => pinLocation()}
             />
+          </Dialog.Container>
+
+          <Dialog.Container visible={nearbyPop}>
+            <Dialog.Title>User nearby, want to meet?</Dialog.Title>
+            <Dialog.Button
+              color={'red'}
+              label="No thanks"
+              onPress={() => setNearbyPop(false)}
+            />
+            <Dialog.Button bold={true} label="Yes" onPress={() => meetUser()} />
           </Dialog.Container>
         </View>
       </View>

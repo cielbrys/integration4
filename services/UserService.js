@@ -9,11 +9,33 @@ class UserService {
     return await this.db.collection('users').doc(user.email).set(user);
   };
 
+  addNewFriend = async (friendMail, user) => {
+    const friend = await this.getUserByEmail(friendMail);
+    if (!friend) {
+      throw new Error(`User ${friendMail} does not exist`);
+    }
+    await this.db
+      .collection('users')
+      .doc(user.email)
+      .collection('users')
+      .doc(friend.email)
+      .set({ email: friend.email });
+
+    return friend;
+  };
+
   setSystem = async (user) => {
     await this.db
       .collection('users')
       .doc(user.email)
       .update({ system: user.system });
+  };
+
+  setVisible = async (user) => {
+    await this.db
+      .collection('users')
+      .doc(user.email)
+      .update({ visible: user.visible });
   };
 
   getUserByEmail = async (email) => {
@@ -25,6 +47,15 @@ class UserService {
     }
     console.log('user', email);
     return data;
+  };
+
+  getUsersForUser = async (user) => {
+    const contacts = await this.db
+      .collection('users')
+      .doc(user.email)
+      .collection('users')
+      .get();
+    return contacts.docs.map((u) => u.data());
   };
 
   getAll = async () => {
