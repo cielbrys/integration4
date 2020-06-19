@@ -149,6 +149,10 @@ export default function GalleryScreen({ navigation }) {
         </View>
         <Bottom style={styles.bottom} />
       </View>
+      <TouchableOpacity style={{marginTop: 40}} onPress={() => uiStore.logout()}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
+
     </ScrollView>
   ));
 }
