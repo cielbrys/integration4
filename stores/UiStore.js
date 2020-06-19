@@ -9,6 +9,7 @@ class UiStore {
     this.loggedIn = false;
     this.tripFeeling = '';
     this.endLocation = undefined;
+    this.meetLocation = undefined;
     this.authService = new AuthService({
       firebase: this.rootStore.firebase,
       onAuthStateChanged: this.onAuthStateChanged,
@@ -17,6 +18,10 @@ class UiStore {
 
   setEndLocation(cords) {
     this.endLocation = cords;
+  }
+
+  setMeetLocation(cords) {
+    this.meetLocation = cords;
   }
 
   setCurrentUser = (user) => {
@@ -56,6 +61,7 @@ class UiStore {
       this.setCurrentUser(user);
       await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
       await this.rootStore.locationStore.loadLocationsForUser(this.currentUser);
+      await this.rootStore.userStore.loadUsersForUser(this.currentUser);
     } else {
       console.log('niet ingelogd');
       this.setCurrentUser(undefined);
@@ -80,6 +86,8 @@ decorate(UiStore, {
   setCurrentTrip: action,
   loggedInTrue: action,
   tripFeeling: observable,
+  meetLocation: observable,
+  setMeetLocation: action,
   setTripFeeling: action,
 });
 

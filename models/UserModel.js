@@ -10,6 +10,7 @@ class UserModel {
     locations = [],
     trips = [],
     store,
+    system = 'km',
     ...json
   }) {
     this.id = id;
@@ -18,13 +19,19 @@ class UserModel {
     if (!store) {
       throw Error('voorzie een store');
     }
+    this.system = system;
     this.rootStore = store;
-    this.users = users;
+    this.friends = [];
     this.updateFromJson(json);
+    this.rootStore.userStore.addUser(this);
   }
 
   changeName(newName) {
     this.name = newName;
+  }
+
+  addFriend(friend) {
+    this.friends.push(friend);
   }
 
   changeSystem(newSystem) {
@@ -43,21 +50,17 @@ class UserModel {
     this.socials = url;
   }
 
+  toggleVisible(value) {
+    this.visible = value;
+  }
+
   updateFromJson = (json) => {
     this.name = json.name !== undefined ? json.name : this.name;
     this.email = json.email !== undefined ? json.email : this.email;
     this.system = json.system !== undefined ? json.system : this.system;
     this.status = json.status !== undefined ? json.status : this.status;
     this.socials = json.socials !== undefined ? json.socials : this.socials;
-    if (json.trips !== undefined) {
-      const oldGroups = this.trips.concat();
-      oldGroups.forEach((trip) => trip.unlinkUser(this));
-      trips.forEach((trip) => {
-        this.store.rootStore.tripStore
-          .updateGroupFromServer(trip)
-          .linkUser(this);
-      });
-    }
+    this.visible = json.visible !== undefined ? json.visible : this.visible;
   };
 
   addUser(user) {
@@ -66,6 +69,7 @@ class UserModel {
   addLocation(location) {
     this.locations.push(location);
   }
+
   get asJson() {
     return {
       id: this.id,
@@ -74,6 +78,7 @@ class UserModel {
       socials: this.socials,
       system: this.system,
       status: this.status,
+      visible: this.visible,
     };
   }
 }
@@ -82,6 +87,8 @@ decorate(UserModel, {
   name: observable,
   system: observable,
   socials: observable,
+  visible: observable,
+  toggleVisible: action,
   changeSystem: action,
   setSocials: action,
 });

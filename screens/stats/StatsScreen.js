@@ -16,7 +16,7 @@ import White from '../../assets/images/whiteLine.svg';
 import Yellow from '../../assets/images/locationButton.svg';
 
 export default function StatsScreen({ navigation }) {
-  const { tripStore, uiStore, locationStore } = useStore();
+  const { tripStore, uiStore, locationStore, userStore } = useStore();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -48,24 +48,26 @@ export default function StatsScreen({ navigation }) {
           <Stats />
           <View style={styles.txt}>
             <View style={styles.stat}>
-              <Text>Km's {'\n'}Traveled</Text>
+              <Text style={styles.statText}>
+                {uiStore.currentUser.system} {'\n'}traveled
+              </Text>
               <Text style={styles.number}>{tripStore.distanceDone}</Text>
             </View>
             <Black />
             <View style={styles.stat}>
-              <Text>Trips {'\n'}completed</Text>
+              <Text style={styles.statText}>trips {'\n'}completed</Text>
               <Text style={styles.number}>{tripStore.trips.length}</Text>
             </View>
             <Black />
             <View style={styles.stat}>
-              <Text>Hours {'\n'}traveled</Text>
+              <Text style={styles.statText}>hours {'\n'}traveled</Text>
               <Text style={styles.number}>{tripStore.timeDone}</Text>
             </View>
           </View>
           <View style={styles.bottomtxt}>
             <View style={styles.statsBottom}>
               <Text style={styles.numberBottom}>
-                {uiStore.currentUser.users.length}
+                {uiStore.currentUser.friends.length}
               </Text>
               <Text style={styles.white}>People met</Text>
               <White />
@@ -132,6 +134,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column-reverse',
     alignItems: 'flex-start',
     marginLeft: 32,
+  },
+
+  statText: {
+    textTransform: 'capitalize',
   },
   number: {
     fontSize: 32,

@@ -21,6 +21,34 @@ class UserStore {
     await this.usersService.setSystem(user.asJson);
   };
 
+  getAllUsers = async () => {
+    const jsonUsers = await this.usersService.getAll();
+    jsonUsers.forEach((json) => this.updateUserFromServer(json));
+  };
+
+  loadUsersForUser = async (user) => {
+    const r = await this.usersService.getUsersForUser(user.asJson);
+    r.forEach(async (friend) => {
+      const userJson = await this.getUser(friend.email);
+      const newFriend = this.updateUserFromServer(userJson);
+      this.addFriend(newFriend, user);
+    });
+  };
+
+  addFriend = (friend, user) => {
+    user.addFriend(friend);
+  };
+
+  toogleVisible = async (value, user) => {
+    user.toggleVisible(value);
+    await this.usersService.setVisible(user.asJson);
+  };
+
+  setNewFriend = async (newFriendMail, user) => {
+    console.log('friend', newFriendMail);
+    const r = await this.usersService.addNewFriend(newFriendMail, user.asJson);
+  };
+
   updateUserFromServer(json) {
     let user = this.users.find((user) => user.id === json.id);
     if (!user) {

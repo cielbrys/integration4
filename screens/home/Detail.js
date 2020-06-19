@@ -33,7 +33,9 @@ export default ({ route }) => {
     <View>
       <Text>Name: {trip.name}</Text>
       <Text>
-        {trip.distance}
+        {uiStore.currentUser.system === 'mile'
+          ? (Number(trip.distance) * 0.62137).toFixed(1)
+          : trip.distance}
         {uiStore.currentUser.system}
       </Text>
       <Text>{trip.duration}h.</Text>

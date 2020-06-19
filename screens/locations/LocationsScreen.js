@@ -88,7 +88,11 @@ const styles = StyleSheet.create({
     top: 60,
   },
   container: {
-    backgroundColor: 'rgb(255,255,255)',
+    backgroundColor: 'white',
+  },
+
+  main: {
+    backgroundColor: 'white',
   },
   top: {
     zIndex: -20,
@@ -106,6 +110,7 @@ const styles = StyleSheet.create({
   },
   locations: {
     marginTop: 100,
+    height: '100%',
   },
   location: {
     backgroundColor: 'rgb(240,244,243)',

@@ -98,13 +98,17 @@ export default function HomeScreen({ navigation }) {
         {/* <Text style={styles.logoutText}>Sign Out</Text> */}
         <TutorialButton />
       </TouchableOpacity>
-      {uiStore.currentUser.status === 'beginner' ? (
-        <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
-          <Groen>
-            {' '}
-            <Text>Tips 'n tricks</Text>
-          </Groen>
-        </TouchableOpacity>
+      {uiStore.currentUser.status ? (
+        uiStore.currentUser.status === 'beginner' ? (
+          <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
+            <Groen>
+              {' '}
+              <Text>Tips 'n tricks</Text>
+            </Groen>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )
       ) : (
         <></>
       )}
@@ -127,7 +131,9 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.stat}>
                   <Location />
                   <Text style={styles.tekst}>
-                    {item.distance}
+                    {uiStore.currentUser.system === 'mile'
+                      ? (Number(item.distance) * 0.62137).toFixed(1)
+                      : item.distance}
                     {uiStore.currentUser.system}
                   </Text>
                 </View>

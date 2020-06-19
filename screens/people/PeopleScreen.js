@@ -11,9 +11,10 @@ import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/people.svg';
 import Boom from '../../assets/images/boom.svg';
 import Insta from '../../assets/images/instagram.svg';
+import { useObserver } from 'mobx-react-lite';
 
 export default function PeopleScreen({ navigation }) {
-  const { uiStore } = useStore();
+  const { userStore, uiStore } = useStore();
 
   const goHome = () => {
     navigation.navigate('home', {
@@ -27,8 +28,8 @@ export default function PeopleScreen({ navigation }) {
     headerLeft: null,
   });
 
-  return (
-    <ScrollView style={styles.container}>
+  return useObserver(() => (
+    <View style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
           <Top style={styles.top} />
@@ -39,28 +40,32 @@ export default function PeopleScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.title}>
           <Text style={styles.met}>People you have met</Text>
-          {uiStore.currentUser.users.length === 0 ? (
+          {uiStore.currentUser.friends.length === 0 ? (
             <Text style={styles.txt}>No friends met yet... </Text>
           ) : (
             <>
               <Text style={styles.txt}>Friends </Text>
-              <View style={styles.friends}>
-                <Text style={styles.name}>Your Friends Name</Text>
-                <Insta
-                  onPress={() =>
-                    Linking.openURL(
-                      `https://www.instagram.com/${uiStore.currentUser.socials}`
-                    )
-                  }
-                ></Insta>
-              </View>
+              <ScrollView style={styles.friendsView}>
+                {uiStore.currentUser.friends.map((user) => (
+                  <View style={styles.friends} key={user.id}>
+                    <Text style={styles.name}>{user.name}</Text>
+                    <Insta
+                      onPress={() =>
+                        Linking.openURL(
+                          `https://www.instagram.com/${user.socials}`
+                        )
+                      }
+                    />
+                  </View>
+                ))}
+              </ScrollView>
             </>
           )}
           <Boom style={styles.bottom} />
         </View>
       </View>
-    </ScrollView>
-  );
+    </View>
+  ));
 }
 
 const styles = StyleSheet.create({
@@ -114,6 +119,10 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 16,
     borderRadius: 4,
+  },
+
+  friendsView: {
+    height: '100%',
   },
   name: {
     fontSize: 16,
