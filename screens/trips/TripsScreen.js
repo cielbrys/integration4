@@ -32,7 +32,9 @@ export default function TripsScreen({ navigation }) {
 
   
 
-  const trips = tripStore.trips 
+  const trips = tripStore.trips
+
+  const tripsDisplayed = trips.slice(0, trips.length -1)
 
   let latestTrip = trips[trips.length -1]
 
@@ -83,7 +85,7 @@ export default function TripsScreen({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.second}>All trips</Text>
         <View style={styles.all}>
-          {trips.map((trip)=>(
+          {tripsDisplayed.map((trip)=>(
             <View style={styles.trip}>
               <View style={styles.latestTop}> 
                 <Text style={styles.name}>{trip.name}</Text>
