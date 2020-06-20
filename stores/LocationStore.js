@@ -68,7 +68,7 @@ class LocationStore {
   }
 
   getLocationsForTrip = (id) => {
-    console.log(id)
+    console.log(id);
     let locations = [];
     this.locations.map((location) => {
       if (location.tripId === id) {
@@ -76,6 +76,10 @@ class LocationStore {
       }
     });
     return locations;
+  };
+
+  deleteTrip = async (location) => {
+    await this.locationsService.delete(location.asJson);
   };
 
   resolveLocation = (id) =>

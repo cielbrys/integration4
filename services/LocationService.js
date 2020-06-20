@@ -30,6 +30,11 @@ class LocationService {
     return location;
   };
 
+  delete = async (location) => {
+    const locationRef = await this.db.collection('locations').doc(location.id);
+    await locationRef.delete();
+  };
+
   getLocationsForUser = async (userId, onLocationAdd) => {
     const r = await this.db
       .collectionGroup('locations')

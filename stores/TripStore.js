@@ -73,6 +73,10 @@ class TripStore {
   }
 
   resolveTrip = (id) => this.trips.find((trip) => trip.id === id);
+
+  deleteTrip = async (trip) => {
+    await this.tripsService.delete(trip.asJson);
+  };
 }
 
 decorate(TripStore, {

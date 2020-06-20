@@ -64,7 +64,9 @@ export default function LocationsScreen({ navigation }) {
             <View style={styles.location} key={location.id}>
               <View style={styles.text}>
                 <Text style={styles.name}>{location.name}</Text>
-                <Text style={styles.loc}>Locatie gps </Text>
+                <Text style={styles.loc}>
+                  {location.cords.latitude}, {location.cords.longitude}
+                </Text>
                 {console.log(location.tripId)}
                 <Jeet
                   style={styles.view}

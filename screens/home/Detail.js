@@ -11,7 +11,7 @@ import { useObserver } from 'mobx-react-lite';
 import { useStore } from '../../hooks/useStore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default ({ route }) => {
+export default ({ navigation, route }) => {
   const { id } = route.params;
   const { tripStore, uiStore, locationStore } = useStore();
   const trip = tripStore.resolveTrip(id);
@@ -27,6 +27,11 @@ export default ({ route }) => {
       android: `${scheme}${latLng}`,
     });
     Linking.openURL(url);
+  };
+
+  const onDelete = async () => {
+    await tripStore.deleteTrip(trip);
+    navigation.navigate('Home');
   };
 
   return useObserver(() => (
@@ -47,6 +52,9 @@ export default ({ route }) => {
           <Text>{location.name}</Text>
         </TouchableOpacity>
       ))}
+      <TouchableOpacity onPress={() => onDelete()}>
+        <Text>Delete</Text>
+      </TouchableOpacity>
     </View>
   ));
 };

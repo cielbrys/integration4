@@ -26,6 +26,12 @@ class TripService {
     return trip;
   };
 
+  delete = async (trip) => {
+    const tripRef = await this.db.collection('trips').doc(trip.id);
+    await tripRef.delete();
+  };
+
+
   getTripsForUser = async (userId, onGroupAdded) => {
     const r = await this.db
       .collectionGroup('trips')
