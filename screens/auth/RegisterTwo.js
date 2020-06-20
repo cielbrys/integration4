@@ -8,6 +8,10 @@ import {
   TextInput,
 } from 'react-native';
 
+import { COLORS } from '../../constants/Colors';
+import { MARGINS } from '../../constants/Colors';
+import { FONTSIZES } from '../../constants/Colors';
+
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 
@@ -53,18 +57,12 @@ export default ({ navigation, route }) => {
       <Welcome style={style.welcome} />
 
       <View
-        style={{
-          marginTop: 90,
-          marginLeft: 24,
-          marginRight: 24,
-          marginTop: 180,
-          marginBottom: 30,
-        }}
+        style={style.registerView}
       >
-        <Text style={{ fontWeight: '600', fontSize: 18, marginBottom: 10 }}>
+        <Text style={style.instagramText}>
           Instagram
         </Text>
-        <Text style={{ fontSize: 16 }}>
+        <Text style={{ fontSize: FONTSIZES.small }}>
           Connecting to instagram makes it easier to stay in contact with fellow
           travellers
         </Text>
@@ -104,32 +102,14 @@ export default ({ navigation, route }) => {
       </View>
 
       <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          marginBottom: 56,
-          marginLeft: 24,
-          marginRight: 24,
-        }}
+        style={style.selectValueTravel}
       >
         <TouchableOpacity
           onPress={handleSubmit}
-          style={{
-            paddingTop: 13,
-            paddingBottom: 13,
-            backgroundColor: '#7FB1A7',
-            width: '100%',
-          }}
+          style={style.selectValueButton}
         >
           <Text
-            style={{
-              fontSize: 18,
-              color: '#fff',
-              textAlign: 'center',
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}
+            style={style.selectValueText}
           >
             Start exploring
           </Text>
@@ -150,7 +130,7 @@ const style = StyleSheet.create({
   },
   welcome: {
     position: 'absolute',
-    left: 24,
+    left: MARGINS.defaultValue,
     top: 50,
   },
   options: {
@@ -175,19 +155,52 @@ const style = StyleSheet.create({
     borderRadius: 5,
   },
   status: {
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
   },
   statusTitle: {
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   instaInput: {
     paddingLeft: 10,
     marginBottom: 20,
     marginTop: 20,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
   },
+  registerView: {
+    marginTop: 90,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
+    marginTop: 180,
+    marginBottom: 30,
+  },
+  instagramText: {
+    fontWeight: '600', 
+    fontSize: FONTSIZES.default, 
+    marginBottom: 10
+  },
+  selectValueTravel:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 56,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
+  },
+  selectValueButton:{
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
+    backgroundColor: COLORS.lightGreen,
+    width: '100%',
+  },
+  selectValueText:{
+    fontSize: FONTSIZES.default,
+    color: '#fff',
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
 });

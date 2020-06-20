@@ -1,24 +1,19 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import FlipToggle from 'react-native-flip-toggle-button';
-import { set } from 'mobx';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/settings.svg';
 import Back from '../../assets/images/back.svg';
-import Bottom from '../../assets/images/statsBottom.svg';
-import Save from '../../assets/images/save.svg';
-import { useHistory } from 'react-router-dom';
+import Bottom from '../../assets/images/statsBottomNew.svg';
+import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+
 
 export default function GalleryScreen({ navigation }) {
   const { uiStore, userStore } = useStore();
-  const history = useHistory();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -58,7 +53,7 @@ export default function GalleryScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top} />
+          <TitleBackground style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
@@ -153,8 +148,8 @@ export default function GalleryScreen({ navigation }) {
         </View>
         <Bottom style={styles.bottom} />
       </View>
-      <TouchableOpacity style={{marginTop: 40}} onPress={() => uiStore.logout()}>
-        <Text>Logout</Text>
+      <TouchableOpacity style={{marginBottom: 60, marginTop: 40, backgroundColor: '#FF0000', marginRight: 24, marginLeft: 24, paddingTop: 13, paddingBottom:13}} onPress={() => uiStore.logout()}>
+        <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>Logout</Text>
       </TouchableOpacity>
 
     </ScrollView>

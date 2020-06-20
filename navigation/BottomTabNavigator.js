@@ -30,7 +30,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{
         style: {
-          backgroundColor: '#1D7874',
+          backgroundColor: '#154945',
           paddingTop: 5,
           paddingBottom: 10,
           height: 70

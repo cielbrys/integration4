@@ -4,9 +4,12 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView,
-  Button,
 } from 'react-native';
+
+import { COLORS } from '../../constants/Colors';
+import { MARGINS } from '../../constants/Colors';
+import { FONTSIZES } from '../../constants/Colors';
+
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
@@ -158,16 +161,16 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   logout: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 60,
   },
   logoutText: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
   },
   tekstSpecial: {
     color: 'black',
 
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
     marginBottom: 15,
   },
   allRecent: {
@@ -188,8 +191,8 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
     marginTop: -10,
-    marginRight: 24,
-    marginLeft: 24,
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
   },
   border: {
     borderWidth: 1,
@@ -200,13 +203,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   recent: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginBottom: 16,
     marginTop: 32,
     fontSize: 20,
   },
   list: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     flex: 2,
     flexDirection: 'row',
     marginBottom: 40,
@@ -223,12 +226,12 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingTop: 8,
     marginBottom: 16,
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
   },
   tekst: {
     color: 'rgb(21,72,69)',
     marginLeft: 16,
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
   },
   title: {
     flexDirection: 'row',

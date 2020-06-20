@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Text, View, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import StartExploring from '../../assets/images/StartExploring.svg';
 import Landscape from '../../assets/images/Start/BGstart.svg';
 
-export default ({ navigation }) => {
+import { COLORS } from '../../constants/Colors';
+import { MARGINS } from '../../constants/Colors';
+import { FONTSIZES } from '../../constants/Colors';
 
+export default ({ navigation }) => {
 
   const goToLogin = () => {
     navigation.navigate("Login")
@@ -72,25 +75,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   loginScreenButton:{
-    marginRight:24,
-    marginLeft:24,
+    marginRight: MARGINS.defaultValue,
+    marginLeft:MARGINS.defaultValue,
     marginTop:0,
-    paddingTop:13,
-    paddingBottom:13,
-    backgroundColor:'#7FB1A7',
+    paddingTop:MARGINS.buttonPadding,
+    paddingBottom:MARGINS.buttonPadding,
+    backgroundColor:COLORS.lightGreen,
     borderRadius: 0,
   },
   registerScreenButton:{
-    marginRight:24,
-    marginLeft:24,
-    marginTop:13,
-    paddingTop:13,
-    paddingBottom:13,
+    marginRight:MARGINS.defaultValue,
+    marginLeft:MARGINS.defaultValue,
+    marginTop:MARGINS.buttonPadding,
+    paddingTop:MARGINS.buttonPadding,
+    paddingBottom:MARGINS.buttonPadding,
     backgroundColor:'#679289',
     borderRadius: 0,
   },
   loginText:{
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
     color:'#fff',
     textAlign:'center',
     paddingLeft : 10,

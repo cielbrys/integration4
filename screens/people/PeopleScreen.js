@@ -12,6 +12,8 @@ import TopTitle from '../../assets/images/people.svg';
 import Boom from '../../assets/images/boom.svg';
 import Insta from '../../assets/images/instagram.svg';
 import { useObserver } from 'mobx-react-lite';
+import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+
 
 export default function PeopleScreen({ navigation }) {
   const { userStore, uiStore } = useStore();
@@ -32,7 +34,7 @@ export default function PeopleScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top} />
+          <TitleBackground style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>

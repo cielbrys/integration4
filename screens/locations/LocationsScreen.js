@@ -1,11 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   ScrollView,
   Linking,
   Platform,
@@ -14,12 +11,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/locations.svg';
 import Back from '../../assets/images/back.svg';
 import Boom from '../../assets/images/boom.svg';
 import Map from '../../assets/images/map.svg';
 import Jeet from '../../assets/images/jeet.svg';
+import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+
 
 export default function LocationsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
@@ -50,10 +48,10 @@ export default function LocationsScreen({ navigation }) {
   };
 
   return useObserver(() => (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top} />
+          <TitleBackground style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
@@ -61,7 +59,7 @@ export default function LocationsScreen({ navigation }) {
         </TouchableOpacity>
         <ScrollView style={styles.locations}>
           {locationStore.locations.map((location) => (
-            <View style={styles.location} key={location.id}>
+            <TouchableOpacity style={styles.location} key={location.id} onPress={() => handlePress(location.cords)}>
               <View style={styles.text}>
                 <Text style={styles.name}>{location.name}</Text>
                 <Text style={styles.loc}>
@@ -70,16 +68,16 @@ export default function LocationsScreen({ navigation }) {
                 {console.log(location.tripId)}
                 <Jeet
                   style={styles.view}
-                  onPress={() => handlePress(location.cords)}
+                  
                 ></Jeet>
               </View>
               <Map />
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <Boom style={styles.bottom} />
       </View>
-    </View>
+    </ScrollView>
   ));
 }
 
@@ -120,7 +118,7 @@ const styles = StyleSheet.create({
     marginRight: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderRadius: 6,
+    borderRadius: 10,
     padding: 16,
     marginBottom: 16,
   },

@@ -9,6 +9,10 @@ import {
   Dimensions,
 } from 'react-native';
 
+import { COLORS } from '../../constants/Colors';
+import { MARGINS } from '../../constants/Colors';
+import { FONTSIZES } from '../../constants/Colors';
+
 import TopRegister from '../../assets/images/Register/RegisterTopBG.svg';
 import Welcome from '../../assets/images/Register/Welcome.svg';
 
@@ -149,8 +153,8 @@ const style = StyleSheet.create({
     flex: 1,
   },
   bottom: {
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
   },
   topRegister: {
     position: 'absolute',
@@ -158,19 +162,19 @@ const style = StyleSheet.create({
   },
   loginTextSecondary: {
     color: '#4E4E4E',
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
     textAlign: 'center',
     paddingLeft: 10,
     paddingRight: 10,
   },
   loginButtonSecondary: {
     marginTop: 0,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     borderRadius: 0,
   },
   loginText: {
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
     color: '#fff',
     textAlign: 'center',
     paddingLeft: 10,
@@ -178,9 +182,9 @@ const style = StyleSheet.create({
   },
   loginButton: {
     marginTop: 20,
-    paddingTop: 13,
-    paddingBottom: 13,
-    backgroundColor: '#7FB1A7',
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
+    backgroundColor: COLORS.lightGreen,
     borderRadius: 0,
   },
   form: {
@@ -192,8 +196,8 @@ const style = StyleSheet.create({
 
   loginSocialsFB: {
     marginTop: 10,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#475993',
     borderRadius: 5,
     display: 'flex',
@@ -206,8 +210,8 @@ const style = StyleSheet.create({
   loginSocialsG: {
     marginTop: 10,
     marginBottom: 20,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#D4514C',
     borderRadius: 5,
     display: 'flex',
@@ -218,24 +222,24 @@ const style = StyleSheet.create({
     paddingLeft: 10,
   },
   textInputSocial: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
     fontWeight: '600',
     color: 'white',
   },
 
   textInputTitle: {
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   textInput: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
     marginBottom: 12,
   },
   input: {
     paddingLeft: 10,
     marginBottom: 20,
     marginTop: 0,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
   },

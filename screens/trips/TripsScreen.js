@@ -30,6 +30,8 @@ import Background from '../../assets/images/bg.svg';
 import LocationSmall from '../../assets/images/locationYellow.svg';
 import TimerSmall from '../../assets/images/timerYellow.svg';
 import { useHistory } from 'react-router-dom';
+import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+
 
 const screenWidth = Math.round(Dimensions.get('window').width) / 2.5;
 export default function TripsScreen({ navigation }) {
@@ -69,13 +71,13 @@ export default function TripsScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top} />
+          <TitleBackground style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
           <Back />
         </TouchableOpacity>
-        <Text style={styles.first}>Latest trips</Text>
+        <Text style={styles.first}>Latest trip</Text>
         <Front style={styles.front} />
         <TouchableOpacity
           style={styles.latest}
@@ -102,7 +104,7 @@ export default function TripsScreen({ navigation }) {
             </Text>
           </View>
         </TouchableOpacity>
-        <Text style={styles.second}>All trips</Text>
+        <Text style={styles.second}>All past trips</Text>
         <View style={styles.all}>
           {tripsDisplayed.map((trip) => (
             <TouchableOpacity
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(240,244,243)',
     padding: 16,
     zIndex: -20,
-    borderRadius: 6,
+    borderRadius: 10,
   },
   latestTop: {
     flexDirection: 'row',
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
   },
   trip: {
     backgroundColor: 'rgb(240,244,243)',
-    borderRadius: 3,
+    borderRadius: 10,
     padding: 12,
     marginRight: 24,
     marginBottom: 32,

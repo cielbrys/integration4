@@ -14,6 +14,7 @@ import Stats from '../../assets/images/stats.svg';
 import Black from '../../assets/images/blackLine.svg';
 import White from '../../assets/images/whiteLine.svg';
 import Yellow from '../../assets/images/locationButton.svg';
+import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
 export default function StatsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
@@ -38,7 +39,7 @@ export default function StatsScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
-          <Top style={styles.top} />
+          <TitleBackground style={styles.top} />
           <TopTitle style={styles.topTitle} />
         </View>
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>

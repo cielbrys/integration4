@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { useStore } from '../../hooks/useStore';
 import { useHistory } from 'react-router-dom';
+
+import { COLORS } from '../../constants/Colors';
+import { MARGINS } from '../../constants/Colors';
+import { FONTSIZES } from '../../constants/Colors';
 
 import Landscape from '../../assets/images/Login/BG.svg';
 
@@ -115,31 +119,31 @@ export default ({ navigation }) => {
 
 const styles = StyleSheet.create({
   loginTextSecondary: {
-    color:'#C4C4C4',
+    color: COLORS.lightGrey,
     fontSize: 16,
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
   },
   loginButtonSecondary: {
-    marginRight:24,
-    marginLeft:24,
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
     marginTop:0,
-    paddingTop:13,
-    paddingBottom:13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     borderRadius: 0,
   },
   loginButton:{
-    marginRight:24,
-    marginLeft:24,
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
     marginTop:30,
-    paddingTop:13,
-    paddingBottom:13,
-    backgroundColor:'#7FB1A7',
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
+    backgroundColor: COLORS.lightGreen,
     borderRadius: 0,
   },
   loginText: {
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
     color:'#fff',
     textAlign:'center',
     paddingLeft : 10,
@@ -158,30 +162,30 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignSelf: 'flex-end',
-    marginBottom: 24
+    marginBottom: MARGINS.defaultValue
   },
   text: {
     fontSize: 16,
     color: 'white',
-    marginLeft:24,
+    marginLeft:MARGINS.defaultValue,
     marginBottom: 12
   },
   textDark: {
     fontSize: 16,
     color: '#154945',
-    marginLeft:24,
+    marginLeft:MARGINS.defaultValue,
     marginBottom: 12,
     width: '100%',
     paddingLeft: 10,
   },
   textInput: {
     paddingLeft: 10,
-    marginRight:24,
-    marginLeft:24,
+    marginRight:MARGINS.defaultValue,
+    marginLeft:MARGINS.defaultValue,
     marginBottom: 20,
     marginTop:0,
-    paddingTop:13,
-    paddingBottom:13,
+    paddingTop:MARGINS.buttonPadding,
+    paddingBottom:MARGINS.buttonPadding,
     backgroundColor:'#EAEAEA',
     borderRadius: 0,
   }
