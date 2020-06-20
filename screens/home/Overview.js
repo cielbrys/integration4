@@ -58,6 +58,10 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('NewTripChoice');
   };
 
+  const goToTrips = () => {
+    navigation.navigate('TripsScreen');
+  };
+
   const goToCurrentTrip = () => {
     navigation.navigate('TripView');
   };
@@ -140,7 +144,7 @@ export default function HomeScreen({ navigation }) {
               </View>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity onPress={startNewTrip}>
+          <TouchableOpacity onPress={goToTrips}>
             <View style={styles.trip}>
               <View style={styles.allRecent}>
                 <Text style={styles.tekstSpecial}>See all my recent trips</Text>

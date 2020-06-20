@@ -11,6 +11,7 @@ import LocationsScreen from '../locations/LocationsScreen';
 import SettingsScreen from '../settings/SettingsScreen';
 import PeopleScreen from '../people/PeopleScreen';
 import TutorialScreen from '../tutorial/TutorialScreen';
+import TripsScreen from "../trips/TripsScreen"
 
 
 const Stack = createStackNavigator();
@@ -28,6 +29,7 @@ export default () => {
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="People" component={PeopleScreen} />
       <Stack.Screen name="TutorialScreen" component={TutorialScreen} />
+      <Stack.Screen name="TripsScreen" component={TripsScreen} />
     </Stack.Navigator>
   );
 };
