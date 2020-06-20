@@ -19,6 +19,7 @@ import Groen from '../../assets/images/groen.svg';
 import Timer from '../../assets/images/timerYellow';
 import Location from '../../assets/images/locationYellow';
 import Pijl from '../../assets/images/arrow.svg';
+import TutorialButton from '../../assets/images/tutorialButton.svg';
 
 export default function HomeScreen({ navigation }) {
   const { tripStore, uiStore } = useStore();
@@ -61,14 +62,15 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('TripView');
   };
 
-  const log = () => {
-    console.log(uiStore.currentTrip);
+  const goToTutorial = () => {
+    navigation.navigate('TutorialScreen');
   };
 
   if (uiStore.currentUser) {
     return useObserver(() => (
       <ScrollView style={styles.container}>
         <Mountain style={styles.mtn} />
+
         {uiStore.currentTrip === false ? (
           <>
             <TouchableOpacity
@@ -92,11 +94,10 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </>
         )}
-        <TouchableOpacity
-          style={styles.logout}
-          onPress={() => uiStore.logout()}
-        >
-          <Text style={styles.logoutText}>Sign Out</Text>
+
+        <TouchableOpacity style={styles.logout} onPress={goToTutorial}>
+          {/* <Text style={styles.logoutText}>Sign Out</Text> */}
+          <TutorialButton />
         </TouchableOpacity>
         {uiStore.currentUser.status === 'beginner' ? (
           <TouchableOpacity style={styles.button} onPress={() => goToTips()}>

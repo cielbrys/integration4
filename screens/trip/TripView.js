@@ -377,6 +377,7 @@ export default function TripView({ navigation }) {
             <Dialog.Input
               onChangeText={(tripName) => setName(tripName)}
               value={name}
+              maxLength={15}
             ></Dialog.Input>
             <Dialog.Button
               color={'red'}
@@ -400,6 +401,7 @@ export default function TripView({ navigation }) {
             <Dialog.Input
               onChangeText={(newPinName) => setPinName(newPinName)}
               value={pinName}
+              maxLength={25}
             ></Dialog.Input>
             <Dialog.Button
               color={'gray'}
