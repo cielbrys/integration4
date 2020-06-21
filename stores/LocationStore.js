@@ -78,9 +78,14 @@ class LocationStore {
     return locations;
   };
 
-  deleteTrip = async (location) => {
+  deleteLocation = async (location) => {
     await this.locationsService.delete(location.asJson);
+    this.removeLocation(location);
   };
+
+  removeLocation(location) {
+    this.locations.remove(location);
+  }
 
   resolveLocation = (id) =>
     this.locations.find((location) => location.id === id);
@@ -90,6 +95,7 @@ decorate(LocationStore, {
   locations: observable,
   empty: action,
   addLocation: action,
+  removeLocation: action,
 });
 
 export default LocationStore;

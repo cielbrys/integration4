@@ -71,6 +71,7 @@ export default function HomeScreen({ navigation }) {
   const goToTutorial = () => {
     navigation.navigate('TutorialScreen');
   };
+  
   return useObserver(() => (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Mountain style={styles.mtn} />
@@ -114,7 +115,7 @@ export default function HomeScreen({ navigation }) {
         <></>
       )}
       <Text style={styles.recent}>
-        {uiStore.currentUser.name}'s' recent trips
+        {uiStore.currentUser.name}'s recent trips
       </Text>
       {trips.length !== 0 ? (
         <ScrollView style={styles.list} horizontal={true} showsHorizontalScrollIndicator={false}>

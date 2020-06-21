@@ -30,7 +30,12 @@ class UserModel {
 
   changeName(newName) {
     this.name = newName;
+    this.updateUsername(this);
   }
+
+  updateUsername = async (newName) => {
+    this.rootStore.userStore.updateUsername(newName);
+  };
 
   addFriend(friend) {
     this.friends.push(friend);
@@ -93,6 +98,7 @@ decorate(UserModel, {
   toggleVisible: action,
   changeSystem: action,
   setSocials: action,
+  changeName: action,
 });
 
 export default UserModel;

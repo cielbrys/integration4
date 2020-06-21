@@ -13,7 +13,7 @@ class UserStore {
   }
 
   createUser = async (user) => {
-    await this.usersService.create(user);
+    return await this.usersService.create(user);
   };
 
   setSystem = async (user) => {
@@ -74,6 +74,10 @@ class UserStore {
     const jsonUser = await this.usersService.getUserByEmail(email);
     console.log('json', jsonUser);
     return this.updateUserFromServer(jsonUser);
+  };
+
+  updateUsername = async (user) => {
+    await this.usersService.setName(user);
   };
 
   addUser = (user) => {

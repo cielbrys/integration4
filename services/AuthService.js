@@ -1,4 +1,4 @@
-import "firebase/auth";
+import 'firebase/auth';
 
 class AuthService {
   constructor({ firebase, onAuthStateChanged }) {
@@ -30,6 +30,11 @@ class AuthService {
       displayName: name,
     });
     return userCredential.user;
+  };
+
+  updateUser = async (newPassword, newEmail) => {
+    await this.auth.currentUser.updateEmail(newEmail);
+    await this.auth.currentUser.updatePassword(newPassword);
   };
 
   isRegistered = async (email) => {

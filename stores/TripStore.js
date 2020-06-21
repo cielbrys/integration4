@@ -76,13 +76,19 @@ class TripStore {
 
   deleteTrip = async (trip) => {
     await this.tripsService.delete(trip.asJson);
+    this.removeTrip(trip);
   };
+
+  removeTrip(trip) {
+    this.trips.remove(trip);
+  }
 }
 
 decorate(TripStore, {
   trips: observable,
   empty: action,
   addTrip: action,
+  removeTrip: action,
   distanceDone: computed,
 });
 

@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-} from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Text, View, StyleSheet, Dimensions, Image } from 'react-native';
 import * as Location from 'expo-location';
 import { useObserver } from 'mobx-react-lite';
 import 'mobx-react-lite/batchingForReactDom';
@@ -37,12 +31,14 @@ export default function TripView({ navigation }) {
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const [startTime, setStartTime] = useState();
+  const startTime = new Date();
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
   const [pinLocationButton, setLocationButton] = useState(true);
   const meetUserMail = 'ciel@gmail.com';
+
+  const isMountedRef = useRef(null);
 
   const [pinName, setPinName] = useState(
     `Location #${locationStore.locations.length + 1}`
@@ -89,7 +85,6 @@ export default function TripView({ navigation }) {
         console.log('Permission to access location was denied');
       } else {
         startLocationTracking();
-        setStartTime(new Date());
         Location.watchHeadingAsync((obj) => {
           let heading = obj.magHeading;
           setHeading(heading);
@@ -234,13 +229,8 @@ export default function TripView({ navigation }) {
   return useObserver(() => {
     return (
       <View style={styles.container}>
-        <View
-          style={styles.friends}
-        >
-          <TouchableOpacity
-            style={styles.friendsButton}
-            onPress={goToFriends}
-          >
+        <View style={styles.friends}>
+          <TouchableOpacity style={styles.friendsButton} onPress={goToFriends}>
             <Friends />
           </TouchableOpacity>
         </View>
@@ -277,10 +267,7 @@ export default function TripView({ navigation }) {
             bottom: isToggled === true ? -240 : -22.5,
           }}
         >
-          <TouchableOpacity
-            style={styles.bottom}
-            onPress={toggleTrueFalse}
-          >
+          <TouchableOpacity style={styles.bottom} onPress={toggleTrueFalse}>
             <ArrowUp style={{ opacity: 0, marginRight: 24 }} />
             <View
               style={{
@@ -304,9 +291,7 @@ export default function TripView({ navigation }) {
           </TouchableOpacity>
 
           <View style={{ display: isToggled === true ? 'none' : 'visible' }}>
-            <View
-              style={styles.amountMiles}
-            >
+            <View style={styles.amountMiles}>
               <AmountMiles />
               <Text style={{ fontSize: 36, color: 'white', marginLeft: 6 }}>
                 {distance} miles
@@ -392,11 +377,11 @@ export default function TripView({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1, 
-    backgroundColor: 'white' 
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
   },
-  friends:{
+  friends: {
     width: 48,
     height: 48,
     backgroundColor: '#E1E9E7',
@@ -406,25 +391,25 @@ const styles = StyleSheet.create({
     right: MARGINS.defaultValue,
     borderRadius: 50,
   },
-  friendsButton:{
+  friendsButton: {
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  topBar: { 
-    height: 0
+  topBar: {
+    height: 0,
   },
   topBarTop: {
-    marginTop: -10
+    marginTop: -10,
   },
   topBarTitle: {
-    position: 'absolute', 
-    right: MARGINS.defaultValue, 
-    top: 56
+    position: 'absolute',
+    right: MARGINS.defaultValue,
+    top: 56,
   },
   arrow: {
-    alignItems: 'center', 
-    marginTop: deviceHeight / 4
+    alignItems: 'center',
+    marginTop: deviceHeight / 4,
   },
   bottom: {
     flexDirection: 'row',
@@ -453,5 +438,5 @@ const styles = StyleSheet.create({
     marginLeft: MARGINS.defaultValue,
     paddingTop: MARGINS.buttonPadding,
     paddingBottom: MARGINS.buttonPadding,
-  }
+  },
 });

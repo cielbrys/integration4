@@ -29,8 +29,7 @@ export default function GalleryScreen({ navigation }) {
     });
   };
 
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [name, setName] = useState(uiStore.currentUser.name);
 
   const [isActive, setActive] = useState(false);
 
@@ -51,6 +50,10 @@ export default function GalleryScreen({ navigation }) {
     userStore.setSystem(uiStore.currentUser);
   };
 
+  const setUsername = async () => {
+    await uiStore.currentUser.changeName(name);
+  };
+
   return useObserver(() => (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.main}>
@@ -63,24 +66,33 @@ export default function GalleryScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.input}>
           <View style={styles.type}>
-            <Text style={styles.text}>Email</Text>
+            <Text style={styles.text}>Username</Text>
             <TextInput
               style={styles.textInput}
               label="eai"
               clearButtonMode="always"
-              keyboardType="email-address"
               value={name}
               onChangeText={(text) => setName(text)}
               returnKeyType={'next'}
             />
-            <Text style={styles.text}>Password</Text>
-            <TextInput
-              style={styles.textInput}
-              clearButtonMode="always"
-              secureTextEntry={true}
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
+            <TouchableOpacity
+              style={{
+                marginBottom: 30,
+                marginTop: 10,
+                backgroundColor: 'rgb(29,120,116)',
+                marginRight: 24,
+                marginLeft: 24,
+                paddingTop: 13,
+                paddingBottom: 13,
+              }}
+              onPress={() => setUsername()}
+            >
+              <Text
+                style={{ fontSize: 18, color: 'white', textAlign: 'center' }}
+              >
+                Save
+              </Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.visible}>
             <Text style={styles.description}>
@@ -150,10 +162,22 @@ export default function GalleryScreen({ navigation }) {
         </View>
         <Bottom style={styles.bottom} />
       </View>
-      <TouchableOpacity style={{marginBottom: 60, marginTop: 40, backgroundColor: '#FF0000', marginRight: 24, marginLeft: 24, paddingTop: 13, paddingBottom:13}} onPress={() => uiStore.logout()}>
-        <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>Logout</Text>
+      <TouchableOpacity
+        style={{
+          marginBottom: 60,
+          marginTop: 40,
+          backgroundColor: '#FF0000',
+          marginRight: 24,
+          marginLeft: 24,
+          paddingTop: 13,
+          paddingBottom: 13,
+        }}
+        onPress={() => uiStore.logout()}
+      >
+        <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
+          Logout
+        </Text>
       </TouchableOpacity>
-
     </ScrollView>
   ));
 }

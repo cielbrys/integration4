@@ -30,6 +30,12 @@ class UserService {
       .doc(user.email)
       .update({ system: user.system });
   };
+  setName = async (user) => {
+    await this.db
+      .collection('users')
+      .doc(user.email)
+      .update({ name: user.name });
+  };
 
   setVisible = async (user) => {
     await this.db

@@ -26,7 +26,6 @@ import Start from './screens/auth/Start';
 
 const Stack = createStackNavigator();
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -76,7 +75,7 @@ export default function App(props) {
             ref={containerRef}
             initialState={initialNavigationState}
           >
-            {uiStore.currentUser !== undefined ? (
+            {uiStore.currentUser ? (
               <Stack.Navigator headerMode="none">
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               </Stack.Navigator>
