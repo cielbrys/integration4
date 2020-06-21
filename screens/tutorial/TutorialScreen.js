@@ -45,9 +45,6 @@ export default function StatsScreen({ navigation }) {
   ]
 
   const [pageCount, setPageCount] = useState(1);
-  const [myText, setMyText] = useState("nothing");
-  const [gestureName, setGestureName] = useState('none');
-  const [backgroundColor, setBackgroundColor] = useState('#fff');
 
   const goNext = () => {
     setPageCount(pageCount + 1)
@@ -81,6 +78,9 @@ export default function StatsScreen({ navigation }) {
         backgroundColor: '#679289'
       }}
     >
+      <TouchableOpacity style={{zIndex: 99999999, alignItems: 'flex-end', marginTop: 56, marginRight: 24}} onPress={goHome}>
+        <Text style={{zIndex: 99999999,fontSize: 18, color: 'white'}}>Skip</Text>
+      </TouchableOpacity>
 
       <GestureRecognizer
         onSwipeLeft={(state) => onSwipeLeft(state)}
@@ -92,8 +92,10 @@ export default function StatsScreen({ navigation }) {
         }}
         >
 
-          <TutorialBG style={{position: 'absolute', top: -50}} />
-          <View style={{ alignItems: 'center', marginTop: deviceHeight/5}}>
+          
+
+          <TutorialBG style={{position: 'absolute', top: -80}} />
+          <View style={{ alignItems: 'center', marginTop: deviceHeight/8}}>
             {tutorial[pageCount - 1].img}
             {tutorial[pageCount - 1].text}
           </View>
