@@ -61,7 +61,7 @@ export default ({ navigation, route }) => {
   };
 
   return useObserver(() => (
-    <ScrollView style={style.container}>
+    <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
 
       <View>
         <Title style={style.topTitle} />
@@ -123,20 +123,19 @@ export default ({ navigation, route }) => {
         <Text style={style.deleteButtonText}>Delete this trip</Text>
       </TouchableOpacity>
 
-          <Dialog.Container visible={popUpSave}>
-            <Dialog.Title>Are you sure?</Dialog.Title>
-            <Dialog.Button
-              color={'gray'}
-              label="Cancel"
-              onPress={() => setPopUpSave(false)}
-            />
-            <Dialog.Button
-              bold={true}
-              label="Delete"
-              onPress={() => onDelete()}
-            />
-          </Dialog.Container>
-
+      <Dialog.Container visible={popUpSave}>
+        <Dialog.Title>Are you sure?</Dialog.Title>
+        <Dialog.Button
+          color={'gray'}
+          label="Cancel"
+          onPress={() => setPopUpSave(false)}
+        />
+        <Dialog.Button
+          bold={true}
+          label="Delete"
+          onPress={() => onDelete()}
+        />
+      </Dialog.Container>
     </ScrollView>
   ));
 };

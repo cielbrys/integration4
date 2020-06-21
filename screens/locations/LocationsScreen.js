@@ -50,7 +50,7 @@ export default function LocationsScreen({ navigation }) {
   };
 
   return useObserver(() => (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.main}>
         <View style={styles.header}>
           <TitleBackground style={styles.top} />

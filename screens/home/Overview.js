@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('TutorialScreen');
   };
   return useObserver(() => (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Mountain style={styles.mtn} />
 
       {uiStore.currentTrip === false ? (
@@ -117,7 +117,7 @@ export default function HomeScreen({ navigation }) {
         {uiStore.currentUser.name}'s' recent trips
       </Text>
       {trips.length !== 0 ? (
-        <ScrollView style={styles.list} horizontal={true}>
+        <ScrollView style={styles.list} horizontal={true} showsHorizontalScrollIndicator={false}>
           {lastTrips.map((item) => (
             <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
               <View style={styles.trip}>

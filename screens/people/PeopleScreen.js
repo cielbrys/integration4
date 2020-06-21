@@ -46,7 +46,7 @@ export default function PeopleScreen({ navigation }) {
           ) : (
             <>
               <Text style={styles.txt}>Friends </Text>
-              <ScrollView style={styles.friendsView}>
+              <ScrollView style={styles.friendsView} showsHorizontalScrollIndicator={false}>
                 {uiStore.currentUser.friends.map((user) => (
                   <View style={styles.friends} key={user.id}>
                     <Text style={styles.name}>{user.name}</Text>
