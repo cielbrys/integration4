@@ -58,7 +58,7 @@ export default ({ navigation }) => {
           <Welcome style={style.welcome} />
           <View style={style.form}>
             <Text style={style.textInputTitle}>Create an account</Text>
-            <View style={style.socials}>
+            {/* <View style={style.socials}>
               <TouchableOpacity style={style.loginSocialsFB}>
                 <FacebookIcon style={style.textInputSocialIcon} />
                 <Text style={style.textInputSocial}>Sign in with Facebook</Text>
@@ -67,7 +67,7 @@ export default ({ navigation }) => {
                 <GoogleIcon style={style.textInputSocialIcon} />
                 <Text style={style.textInputSocial}>Sign in with Google</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
             <View>
               <Text style={style.textInput}>Travellers name</Text>
               <TextInput
