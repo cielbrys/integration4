@@ -11,6 +11,8 @@ import Back from '../../assets/images/back.svg';
 import Bottom from '../../assets/images/statsBottomNew.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 export default function GalleryScreen({ navigation }) {
   const { uiStore, userStore } = useStore();
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
   },
   topTitle: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 60,
   },
   main: {
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   text: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
     color: 'black',
     marginBottom: 12,
   },
@@ -215,8 +217,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginBottom: 20,
     marginTop: 0,
-    paddingTop: 13,
-    paddingBottom: 13,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
   },
@@ -229,17 +231,17 @@ const styles = StyleSheet.create({
     zIndex: 8,
   },
   input: {
-    marginRight: 24,
-    marginLeft: 24,
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 80,
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 40,
   },
   description: {
     color: 'rgb(29,120,116)',
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   eenheid: {
     flexDirection: 'row',
@@ -272,7 +274,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: 'white',
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   insta: {
     marginTop: 110,
@@ -280,7 +282,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   tekst: {
     color: 'white',
@@ -289,9 +291,9 @@ const styles = StyleSheet.create({
   instaInput: {
     paddingLeft: 10,
     marginBottom: 20,
-    marginTop: 24,
-    paddingTop: 13,
-    paddingBottom: 13,
+    marginTop: MARGINS.defaultValue,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
     backgroundColor: '#EAEAEA',
     borderRadius: 0,
   },

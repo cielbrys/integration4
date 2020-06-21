@@ -29,8 +29,6 @@ export default function StatsScreen({ navigation }) {
     });
   };
 
-
-
   const tutorial = [
     {
       text: <Text style={{top: deviceHeight/14, color: 'white', fontSize: 18, textAlign: 'center'}} >Explore unknown locations in {"\n"}your own country by giving us your {"\n"}preferred feeling.</Text>,

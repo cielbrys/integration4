@@ -18,9 +18,11 @@ import Map from '../../assets/images/map.svg';
 import Jeet from '../../assets/images/jeet.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 export default function LocationsScreen({ navigation }) {
-  const { tripStore, uiStore, locationStore } = useStore();
+  const { locationStore } = useStore();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -84,7 +86,7 @@ export default function LocationsScreen({ navigation }) {
 const styles = StyleSheet.create({
   topTitle: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 60,
   },
   container: {
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 60,
   },
   bottom: {
@@ -114,8 +116,8 @@ const styles = StyleSheet.create({
   },
   location: {
     backgroundColor: 'rgb(240,244,243)',
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 10,
@@ -124,11 +126,11 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'rgb(29,120,116)',
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   loc: {
     color: 'rgb(194,194,194)',
-    marginBottom: 24,
+    marginBottom: MARGINS.defaultValue,
   },
   text: {
     justifyContent: 'space-between',

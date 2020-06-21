@@ -6,9 +6,8 @@ import {
   View,
 } from 'react-native';
 
-import { COLORS } from '../../constants/Colors';
-import { MARGINS } from '../../constants/Colors';
-import { FONTSIZES } from '../../constants/Colors';
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
@@ -169,7 +168,6 @@ const styles = StyleSheet.create({
   },
   tekstSpecial: {
     color: 'black',
-
     fontSize: FONTSIZES.small,
     marginBottom: 15,
   },

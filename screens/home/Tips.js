@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+
+import { MARGINS } from '../../constants/CssConst';
 
 import Camping from '../../assets/images/Tips/Camping.svg';
 import Roads from '../../assets/images/Tips/Roads.svg';
@@ -9,12 +11,13 @@ import Supplies from '../../assets/images/Tips/Supplies.svg';
 import BottomTips from '../../assets/images/Tips/BottomTips.svg';
 import ArrowTips from '../../assets/images/Tips/ArrowTips.svg';
 
+
 import Back from '../../assets/images/back.svg';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 let deviceWidth = Dimensions.get('window').height;
 let imgTop, textTop, buttonBottom;
-console.log(deviceWidth)
+
 if(deviceWidth > 700){
   imgTop = 60;
   textTop = 50;
@@ -24,7 +27,6 @@ if(deviceWidth > 700){
   textTop = 5;
   buttonBottom = 125;
 }
-console.log(imgTop);
 
 export default ({ navigation }) => {
 
@@ -37,19 +39,6 @@ export default ({ navigation }) => {
     headerTitle: null,
     headerLeft: null,
   });
-
-  // const getImgTop = () => {
-  //   if(deviceWidth < 700){
-  //     return {
-  //       marginTop: 60
-  //     }
-
-  //   }else if(deviceWidth < 670){
-  //     return {
-  //       marginTop: 20
-  //     }
-  //   }
-  // }
 
   const tips = [
     {
@@ -130,7 +119,7 @@ const style = StyleSheet.create({
     height: 140
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 10
   },
   tip: {
@@ -142,8 +131,8 @@ const style = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     marginTop: textTop,
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
     height: 200
   },
   buttons: {

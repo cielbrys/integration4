@@ -1,26 +1,17 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  TextInput,
   Dimensions,
 } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
-import FlipToggle from 'react-native-flip-toggle-button';
-import { set, $mobx } from 'mobx';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/trips.svg';
 import Back from '../../assets/images/back.svg';
-import Bottom from '../../assets/images/statsBottom.svg';
-import Save from '../../assets/images/save.svg';
 import Pijl from '../../assets/images/arrowBig.svg';
 import Location from '../../assets/images/locationBig.svg';
 import Timer from '../../assets/images/timerBig.svg';
@@ -32,11 +23,12 @@ import TimerSmall from '../../assets/images/timerYellow.svg';
 import { useHistory } from 'react-router-dom';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 const screenWidth = Math.round(Dimensions.get('window').width) / 2.5;
 export default function TripsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
-  const history = useHistory();
 
   const trips = tripStore.trips;
 
@@ -148,7 +140,7 @@ const styles = StyleSheet.create({
   },
   topTitle: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 80,
   },
   main: {
@@ -160,13 +152,13 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 40,
   },
   latest: {
-    marginLeft: 24,
-    marginRight: 24,
-    marginTop: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
+    marginTop: MARGINS.defaultValue,
     backgroundColor: 'rgb(240,244,243)',
     padding: 16,
     zIndex: -20,
@@ -178,13 +170,13 @@ const styles = StyleSheet.create({
   },
   first: {
     marginTop: 80,
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     fontSize: 22,
     fontWeight: '700',
   },
   second: {
     marginTop: 40,
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     fontSize: 22,
     fontWeight: '700',
     color: 'white',
@@ -205,7 +197,7 @@ const styles = StyleSheet.create({
   },
   lastestText: {
     marginLeft: 16,
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
   },
   front: {
     position: 'absolute',
@@ -221,7 +213,7 @@ const styles = StyleSheet.create({
   },
   all: {
     zIndex: 300,
-    paddingLeft: 24,
+    paddingLeft: MARGINS.defaultValue,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
@@ -232,12 +224,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(240,244,243)',
     borderRadius: 10,
     padding: 12,
-    marginRight: 24,
+    marginRight: MARGINS.defaultValue,
     marginBottom: 32,
     width: screenWidth,
   },
   name: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
   },
   stat: {
     flexDirection: 'row',

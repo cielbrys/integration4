@@ -1,22 +1,21 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Linking } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Linking } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Back from '../../assets/images/back.svg';
-import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/people.svg';
 import Boom from '../../assets/images/boom.svg';
 import Insta from '../../assets/images/instagram.svg';
 import { useObserver } from 'mobx-react-lite';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 export default function PeopleScreen({ navigation }) {
-  const { userStore, uiStore } = useStore();
+  const { uiStore } = useStore();
 
   const goHome = () => {
     navigation.navigate('home', {
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     top: 70,
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 32,
   },
   top: {
@@ -98,19 +97,19 @@ const styles = StyleSheet.create({
   },
   topTitle: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 60,
   },
   txt: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
   },
   title: {
     marginTop: 80,
     zIndex: 300,
   },
   friends: {
-    marginLeft: 24,
-    marginRight: 24,
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
     marginTop: 16,
     backgroundColor: 'rgb(240,244,243)',
     flexDirection: 'row',
@@ -127,12 +126,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   name: {
-    fontSize: 16,
+    fontSize: FONTSIZES.small,
   },
   met: {
-    fontSize: 18,
+    fontSize: FONTSIZES.default,
     fontWeight: '700',
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginBottom: 16,
   },
 });

@@ -3,14 +3,10 @@ import {
   Text,
   View,
   StyleSheet,
-  ScrollView,
   Dimensions,
   Image,
-  Button,
-  SafeAreaView,
 } from 'react-native';
 import * as Location from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
 import { useObserver } from 'mobx-react-lite';
 import 'mobx-react-lite/batchingForReactDom';
 import { useStore } from '../../hooks/useStore';
@@ -21,6 +17,8 @@ import LocationModel from '../../models/LocationModel';
 import Dialog from 'react-native-dialog';
 import endLocations from '../../constants/Locations';
 let pins = [];
+
+import { MARGINS } from '../../constants/CssConst';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -235,33 +233,20 @@ export default function TripView({ navigation }) {
 
   return useObserver(() => {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={styles.container}>
         <View
-          style={{
-            width: 48,
-            height: 48,
-            backgroundColor: '#E1E9E7',
-            position: 'absolute',
-            zIndex: -1,
-            bottom: 75,
-            right: 24,
-            borderRadius: 50,
-          }}
+          style={styles.friends}
         >
           <TouchableOpacity
-            style={{
-              height: 48,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            style={styles.friendsButton}
             onPress={goToFriends}
           >
             <Friends />
           </TouchableOpacity>
         </View>
-        <View style={{ backgroundColor: 'green', height: 0 }}>
-          <TripTop style={{ marginTop: -10 }} />
-          <TripTitle style={{ position: 'absolute', right: 24, top: 56 }} />
+        <View style={styles.topBar}>
+          <TripTop style={styles.topBarTop} />
+          <TripTitle style={styles.topBarTitle} />
         </View>
         <View
           style={{ position: 'absolute', left: 24, top: 59.5, Zindex: 9999 }}
@@ -270,7 +255,7 @@ export default function TripView({ navigation }) {
             <Back />
           </TouchableOpacity>
         </View>
-        <View style={{ alignItems: 'center', marginTop: deviceHeight / 4 }}>
+        <View style={styles.arrow}>
           <Image
             source={require('../../assets/images/navArrow.png')}
             style={{
@@ -293,12 +278,7 @@ export default function TripView({ navigation }) {
           }}
         >
           <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              height: 65,
-            }}
+            style={styles.bottom}
             onPress={toggleTrueFalse}
           >
             <ArrowUp style={{ opacity: 0, marginRight: 24 }} />
@@ -325,12 +305,7 @@ export default function TripView({ navigation }) {
 
           <View style={{ display: isToggled === true ? 'none' : 'visible' }}>
             <View
-              style={{
-                marginLeft: 24,
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 30,
-              }}
+              style={styles.amountMiles}
             >
               <AmountMiles />
               <Text style={{ fontSize: 36, color: 'white', marginLeft: 6 }}>
@@ -340,28 +315,14 @@ export default function TripView({ navigation }) {
             <View>
               <TouchableOpacity
                 onPress={() => setPopUpPin(true)}
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  marginRight: 24,
-                  marginLeft: 24,
-                  paddingTop: 8,
-                  paddingBottom: 8,
-                  alignItems: 'center',
-                }}
+                style={styles.pinButton}
                 disabled={pinLocationButton}
               >
                 <PinLocation />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setPopUpSave(true)}
-                style={{
-                  marginTop: 16,
-                  backgroundColor: '#FF0000',
-                  marginRight: 24,
-                  marginLeft: 24,
-                  paddingTop: 13,
-                  paddingBottom: 13,
-                }}
+                style={styles.stopButton}
               >
                 <Text
                   style={{ fontSize: 18, color: 'white', textAlign: 'center' }}
@@ -430,4 +391,67 @@ export default function TripView({ navigation }) {
   });
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    flex: 1, 
+    backgroundColor: 'white' 
+  },
+  friends:{
+    width: 48,
+    height: 48,
+    backgroundColor: '#E1E9E7',
+    position: 'absolute',
+    zIndex: -1,
+    bottom: 75,
+    right: MARGINS.defaultValue,
+    borderRadius: 50,
+  },
+  friendsButton:{
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  topBar: { 
+    height: 0
+  },
+  topBarTop: {
+    marginTop: -10
+  },
+  topBarTitle: {
+    position: 'absolute', 
+    right: MARGINS.defaultValue, 
+    top: 56
+  },
+  arrow: {
+    alignItems: 'center', 
+    marginTop: deviceHeight / 4
+  },
+  bottom: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 65,
+  },
+  amountMiles: {
+    marginLeft: MARGINS.defaultValue,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  pinButton: {
+    backgroundColor: '#FFFFFF',
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
+    paddingTop: 8,
+    paddingBottom: 8,
+    alignItems: 'center',
+  },
+  stopButton: {
+    marginTop: 16,
+    backgroundColor: '#FF0000',
+    marginRight: MARGINS.defaultValue,
+    marginLeft: MARGINS.defaultValue,
+    paddingTop: MARGINS.buttonPadding,
+    paddingBottom: MARGINS.buttonPadding,
+  }
+});

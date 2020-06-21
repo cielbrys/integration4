@@ -3,20 +3,14 @@ import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useObserver } from 'mobx-react-lite';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
-import TripModel from '../../models/TripModel';
 import Locations from '../../constants/Locations';
 
 import SafetyWarning from '../../assets/images/Warning/safetyWarning.svg';
-
 import BackgroundButton from '../../assets/images/Trips/backgroundButton.svg';
-
 import BackgroundWarning from '../../assets/images/Warning/BackgroundWarning.svg';
-
 import Unchecked from '../../assets/images/Warning/unchecked.svg';
 import Checked from '../../assets/images/Warning/checked.svg';
-
-let deviceHeight = Dimensions.get('window').height;
-let deviceWidth = Dimensions.get('window').width;
+import { FONTSIZES } from '../../constants/CssConst';
 
 export default ({ navigation }) => {
   const [read, setRead] = useState(false);
@@ -53,16 +47,11 @@ export default ({ navigation }) => {
 
   return useObserver(() => (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: '#3E8C86',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      style={style.container}
     >
       <BackgroundWarning style={{ position: 'absolute' }} />
       <SafetyWarning />
-      <Text style={{ fontSize: 18, color: 'white', marginTop: 40 }}>
+      <Text style={style.warningText}>
         Using your phone while driving is illegal! {'\n'} We advice you to mount
         your phone.
       </Text>
@@ -71,7 +60,7 @@ export default ({ navigation }) => {
           style={{ flexDirection: 'row', alignItems: 'center' }}
           onPress={() => setRead(true)}
         >
-          <Text style={{ marginRight: 30, fontSize: 16, color: 'white' }}>
+          <Text style={style.warningTextOkay}>
             I have read the safety warning!
           </Text>
           {read !== false ? <Checked /> : <Unchecked />}
@@ -94,10 +83,22 @@ export default ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#3E8C86',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   view: {
     position: 'absolute',
     bottom: 45,
   },
+  warningText: {
+    fontSize: FONTSIZES.default, 
+    color: 'white', 
+    marginTop: 40 
+  },
+  warningTextOkay:{ 
+    marginRight: 30, 
+    fontSize: FONTSIZES.small, 
+    color: 'white' 
+  }
 });

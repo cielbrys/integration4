@@ -19,6 +19,8 @@ import Openness from '../../assets/images/Choice/Openness.svg';
 
 import BorderSelect from '../../assets/images/Choice/borderSelect.svg'
 
+import { MARGINS } from '../../constants/CssConst';
+import { FONTSIZES } from '../../constants/CssConst';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -156,7 +158,7 @@ const style = StyleSheet.create({
     position: 'absolute',
     left: 40,
     top: deviceHeight/4.5,
-    fontSize: 18
+    fontSize: FONTSIZES.default
   },
   pageTitle: {
     position: 'absolute',
@@ -171,19 +173,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     height: '90%',
   },
-  bottom: {},
-  // bottom: {
-  //   marginTop: deviceHeight/2.3
-  // },
-  // nextButton: {
-  //   alignItems: 'center',
-  // },
-  // buttontext: {
-  //   position: 'absolute',
-  //   top: 25,
-  //   left: 180,
-  //   fontSize: 18
-  // },
   background: {
     position: 'absolute',
     top: -35,
@@ -193,7 +182,7 @@ const style = StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    left: 24,
+    left: MARGINS.defaultValue,
     top: 60,
   },
   square: {

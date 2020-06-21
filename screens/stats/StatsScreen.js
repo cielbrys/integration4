@@ -1,12 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
 
-import Top from '../../assets/images/statsTop.svg';
 import TopTitle from '../../assets/images/StatsTitle.svg';
 import Bottom from '../../assets/images/statsBottom.svg';
 import Back from '../../assets/images/back.svg';
@@ -16,8 +13,10 @@ import White from '../../assets/images/whiteLine.svg';
 import Yellow from '../../assets/images/locationButton.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
+import { MARGINS } from '../../constants/CssConst';
+
 export default function StatsScreen({ navigation }) {
-  const { tripStore, uiStore, locationStore, userStore } = useStore();
+  const { tripStore, uiStore, locationStore } = useStore();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
   },
   topTitle: {
     position: 'absolute',
-    right: 24,
+    right: MARGINS.defaultValue,
     top: 60,
   },
   container: {
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   back: {
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
     marginTop: 32,
   },
   tekst: {
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   stat: {
-    marginRight: 24,
+    marginRight: MARGINS.defaultValue,
     flexDirection: 'column-reverse',
     alignItems: 'flex-start',
     marginLeft: 32,
@@ -149,16 +148,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: 'white',
     marginRight: 16,
-    marginLeft: 24,
+    marginLeft: MARGINS.defaultValue,
   },
   statsBottom: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: MARGINS.defaultValue,
   },
   white: {
     color: 'white',
-    marginRight: 24,
+    marginRight: MARGINS.defaultValue,
     alignSelf: 'center',
   },
   bottom: {
