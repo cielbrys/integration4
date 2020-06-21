@@ -221,11 +221,12 @@ const styles = StyleSheet.create({
   },
   all: {
     zIndex: 300,
-    marginLeft: 24,
+    paddingLeft: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
     flexWrap: 'wrap',
+    backgroundColor: 'rgb(103,146,137)',
   },
   trip: {
     backgroundColor: 'rgb(240,244,243)',
