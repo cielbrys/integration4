@@ -79,7 +79,6 @@ export default function App(props) {
               </Stack.Navigator>
             ) : (
               <Stack.Navigator>
-  
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
               </Stack.Navigator>

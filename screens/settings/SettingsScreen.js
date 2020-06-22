@@ -161,7 +161,7 @@ export default function GalleryScreen({ navigation }) {
             />
           </View>
         </View>
-        
+
         <Bottom style={styles.bottom} />
       </View>
       <TouchableOpacity

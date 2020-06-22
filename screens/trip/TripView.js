@@ -82,7 +82,7 @@ export default function TripView({ navigation }) {
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
       if (res.status !== 'granted') {
-        setErrorMsg['Pleas allow Location for this app'];
+        Alert.alert('Pleas allow Location for this app');
         console.log('Permission to access location was denied');
       } else {
         startLocationTracking();

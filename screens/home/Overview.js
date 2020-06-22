@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
@@ -71,7 +66,7 @@ export default function HomeScreen({ navigation }) {
   const goToTutorial = () => {
     navigation.navigate('TutorialScreen');
   };
-  
+
   return useObserver(() => (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Mountain style={styles.mtn} />
@@ -104,21 +99,21 @@ export default function HomeScreen({ navigation }) {
         {/* <Text style={styles.logoutText}>Sign Out</Text> */}
         <TutorialButton />
       </TouchableOpacity>
-      {uiStore.currentUser.status === 'beginner' ? (
-        <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
-          <Groen>
-            {' '}
-            <Text>Tips 'n tricks</Text>
-          </Groen>
-        </TouchableOpacity>
-      ) : (
-        <></>
-      )}
+      <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
+        <Groen>
+          {' '}
+          <Text>Tips 'n tricks</Text>
+        </Groen>
+      </TouchableOpacity>
       <Text style={styles.recent}>
         {uiStore.currentUser.name}'s recent trips
       </Text>
       {trips.length !== 0 ? (
-        <ScrollView style={styles.list} horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          style={styles.list}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
           {lastTrips.map((item) => (
             <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
               <View style={styles.trip}>
@@ -154,7 +149,9 @@ export default function HomeScreen({ navigation }) {
       ) : (
         <TouchableOpacity onPress={() => startNewTrip()}>
           <View style={styles.tripLast}>
-            <Text style={styles.tripLastText}>No recent trips! {'\n'} Start a new trip now!</Text>
+            <Text style={styles.tripLastText}>
+              No recent trips! {'\n'} Start a new trip now!
+            </Text>
           </View>
         </TouchableOpacity>
       )}
@@ -200,12 +197,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 24,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tripLastText: {
     textAlign: 'center',
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
   },
   button: {
     alignSelf: 'center',
