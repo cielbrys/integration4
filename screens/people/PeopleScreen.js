@@ -29,6 +29,10 @@ export default function PeopleScreen({ navigation }) {
     headerLeft: null,
   });
 
+  const startNewTrip = () => {
+    navigation.navigate('NewTripChoice');
+  };
+
   return useObserver(() => (
     <View style={styles.container}>
       <View style={styles.main}>
@@ -42,7 +46,11 @@ export default function PeopleScreen({ navigation }) {
         <View style={styles.title}>
           <Text style={styles.met}>People you have met</Text>
           {uiStore.currentUser.friends.length === 0 ? (
-            <Text style={styles.txt}>No friends met yet... </Text>
+            <View style={styles.locations}>
+              <TouchableOpacity onPress={startNewTrip} style={styles.location}>
+                <Text style={{fontSize: 16}}>You haven't made new friends yet! {'\n'}Start a new trip and make some!</Text>
+              </TouchableOpacity>
+            </View>
           ) : (
             <>
               <Text style={styles.txt}>Friends </Text>
@@ -70,6 +78,16 @@ export default function PeopleScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  location: {
+    backgroundColor: 'rgb(240,244,243)',
+    marginLeft: MARGINS.defaultValue,
+    marginRight: MARGINS.defaultValue,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    padding: 16,
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

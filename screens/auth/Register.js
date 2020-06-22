@@ -103,6 +103,8 @@ export default ({ navigation }) => {
           setErrorMail('Please provide an email');
         } else if (error.code === 'auth/weak-password') {
           setErrorPassword('This password is not strong enough');
+        } else if (error.code === 'auth/email-already-in-use') {
+          setErrorMail('This email is already in use');
         }
       }
     }

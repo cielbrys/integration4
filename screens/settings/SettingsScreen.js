@@ -11,6 +11,7 @@ import Back from '../../assets/images/back.svg';
 import Bottom from '../../assets/images/statsBottomNew.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 import Logout from '../../assets/images/Logout.svg';
+import SaveChanges from '../../assets/images/SaveChanges.svg';
 
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
@@ -76,24 +77,6 @@ export default function GalleryScreen({ navigation }) {
               onChangeText={(text) => setName(text)}
               returnKeyType={'next'}
             />
-            <TouchableOpacity
-              style={{
-                marginBottom: 30,
-                marginTop: 10,
-                backgroundColor: 'rgb(29,120,116)',
-                marginRight: 24,
-                marginLeft: 24,
-                paddingTop: 13,
-                paddingBottom: 13,
-              }}
-              onPress={() => setUsername()}
-            >
-              <Text
-                style={{ fontSize: 18, color: 'white', textAlign: 'center' }}
-              >
-                Save
-              </Text>
-            </TouchableOpacity>
           </View>
           <View style={styles.visible}>
             <Text style={styles.description}>
@@ -142,6 +125,17 @@ export default function GalleryScreen({ navigation }) {
               <Text style={styles.txt}>Miles</Text>
             </TouchableOpacity>
           </View>
+          <TouchableOpacity
+              style={{
+                marginBottom: 10,
+                marginTop: 10,
+                paddingTop: 13,
+                paddingBottom: 13,
+              }}
+              onPress={() => setUsername()}
+            >
+              <SaveChanges />
+            </TouchableOpacity>
           <View style={styles.insta}>
             <Text style={styles.title}>Instagram</Text>
             <Text style={styles.tekst}>
@@ -266,8 +260,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   description: {
-    color: 'rgb(29,120,116)',
-    fontSize: FONTSIZES.default,
+    fontSize: FONTSIZES.small,
+    color: 'black',
   },
   eenheid: {
     flexDirection: 'row',
@@ -303,7 +297,7 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZES.default,
   },
   insta: {
-    marginTop: 110,
+    marginTop: 60,
   },
   title: {
     color: 'white',
