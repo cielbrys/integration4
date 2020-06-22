@@ -29,6 +29,10 @@ export default function PeopleScreen({ navigation }) {
     headerLeft: null,
   });
 
+  const startNewTrip = () => {
+    navigation.navigate('NewTripChoice');
+  };
+
   if (uiStore.currentUser) {
     return useObserver(() => (
       <View style={styles.container}>
