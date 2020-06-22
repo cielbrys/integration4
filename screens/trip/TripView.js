@@ -35,6 +35,7 @@ export default function TripView({ navigation }) {
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
+  const [nearbyLocation, setNearbyLocation] = useState(false);
   const [pinLocationButton, setLocationButton] = useState(true);
   const meetUserMail = 'ciel@gmail.com';
 
@@ -132,6 +133,7 @@ export default function TripView({ navigation }) {
           setLocationButton(false);
         }
         updateDistance(p1);
+        updateNearby(p1);
 
         const angleDeg =
           (Math.atan2(p2.longitude - p1.longitude, p2.latitude - p1.latitude) *
@@ -155,11 +157,11 @@ export default function TripView({ navigation }) {
     setDistance(newDistance.toFixed(2));
   };
 
-  let region = {
-    latitude: p1.latitude,
-    longitude: p1.longitude,
-    latitudeDelta: 0.002,
-    longitudeDelta: 0.002,
+  const updateNearby = (newLoc) => {
+    const nearbyDistance = haversine(newLoc, p2, { unit: 'km' }) || 0;
+    if (nearbyDistance < 0.1) {
+      setNearbyLocation(true);
+    }
   };
 
   const deleteTrip = () => {
@@ -294,7 +296,10 @@ export default function TripView({ navigation }) {
             <View style={styles.amountMiles}>
               <AmountMiles />
               <Text style={{ fontSize: 36, color: 'white', marginLeft: 6 }}>
-                {distance} miles
+                {uiStore.currentUser.system === 'mile'
+                  ? (Number(distance) * 0.62137).toFixed(2)
+                  : distance}{' '}
+                {uiStore.currentUser.system}
               </Text>
             </View>
             <View>
@@ -369,6 +374,30 @@ export default function TripView({ navigation }) {
               onPress={() => setNearbyPop(false)}
             />
             <Dialog.Button bold={true} label="Yes" onPress={() => meetUser()} />
+          </Dialog.Container>
+
+          <Dialog.Container visible={nearbyLocation}>
+            <Dialog.Title>You made it to the location! Save trip?</Dialog.Title>
+            <Dialog.Input
+              onChangeText={(tripName) => setName(tripName)}
+              value={name}
+              maxLength={15}
+            ></Dialog.Input>
+            <Dialog.Button
+              color={'red'}
+              label="Delete"
+              onPress={() => deleteTrip()}
+            />
+            <Dialog.Button
+              color={'gray'}
+              label="Cancel"
+              onPress={() => setPopUpSave(false)}
+            />
+            <Dialog.Button
+              bold={true}
+              label="Save"
+              onPress={() => stopTrip()}
+            />
           </Dialog.Container>
         </View>
       </View>

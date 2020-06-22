@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
@@ -116,7 +111,10 @@ export default function TripsScreen({ navigation }) {
               <View style={styles.stat}>
                 <LocationSmall />
                 <Text style={styles.text}>
-                  {trip.distance} {uiStore.currentUser.system}
+                  {uiStore.currentUser.system === 'mile'
+                    ? (Number(trip.distance) * 0.62137).toFixed(1)
+                    : trip.distance}{' '}
+                  {uiStore.currentUser.system}
                 </Text>
               </View>
             </TouchableOpacity>
