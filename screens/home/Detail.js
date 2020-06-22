@@ -23,6 +23,7 @@ import Title from '../../assets/images/tripDetail/Title.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 import Map from '../../assets/images/map.svg';
 import Jeet from '../../assets/images/jeet.svg';
+import Delete from '../../assets/images/tripDetail/Delete.svg';
 
 export default ({ navigation, route }) => {
   const { id } = route.params;
@@ -120,7 +121,8 @@ export default ({ navigation, route }) => {
       </View>
     
       <TouchableOpacity style={style.deleteButton} onPress={() => setPopUpSave(true)}>
-        <Text style={style.deleteButtonText}>Delete this trip</Text>
+        <Delete />
+        {/* <Text style={style.deleteButtonText}>Delete this trip</Text> */}
       </TouchableOpacity>
 
       <Dialog.Container visible={popUpSave}>
@@ -214,7 +216,6 @@ const style = StyleSheet.create({
     marginBottom: 16,
   },
   deleteButton: {
-    backgroundColor: '#FF0000', 
     marginRight: MARGINS.defaultValue, 
     marginLeft: MARGINS.defaultValue, 
     marginTop: 60, 

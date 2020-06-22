@@ -10,6 +10,9 @@ import First from '../../assets/images/Tutorial/first.svg';
 import Second from '../../assets/images/Tutorial/second.svg';
 import Third from '../../assets/images/Tutorial/third.svg';
 
+import Next from '../../assets/images/Next.svg';
+import StartExpl from '../../assets/images/StartExploringB.svg';
+
 import Back from '../../assets/images/back.svg';
 
 let deviceHeight = Dimensions.get('window').height;
@@ -106,8 +109,9 @@ export default function StatsScreen({ navigation }) {
           </View>
 
       </GestureRecognizer>
-      <TouchableOpacity onPress={pageCount < 3 ? goNext : goHome} style={{backgroundColor: 'red', marginBottom: 56, paddingTop: 13, paddingBottom: 13, marginRight: 24, marginLeft: 24, backgroundColor: 'white'}}>
-        <Text style={{fontSize: 18, textAlign: 'center'}}>{pageCount === 3 ? 'Start exploring' : 'Next'}</Text>
+      <TouchableOpacity onPress={pageCount < 3 ? goNext : goHome} style={{marginBottom: 56, paddingTop: 13, paddingBottom: 13, marginRight: 24, marginLeft: 24}}>
+        {/* <Text style={{fontSize: 18, textAlign: 'center'}}>{pageCount === 3 ? 'Start exploring' : 'Next'}</Text> */}
+        {pageCount === 3 ? <StartExpl /> : <Next />}
       </TouchableOpacity>
     </View>
     

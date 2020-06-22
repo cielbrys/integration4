@@ -33,6 +33,10 @@ export default ({ navigation }) => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  const [errorMail, setErrorMail] = useState("")
+  const [errorPassword, setErrorPassword] = useState("")
+
+
   const [focus, setFocus] = useState("light");
 
   const handleSubmit = async () => {
@@ -40,7 +44,15 @@ export default ({ navigation }) => {
       await uiStore.login(email, password);
       history.push(ROUTES.home);
     } catch (error) {
-      console.log(error);
+      console.log(error.code);
+      switch(error.code){
+        case "auth/wrong-password":
+          setErrorPassword("Wrong password")
+          break;
+        case 'auth/invalid-email':
+          setErrorMail("Invalid email")
+          break;
+      }
     }
   }
 
@@ -54,6 +66,16 @@ export default ({ navigation }) => {
     if(deviceHeight < 700){
       setFocus('light')
     }
+  }
+
+  const handleMoreMail = text => {
+    setEmail(text)
+    setErrorMail("")
+  }
+
+  const handleMorePassword = text => {
+    setPassword(text)
+    setErrorPassword("")
   }
   
   return (
@@ -69,26 +91,28 @@ export default ({ navigation }) => {
           >
             Email
           </Text>
+          <Text style={{color:'red', marginLeft: 24}}>{errorMail}</Text>
           <TextInput
             style={styles.textInput}
             label="eai"
             clearButtonMode="always"
             keyboardType="email-address"
-            placeholder="someone@example.com"
+            placeholder="johndover@travel.com"
             value={email}
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => handleMoreMail(text)}
             returnKeyType = {"next"}
             onFocus={onFocus}
             onBlur={onBlur}
           />
           <Text style={focus === 'light' ? styles.text : styles.textDark}>Password</Text>
+          <Text style={{color:'red', marginLeft: 24}}>{errorPassword}</Text>
           <TextInput
             style={styles.textInput}
             clearButtonMode="always"
             secureTextEntry={true}
             placeholder="•••••••"
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={(text) => handleMorePassword(text)}
             returnKeyType = {"done"}
             onFocus={onFocus}
             onBlur={onBlur}

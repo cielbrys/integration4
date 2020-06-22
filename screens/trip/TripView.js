@@ -24,6 +24,8 @@ import ArrowUp from '../../assets/images/currentTrip/arrowUp.svg';
 import AmountMiles from '../../assets/images/currentTrip/amountMiles.svg';
 import PinLocation from '../../assets/images/currentTrip/pinLocation.svg';
 import Friends from '../../assets/images/currentTrip/friends.svg';
+import PinLoc from '../../assets/images/currentTrip/PinLoc.svg';
+import StopTrip from '../../assets/images/currentTrip/StopTrip.svg';
 
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
@@ -308,17 +310,19 @@ export default function TripView({ navigation }) {
                 style={styles.pinButton}
                 disabled={pinLocationButton}
               >
-                <PinLocation />
+                <PinLoc />
+                {/* <PinLocation /> */}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setPopUpSave(true)}
                 style={styles.stopButton}
               >
-                <Text
+                <StopTrip />
+                {/* <Text
                   style={{ fontSize: 18, color: 'white', textAlign: 'center' }}
                 >
                   Stop Trip
-                </Text>
+                </Text> */}
               </TouchableOpacity>
             </View>
           </View>
@@ -453,16 +457,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   pinButton: {
-    backgroundColor: '#FFFFFF',
     marginRight: MARGINS.defaultValue,
     marginLeft: MARGINS.defaultValue,
-    paddingTop: 8,
-    paddingBottom: 8,
     alignItems: 'center',
+    marginTop: -20,
+    marginBottom: -20
   },
   stopButton: {
-    marginTop: 16,
-    backgroundColor: '#FF0000',
+    marginTop: -10,
     marginRight: MARGINS.defaultValue,
     marginLeft: MARGINS.defaultValue,
     paddingTop: MARGINS.buttonPadding,

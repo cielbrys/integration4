@@ -10,6 +10,7 @@ import TopTitle from '../../assets/images/settings.svg';
 import Back from '../../assets/images/back.svg';
 import Bottom from '../../assets/images/statsBottomNew.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+import Logout from '../../assets/images/Logout.svg';
 
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
@@ -160,13 +161,13 @@ export default function GalleryScreen({ navigation }) {
             />
           </View>
         </View>
+        
         <Bottom style={styles.bottom} />
       </View>
       <TouchableOpacity
         style={{
-          marginBottom: 60,
-          marginTop: 40,
-          backgroundColor: '#FF0000',
+          marginBottom: 20,
+          marginTop: 18,
           marginRight: 24,
           marginLeft: 24,
           paddingTop: 13,
@@ -174,9 +175,10 @@ export default function GalleryScreen({ navigation }) {
         }}
         onPress={() => uiStore.logout()}
       >
-        <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
+        <Logout />
+        {/* <Text style={{ fontSize: 18, color: 'white', textAlign: 'center' }}>
           Logout
-        </Text>
+        </Text> */}
       </TouchableOpacity>
     </ScrollView>
   ));
