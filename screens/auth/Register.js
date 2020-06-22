@@ -43,83 +43,84 @@ export default ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [insta, setInsta] = useState('');
   const [status, setStatus] = useState('beginner');
-  const [errorName, setErrorName] = useState("");
-  const [errorMail, setErrorMail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorInsta, setErrorInsta] = useState("");
-  const [errorConfirmation, setErrorConfirmation] = useState("");
+  const [errorName, setErrorName] = useState('');
+  const [errorMail, setErrorMail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorInsta, setErrorInsta] = useState('');
+  const [errorConfirmation, setErrorConfirmation] = useState('');
 
-  const handleMoreName = text => {
+  const handleMoreName = (text) => {
     setName(text);
-    setErrorName("")
-  }
+    setErrorName('');
+  };
 
-  const handleMoreMail = text => {
+  const handleMoreMail = (text) => {
     setEmail(text);
-    setErrorMail("")
-  }
+    setErrorMail('');
+  };
 
-  const handleMorePassword = text => {
+  const handleMorePassword = (text) => {
     setPassword(text);
-    setErrorPassword("")
-  }
+    setErrorPassword('');
+  };
 
-  const handleMoreConfirmationPassword = text => {
-    setConfirmPassword(text)
-    setErrorConfirmation("")
-  }
+  const handleMoreConfirmationPassword = (text) => {
+    setConfirmPassword(text);
+    setErrorConfirmation('');
+  };
 
-  const handleSubmit = async() => {
-    if(name === ""){
-      setErrorName("Please provide a username")
-    } else if(email === ""){
-      setErrorMail("Please provide an email")
-    } else if(password != confirmPassword){
-      setErrorConfirmation("Confirmation does not match")
-    }else if(password === ""){
-      setErrorPassword("Please enter a strong password")
-    } else if(insta === ""){
-      setErrorInsta("Please enter your instagram handle")
+  const handleSubmit = async () => {
+    if (name === '') {
+      setErrorName('Please provide a username');
+    } else if (email === '') {
+      setErrorMail('Please provide an email');
+    } else if (password != confirmPassword) {
+      setErrorConfirmation('Confirmation does not match');
+    } else if (password === '') {
+      setErrorPassword('Please enter a strong password');
+    } else if (insta === '') {
+      setErrorInsta('Please enter your instagram handle');
     } else {
-
-
-      try{
+      try {
         await uiStore.register({
-          name:name,
-          email:email,
+          name: name,
+          email: email,
           password: password,
           status: status,
           socials: insta,
         });
-      }catch (error) {
-        console.log(error.code)
-  
-        if(error.code === "auth/invalid-email" && error.code === "auth/weak-password"){
-          setErrorMail("Please provide an email")
-          setErrorPassword('This password is not strong enough')
-        } else if (error.code === "auth/invalid-email"){
-          setErrorMail("Please provide an email")
-        }else if (error.code === "auth/weak-password"){
-          setErrorPassword('This password is not strong enough')
+        navigation.navigate('Root');
+      } catch (error) {
+        console.log(error.code);
+
+        if (
+          error.code === 'auth/invalid-email' &&
+          error.code === 'auth/weak-password'
+        ) {
+          setErrorMail('Please provide an email');
+          setErrorPassword('This password is not strong enough');
+        } else if (error.code === 'auth/invalid-email') {
+          setErrorMail('Please provide an email');
+        } else if (error.code === 'auth/weak-password') {
+          setErrorPassword('This password is not strong enough');
         }
       }
     }
-    
   };
 
   return (
     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
       <View style={style.container}>
         <TopRegister style={style.topRegister} />
-        
+
         <View style={style.bottom}>
           <Welcome style={style.welcome} />
           <View style={style.form}>
             <Text style={style.textInputTitle}>Create an account</Text>
             <View>
               <Text style={style.textInput}>Travellers name</Text>
-              
-              <Text style={{color: 'red', fontSize: 14}}>{errorName}</Text>
+
+              <Text style={{ color: 'red', fontSize: 14 }}>{errorName}</Text>
               <TextInput
                 style={style.input}
                 value={name}
@@ -133,7 +134,7 @@ export default ({ navigation }) => {
 
             <View>
               <Text style={style.textInput}>Email</Text>
-              <Text style={{color: 'red', fontSize: 14}}>{errorMail}</Text>
+              <Text style={{ color: 'red', fontSize: 14 }}>{errorMail}</Text>
               <TextInput
                 style={style.input}
                 keyboardType="email-address"
@@ -146,8 +147,10 @@ export default ({ navigation }) => {
 
             <View>
               <Text style={style.textInput}>Password</Text>
-              <Text style={{color: 'red', fontSize: 14}}>{errorPassword}</Text>
-              
+              <Text style={{ color: 'red', fontSize: 14 }}>
+                {errorPassword}
+              </Text>
+
               <TextInput
                 style={style.input}
                 clearButtonMode="always"
@@ -161,8 +164,10 @@ export default ({ navigation }) => {
 
             <View>
               <Text style={style.textInput}>Password confirmation</Text>
-              <Text style={{color: 'red', fontSize: 14}}>{errorConfirmation}</Text>
-              
+              <Text style={{ color: 'red', fontSize: 14 }}>
+                {errorConfirmation}
+              </Text>
+
               <TextInput
                 style={style.input}
                 clearButtonMode="always"
@@ -174,15 +179,13 @@ export default ({ navigation }) => {
             </View>
 
             <View>
-              <Text style={style.instagramText}>
-                Instagram
-              </Text>
+              <Text style={style.instagramText}>Instagram</Text>
               <Text style={{ fontSize: FONTSIZES.small, marginBottom: 12 }}>
-                Connecting to instagram makes it easier to stay in contact with fellow
-                travellers
+                Connecting to instagram makes it easier to stay in contact with
+                fellow travellers
               </Text>
-              <Text style={{color: 'red', fontSize: 14}}>{errorInsta}</Text>
-              
+              <Text style={{ color: 'red', fontSize: 14 }}>{errorInsta}</Text>
+
               <TextInput
                 style={style.instaInput}
                 label="eai"
@@ -196,14 +199,15 @@ export default ({ navigation }) => {
 
             <View style={style.status}>
               <Text style={style.statusTitle}>Which traveller are you?</Text>
-              
-              
+
               <View style={style.options}>
                 <TouchableOpacity
                   style={status === 'beginner' ? style.active : style.opt}
                   onPress={() => setStatus('beginner')}
                 >
-                  <Text style={{ color: status === 'beginner' ? 'white' : 'black' }}>
+                  <Text
+                    style={{ color: status === 'beginner' ? 'white' : 'black' }}
+                  >
                     Beginner
                   </Text>
                 </TouchableOpacity>
@@ -212,7 +216,9 @@ export default ({ navigation }) => {
                   onPress={() => setStatus('experienced')}
                 >
                   <Text
-                    style={{ color: status === 'experienced' ? 'white' : 'black' }}
+                    style={{
+                      color: status === 'experienced' ? 'white' : 'black',
+                    }}
                   >
                     Experienced
                   </Text>
@@ -250,7 +256,7 @@ export default ({ navigation }) => {
 const style = StyleSheet.create({
   statusTitle: {
     fontSize: FONTSIZES.small,
-    marginBottom: 12
+    marginBottom: 12,
   },
   opt: {
     height: 56,
@@ -281,9 +287,9 @@ const style = StyleSheet.create({
     borderRadius: 0,
   },
   instagramText: {
-    fontWeight: '600', 
-    fontSize: FONTSIZES.default, 
-    marginBottom: 10
+    fontWeight: '600',
+    fontSize: FONTSIZES.default,
+    marginBottom: 10,
   },
   welcome: {
     marginBottom: deviceHeight / 8,
@@ -369,7 +375,7 @@ const style = StyleSheet.create({
   textInputTitle: {
     fontSize: FONTSIZES.default,
     marginBottom: 24,
-    fontWeight: '600', 
+    fontWeight: '600',
   },
   textInput: {
     fontSize: FONTSIZES.small,
@@ -390,7 +396,7 @@ const style = StyleSheet.create({
   socials: {
     marginBottom: 10,
   },
-  status:{
-    marginBottom: 40
-  }
+  status: {
+    marginBottom: 40,
+  },
 });

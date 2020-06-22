@@ -9,9 +9,6 @@ import TripModel from '../../models/TripModel';
 import haversine from 'haversine';
 import LocationModel from '../../models/LocationModel';
 import Dialog from 'react-native-dialog';
-import endLocations from '../../constants/Locations';
-let pins = [];
-
 import { MARGINS } from '../../constants/CssConst';
 
 let deviceHeight = Dimensions.get('window').height;
@@ -27,20 +24,23 @@ import Friends from '../../assets/images/currentTrip/friends.svg';
 import PinLoc from '../../assets/images/currentTrip/PinLoc.svg';
 import StopTrip from '../../assets/images/currentTrip/StopTrip.svg';
 
+let pins = [];
+
+let pervLatLng = {};
+
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const startTime = new Date();
+  const [startTime, setStartTime] = useState(new Date());
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
+  const [nearbyLocation, setNearbyLocation] = useState(false);
   const [pinLocationButton, setLocationButton] = useState(true);
   const meetUserMail = 'ciel@gmail.com';
-
-  const isMountedRef = useRef(null);
 
   const [pinName, setPinName] = useState(
     `Location #${locationStore.locations.length + 1}`
@@ -72,13 +72,10 @@ export default function TripView({ navigation }) {
       }
       const newCords = { latitude: 50.820583, longitude: 3.272017 };
       uiStore.setMeetLocation(newCords);
-
-      uiStore.setEndLocation();
     });
     setNearbyPop(false);
   };
 
-  let pervLatLng = {};
   useEffect(() => {
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
@@ -134,6 +131,7 @@ export default function TripView({ navigation }) {
           setLocationButton(false);
         }
         updateDistance(p1);
+        updateNearby(p1);
 
         const angleDeg =
           (Math.atan2(p2.longitude - p1.longitude, p2.latitude - p1.latitude) *
@@ -141,12 +139,6 @@ export default function TripView({ navigation }) {
           Math.PI;
         setDegree(angleDeg);
         console.log('degree', degree);
-        region = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.002,
-          longitudeDelta: 0.002,
-        };
       }
     );
   };
@@ -157,11 +149,11 @@ export default function TripView({ navigation }) {
     setDistance(newDistance.toFixed(2));
   };
 
-  let region = {
-    latitude: p1.latitude,
-    longitude: p1.longitude,
-    latitudeDelta: 0.002,
-    longitudeDelta: 0.002,
+  const updateNearby = (newLoc) => {
+    const nearbyDistance = haversine(newLoc, p2, { unit: 'meter' }) || 0;
+    if (nearbyDistance < 10) {
+      setNearbyLocation(true);
+    }
   };
 
   const deleteTrip = () => {
@@ -204,8 +196,8 @@ export default function TripView({ navigation }) {
     });
     locationStore.addNewLocation(pin);
     pins.push(pin);
-    setPinName(`Location #${locationStore.locations.length + 1}`);
     setPopUpPin(false);
+    setPinName(`Location #${locationStore.locations.length + 1}`);
   };
 
   navigation.setOptions({
@@ -296,7 +288,10 @@ export default function TripView({ navigation }) {
             <View style={styles.amountMiles}>
               <AmountMiles />
               <Text style={{ fontSize: 36, color: 'white', marginLeft: 6 }}>
-                {distance} miles
+                {uiStore.currentUser.system === 'mile'
+                  ? (Number(distance) * 0.62137).toFixed(2)
+                  : distance}{' '}
+                {uiStore.currentUser.system}
               </Text>
             </View>
             <View>
@@ -374,6 +369,30 @@ export default function TripView({ navigation }) {
             />
             <Dialog.Button bold={true} label="Yes" onPress={() => meetUser()} />
           </Dialog.Container>
+
+          <Dialog.Container visible={nearbyLocation}>
+            <Dialog.Title>You made it to the location! Save trip?</Dialog.Title>
+            <Dialog.Input
+              onChangeText={(tripName) => setName(tripName)}
+              value={name}
+              maxLength={15}
+            ></Dialog.Input>
+            <Dialog.Button
+              color={'red'}
+              label="Delete"
+              onPress={() => deleteTrip()}
+            />
+            <Dialog.Button
+              color={'gray'}
+              label="Cancel"
+              onPress={() => setNearbyLocation(false)}
+            />
+            <Dialog.Button
+              bold={true}
+              label="Save"
+              onPress={() => stopTrip()}
+            />
+          </Dialog.Container>
         </View>
       </View>
     );
@@ -432,7 +451,7 @@ const styles = StyleSheet.create({
     marginLeft: MARGINS.defaultValue,
     alignItems: 'center',
     marginTop: -20,
-    marginBottom: -20
+    marginBottom: -20,
   },
   stopButton: {
     marginTop: -10,

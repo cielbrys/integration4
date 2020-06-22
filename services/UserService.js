@@ -20,7 +20,6 @@ class UserService {
       .collection('users')
       .doc(friend.email)
       .set({ email: friend.email });
-
     return friend;
   };
 
@@ -48,9 +47,6 @@ class UserService {
     const data = (await this.db.collection('users').doc(email).get()).data();
     console.log('data:', data);
     console.log(data);
-    if (!data.id) {
-      data.id = data.userId; // quick fix to make it compatible with koens db
-    }
     console.log('user', email);
     return data;
   };
