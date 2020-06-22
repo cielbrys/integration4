@@ -51,7 +51,11 @@ export default function StatsScreen({ navigation }) {
               <Text style={styles.statText}>
                 {uiStore.currentUser.system} {'\n'}traveled
               </Text>
-              <Text style={styles.number}>{tripStore.distanceDone}</Text>
+              <Text style={styles.number}>
+                {uiStore.currentUser.system === 'mile'
+                  ? tripStore.distanceDone * (0.62137).toFixed(1)
+                  : tripStore.distanceDone}
+              </Text>
             </View>
             <Black />
             <View style={styles.stat}>

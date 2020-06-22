@@ -103,10 +103,7 @@ export default function TripView({ navigation }) {
       : uiStore.endLocation.longitude,
   };
 
-  let p1 = {
-    latitude: 50.819213,
-    longitude: 3.273197,
-  };
+  let p1 = {};
 
   const startLocationTracking = async () => {
     await Location.watchPositionAsync(
@@ -144,9 +141,11 @@ export default function TripView({ navigation }) {
   };
 
   const updateDistance = (newLoc) => {
-    const newDistance = haversine(pervLatLng, newLoc, { unit: 'km' }) || 0;
+    const newDistance =
+      haversine(pervLatLng, newLoc, { unit: 'km' }) || distance;
     pervLatLng = newLoc;
-    setDistance(newDistance.toFixed(2));
+    const calcDistance = distance + Number(newDistance);
+    setDistance(calcDistance.toFixed(2));
   };
 
   const updateNearby = (newLoc) => {
@@ -273,7 +272,10 @@ export default function TripView({ navigation }) {
             >
               <AmountMiles />
               <Text style={{ fontSize: 22, color: 'white', marginLeft: 6 }}>
-                {distance} miles
+                {uiStore.currentUser.system === 'mile'
+                  ? (Number(distance) * 0.62137).toFixed(1)
+                  : distance}{' '}
+                {uiStore.currentUser.system}
               </Text>
             </View>
             <ArrowUp
