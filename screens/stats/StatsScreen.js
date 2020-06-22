@@ -34,61 +34,65 @@ export default function StatsScreen({ navigation }) {
     navigation.navigate('Locations');
   };
 
-  return useObserver(() => (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <TitleBackground style={styles.top} />
-          <TopTitle style={styles.topTitle} />
-        </View>
-        <TouchableOpacity style={styles.back} onPress={() => goHome()}>
-          <Back />
-        </TouchableOpacity>
-        <View style={styles.tekst}>
-          <Stats />
-          <View style={styles.txt}>
-            <View style={styles.stat}>
-              <Text style={styles.statText}>
-                {uiStore.currentUser.system} {'\n'}traveled
-              </Text>
-              <Text style={styles.number}>
-                {uiStore.currentUser.system === 'mile'
-                  ? tripStore.distanceDone * (0.62137).toFixed(1)
-                  : tripStore.distanceDone}
-              </Text>
+  if (uiStore.currentUser) {
+    return useObserver(() => (
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <TitleBackground style={styles.top} />
+            <TopTitle style={styles.topTitle} />
+          </View>
+          <TouchableOpacity style={styles.back} onPress={() => goHome()}>
+            <Back />
+          </TouchableOpacity>
+          <View style={styles.tekst}>
+            <Stats />
+            <View style={styles.txt}>
+              <View style={styles.stat}>
+                <Text style={styles.statText}>
+                  {uiStore.currentUser.system} {'\n'}traveled
+                </Text>
+                <Text style={styles.number}>
+                  {uiStore.currentUser.system === 'mile'
+                    ? tripStore.distanceDone * (0.62137).toFixed(1)
+                    : tripStore.distanceDone}
+                </Text>
+              </View>
+              <Black />
+              <View style={styles.stat}>
+                <Text style={styles.statText}>trips {'\n'}completed</Text>
+                <Text style={styles.number}>{tripStore.trips.length}</Text>
+              </View>
+              <Black />
+              <View style={styles.stat}>
+                <Text style={styles.statText}>hours {'\n'}traveled</Text>
+                <Text style={styles.number}>{tripStore.timeDone}</Text>
+              </View>
             </View>
-            <Black />
-            <View style={styles.stat}>
-              <Text style={styles.statText}>trips {'\n'}completed</Text>
-              <Text style={styles.number}>{tripStore.trips.length}</Text>
-            </View>
-            <Black />
-            <View style={styles.stat}>
-              <Text style={styles.statText}>hours {'\n'}traveled</Text>
-              <Text style={styles.number}>{tripStore.timeDone}</Text>
+            <View style={styles.bottomtxt}>
+              <View style={styles.statsBottom}>
+                <Text style={styles.numberBottom}>
+                  {uiStore.currentUser.friends.length}
+                </Text>
+                <Text style={styles.white}>People met</Text>
+                <White />
+                <Text style={styles.numberBottom}>
+                  {locationStore.locations.length}
+                </Text>
+                <Text style={styles.white}>Locations pinned</Text>
+              </View>
+              <TouchableOpacity onPress={() => goToLocations()}>
+                <Yellow />
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.bottomtxt}>
-            <View style={styles.statsBottom}>
-              <Text style={styles.numberBottom}>
-                {uiStore.currentUser.friends.length}
-              </Text>
-              <Text style={styles.white}>People met</Text>
-              <White />
-              <Text style={styles.numberBottom}>
-                {locationStore.locations.length}
-              </Text>
-              <Text style={styles.white}>Locations pinned</Text>
-            </View>
-            <TouchableOpacity onPress={() => goToLocations()}>
-              <Yellow />
-            </TouchableOpacity>
-          </View>
+          <Bottom style={styles.bottom} />
         </View>
-        <Bottom style={styles.bottom} />
-      </View>
-    </ScrollView>
-  ));
+      </ScrollView>
+    ));
+  } else {
+    navigation.navigate('Login');
+  }
 }
 
 const styles = StyleSheet.create({

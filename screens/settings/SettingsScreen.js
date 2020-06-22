@@ -30,7 +30,9 @@ export default function GalleryScreen({ navigation }) {
     });
   };
 
-  const [name, setName] = useState(uiStore.currentUser.name);
+  const [name, setName] = useState(
+    uiStore.currentUser ? uiStore.currentUser.name : ''
+  );
 
   const [isActive, setActive] = useState(false);
 
@@ -100,7 +102,7 @@ export default function GalleryScreen({ navigation }) {
               Visibility to other travellers
             </Text>
             <FlipToggle
-              value={uiStore.currentUser.visible}
+              value={uiStore.currentUser ? uiStore.currentUser.visible : false}
               buttonWidth={100}
               buttonHeight={40}
               buttonRadius={40}
@@ -115,9 +117,11 @@ export default function GalleryScreen({ navigation }) {
               offLabel={'Off'}
               labelStyle={{ color: 'white' }} //
               onToggle={() =>
-                uiStore.currentUser.visible
-                  ? userStore.toogleVisible(false, uiStore.currentUser)
-                  : userStore.toogleVisible(true, uiStore.currentUser)
+                uiStore.currentUser
+                  ? uiStore.currentUser.visible
+                    ? userStore.toogleVisible(false, uiStore.currentUser)
+                    : userStore.toogleVisible(true, uiStore.currentUser)
+                  : ''
               }
               onToggleLongPress={() => console.log('toggle long pressed!')}
             />
@@ -125,7 +129,11 @@ export default function GalleryScreen({ navigation }) {
           <View style={styles.eenheid}>
             <TouchableOpacity
               style={
-                uiStore.currentUser.system === 'km' ? styles.active : styles.km
+                uiStore.currentUser
+                  ? uiStore.currentUser.system === 'km'
+                    ? styles.active
+                    : styles.km
+                  : ''
               }
               onPress={() => changeToKm()}
             >
@@ -133,9 +141,11 @@ export default function GalleryScreen({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={
-                uiStore.currentUser.system === 'mile'
-                  ? styles.active
-                  : styles.miles
+                uiStore.currentUser
+                  ? uiStore.currentUser.system === 'mile'
+                    ? styles.active
+                    : styles.km
+                  : ''
               }
               onPress={() => changeToMile()}
             >
@@ -155,7 +165,7 @@ export default function GalleryScreen({ navigation }) {
               label="eai"
               placeholder="@example"
               clearButtonMode="always"
-              value={uiStore.currentUser.socials}
+              value={uiStore.currentUser ? uiStore.currentUser.socials : ''}
               onChangeText={(text) => setInsta(text)}
               returnKeyType={'done'}
             />

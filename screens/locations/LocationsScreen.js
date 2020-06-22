@@ -24,7 +24,7 @@ import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
 
 export default function LocationsScreen({ navigation }) {
-  const { locationStore } = useStore();
+  const { locationStore, uiStore } = useStore();
 
   navigation.setOptions({
     headerStyle: { height: 0 },
@@ -61,54 +61,63 @@ export default function LocationsScreen({ navigation }) {
     navigation.navigate('NewTripChoice');
   };
 
-  return useObserver(() => (
-    <View style={styles.container} >
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <TitleBackground style={styles.top} />
-          <TopTitle style={styles.topTitle} />
-        </View>
-        <TouchableOpacity style={styles.back} onPress={() => goHome()}>
-          <Back />
-        </TouchableOpacity>
-        {
-          locationStore.locations.length !== 0 ? ( 
-        <ScrollView style={styles.locations} showsVerticalScrollIndicator={false}>
-          {locationStore.locations.map((location) => (
-            <TouchableOpacity style={styles.location} key={location.id} onPress={() => handlePress(location.cords)}>
-              <View style={styles.text}>
-                <Text style={styles.name}>{location.name}</Text>
-                <Text style={styles.loc}>
-                  {location.cords.latitude}, {location.cords.longitude}
-                </Text>
-                {console.log(location.tripId)}
-                <Jeet
-                  style={styles.view}
-                  
-                ></Jeet>
-              </View>
-              <Map style={{position: 'absolute', right: 50, top: 22}} />
-              <TouchableOpacity style={{zIndex: 99999}} onPress={() => onDelete(location)}>
-                <DeleteLoc style={{zIndex: 99999}} />
-              </TouchableOpacity>
-            </TouchableOpacity>
-
-
-          ))}
-        </ScrollView>
-        ) : (
-          <View style={styles.locations}>
-            <TouchableOpacity onPress={startNewTrip} style={styles.location}>
-              <Text style={{fontSize: 16}}>You don't have any pinned locations! {'\n'}Start a new trip and make some!</Text>
-            </TouchableOpacity>
+  if (uiStore.currentUser) {
+    return useObserver(() => (
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <TitleBackground style={styles.top} />
+            <TopTitle style={styles.topTitle} />
           </View>
-        )}
-        <Boom style={styles.bottom} />
+          <TouchableOpacity style={styles.back} onPress={() => goHome()}>
+            <Back />
+          </TouchableOpacity>
+          {locationStore.locations.length !== 0 ? (
+            <ScrollView
+              style={styles.locations}
+              showsVerticalScrollIndicator={false}
+            >
+              {locationStore.locations.map((location) => (
+                <TouchableOpacity
+                  style={styles.location}
+                  key={location.id}
+                  onPress={() => handlePress(location.cords)}
+                >
+                  <View style={styles.text}>
+                    <Text style={styles.name}>{location.name}</Text>
+                    <Text style={styles.loc}>
+                      {location.cords.latitude}, {location.cords.longitude}
+                    </Text>
+                    {console.log(location.tripId)}
+                    <Jeet style={styles.view}></Jeet>
+                  </View>
+                  <Map style={{ position: 'absolute', right: 50, top: 22 }} />
+                  <TouchableOpacity
+                    style={{ zIndex: 99999 }}
+                    onPress={() => onDelete(location)}
+                  >
+                    <DeleteLoc style={{ zIndex: 99999 }} />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          ) : (
+            <View style={styles.locations}>
+              <TouchableOpacity onPress={startNewTrip} style={styles.location}>
+                <Text style={{ fontSize: 16 }}>
+                  You don't have any pinned locations! {'\n'}Start a new trip
+                  and make some!
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          <Boom style={styles.bottom} />
+        </View>
       </View>
-
-     
-    </View>
-  ));
+    ));
+  } else {
+    navigation.navigate('Login');
+  }
 }
 
 const styles = StyleSheet.create({

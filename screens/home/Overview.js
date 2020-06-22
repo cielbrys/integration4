@@ -67,96 +67,102 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('TutorialScreen');
   };
 
-  return useObserver(() => (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Mountain style={styles.mtn} />
+  if (uiStore.currentUser) {
+    return useObserver(() => (
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <Mountain style={styles.mtn} />
 
-      {uiStore.currentTrip === false ? (
-        <>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => startNewTrip()}
-          >
-            <Rood>
-              <Text>Start a new trip</Text>
-            </Rood>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => goToCurrentTrip()}
-          >
-            <CurrentTrip>
-              <Text>GoToTrip</Text>
-            </CurrentTrip>
-          </TouchableOpacity>
-        </>
-      )}
+        {uiStore.currentTrip === false ? (
+          <>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => startNewTrip()}
+            >
+              <Rood>
+                <Text>Start a new trip</Text>
+              </Rood>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => goToCurrentTrip()}
+            >
+              <CurrentTrip>
+                <Text>GoToTrip</Text>
+              </CurrentTrip>
+            </TouchableOpacity>
+          </>
+        )}
 
-      <TouchableOpacity style={styles.logout} onPress={goToTutorial}>
-        {/* <Text style={styles.logoutText}>Sign Out</Text> */}
-        <TutorialButton />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
-        <Groen>
-          {' '}
-          <Text>Tips 'n tricks</Text>
-        </Groen>
-      </TouchableOpacity>
-      <Text style={styles.recent}>
-        {uiStore.currentUser.name}'s recent trips
-      </Text>
-      {trips.length !== 0 ? (
-        <ScrollView
-          style={styles.list}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
-          {lastTrips.map((item) => (
-            <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+        <TouchableOpacity style={styles.logout} onPress={goToTutorial}>
+          {/* <Text style={styles.logoutText}>Sign Out</Text> */}
+          <TutorialButton />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
+          <Groen>
+            {' '}
+            <Text>Tips 'n tricks</Text>
+          </Groen>
+        </TouchableOpacity>
+        <Text style={styles.recent}>
+          {uiStore.currentUser.name}'s recent trips
+        </Text>
+        {trips.length !== 0 ? (
+          <ScrollView
+            style={styles.list}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            {lastTrips.map((item) => (
+              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
+                <View style={styles.trip}>
+                  <View style={styles.title}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Pijl />
+                  </View>
+                  <View style={styles.stat}>
+                    <Timer />
+                    <Text style={styles.tekst}>{item.duration}h.</Text>
+                  </View>
+                  <View style={styles.stat}>
+                    <Location />
+                    <Text style={styles.tekst}>
+                      {uiStore.currentUser.system === 'mile'
+                        ? (Number(item.distance) * 0.62137).toFixed(1)
+                        : item.distance}
+                      {uiStore.currentUser.system}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity onPress={goToTrips}>
               <View style={styles.trip}>
-                <View style={styles.title}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Pijl />
-                </View>
-                <View style={styles.stat}>
-                  <Timer />
-                  <Text style={styles.tekst}>{item.duration}h.</Text>
-                </View>
-                <View style={styles.stat}>
-                  <Location />
-                  <Text style={styles.tekst}>
-                    {uiStore.currentUser.system === 'mile'
-                      ? (Number(item.distance) * 0.62137).toFixed(1)
-                      : item.distance}
-                    {uiStore.currentUser.system}
+                <View style={styles.allRecent}>
+                  <Text style={styles.tekstSpecial}>
+                    See all my recent trips
                   </Text>
+                  <Pijl />
                 </View>
               </View>
             </TouchableOpacity>
-          ))}
-          <TouchableOpacity onPress={goToTrips}>
-            <View style={styles.trip}>
-              <View style={styles.allRecent}>
-                <Text style={styles.tekstSpecial}>See all my recent trips</Text>
-                <Pijl />
-              </View>
+          </ScrollView>
+        ) : (
+          <TouchableOpacity onPress={() => startNewTrip()}>
+            <View style={styles.tripLast}>
+              <Text style={styles.tripLastText}>
+                No recent trips! {'\n'} Start a new trip now!
+              </Text>
             </View>
           </TouchableOpacity>
-        </ScrollView>
-      ) : (
-        <TouchableOpacity onPress={() => startNewTrip()}>
-          <View style={styles.tripLast}>
-            <Text style={styles.tripLastText}>
-              No recent trips! {'\n'} Start a new trip now!
-            </Text>
-          </View>
-        </TouchableOpacity>
-      )}
-    </ScrollView>
-  ));
+        )}
+      </ScrollView>
+    ));
+  } else {
+    navigation.navigate('Login');
+  }
 }
 
 const styles = StyleSheet.create({
