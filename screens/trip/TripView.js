@@ -10,7 +10,6 @@ import haversine from 'haversine';
 import LocationModel from '../../models/LocationModel';
 import Dialog from 'react-native-dialog';
 import endLocations from '../../constants/Locations';
-let pins = [];
 
 import { MARGINS } from '../../constants/CssConst';
 
@@ -27,21 +26,23 @@ import Friends from '../../assets/images/currentTrip/friends.svg';
 import PinLoc from '../../assets/images/currentTrip/PinLoc.svg';
 import StopTrip from '../../assets/images/currentTrip/StopTrip.svg';
 
+let pins = [];
+
+let pervLatLng = {};
+
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const startTime = new Date();
+  const [startTime, setStartTime] = useState();
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
   const [nearbyLocation, setNearbyLocation] = useState(false);
   const [pinLocationButton, setLocationButton] = useState(true);
   const meetUserMail = 'ciel@gmail.com';
-
-  const isMountedRef = useRef(null);
 
   const [pinName, setPinName] = useState(
     `Location #${locationStore.locations.length + 1}`
@@ -79,7 +80,6 @@ export default function TripView({ navigation }) {
     setNearbyPop(false);
   };
 
-  let pervLatLng = {};
   useEffect(() => {
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
@@ -111,6 +111,8 @@ export default function TripView({ navigation }) {
     latitude: 50.819213,
     longitude: 3.273197,
   };
+
+  setStartTime(new Date());
 
   const startLocationTracking = async () => {
     await Location.watchPositionAsync(
@@ -160,8 +162,8 @@ export default function TripView({ navigation }) {
   };
 
   const updateNearby = (newLoc) => {
-    const nearbyDistance = haversine(newLoc, p2, { unit: 'km' }) || 0;
-    if (nearbyDistance < 0.1) {
+    const nearbyDistance = haversine(newLoc, p2, { unit: 'meter' }) || 0;
+    if (nearbyDistance < 10) {
       setNearbyLocation(true);
     }
   };
@@ -206,8 +208,8 @@ export default function TripView({ navigation }) {
     });
     locationStore.addNewLocation(pin);
     pins.push(pin);
-    setPinName(`Location #${locationStore.locations.length + 1}`);
     setPopUpPin(false);
+    setPinName(`Location #${locationStore.locations.length + 1}`);
   };
 
   navigation.setOptions({
@@ -395,7 +397,7 @@ export default function TripView({ navigation }) {
             <Dialog.Button
               color={'gray'}
               label="Cancel"
-              onPress={() => setPopUpSave(false)}
+              onPress={() => setNearbyLocation(false)}
             />
             <Dialog.Button
               bold={true}
@@ -461,7 +463,7 @@ const styles = StyleSheet.create({
     marginLeft: MARGINS.defaultValue,
     alignItems: 'center',
     marginTop: -20,
-    marginBottom: -20
+    marginBottom: -20,
   },
   stopButton: {
     marginTop: -10,
