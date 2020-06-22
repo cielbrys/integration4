@@ -1,6 +1,7 @@
 import { decorate, observable, action } from 'mobx';
 import UserModel from '../models/UserModel';
 import UserService from '../services/UserService';
+import { convertSpeed } from 'geolib';
 
 class UserStore {
   constructor(rootStore) {
@@ -27,7 +28,7 @@ class UserStore {
   };
 
   loadUsersForUser = async (user) => {
-    const r = await this.usersService.getUsersForUser(user.asJson);
+    const r = await this.usersService.getUsersForUser(user.email);
     r.forEach(async (friend) => {
       const userJson = await this.getUser(friend.email);
       const newFriend = this.updateUserFromServer(userJson);
@@ -66,6 +67,7 @@ class UserStore {
   }
 
   getUser = async (email) => {
+    console.log('getEmail,', email);
     const user = await this.usersService.getUserByEmail(email);
     return user;
   };

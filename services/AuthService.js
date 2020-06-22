@@ -3,6 +3,7 @@ import 'firebase/auth';
 class AuthService {
   constructor({ firebase, onAuthStateChanged }) {
     this.auth = firebase.auth();
+    this.db = firebase.firestore();
     this.auth.onAuthStateChanged((data) => {
       if (data) {
         data.id = data.uid;
@@ -21,20 +22,22 @@ class AuthService {
     return await this.auth.signOut();
   };
 
-  register = async ({ name, email, password }) => {
+  register = async ({ name, email, password, ...json }) => {
     const userCredential = await this.auth.createUserWithEmailAndPassword(
       email,
       password
     );
-    await userCredential.user.updateProfile({
-      displayName: name,
+    await this.db.collection('users').doc(userCredential.user.email).set({
+      name: name,
+      email: userCredential.user.email,
+      id: userCredential.user.uid,
+      system: json.system,
+      visible: false,
+      socials: json.socials,
+      status: json.status,
     });
-    return userCredential.user;
-  };
 
-  updateUser = async (newPassword, newEmail) => {
-    await this.auth.currentUser.updateEmail(newEmail);
-    await this.auth.currentUser.updatePassword(newPassword);
+    return userCredential.user;
   };
 
   isRegistered = async (email) => {

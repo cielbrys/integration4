@@ -90,7 +90,6 @@ export default ({ navigation }) => {
           socials: insta,
           system: 'km',
         });
-        navigation.navigate('Root');
       } catch (error) {
         console.log(error.code);
 

@@ -98,6 +98,8 @@ decorate(UserModel, {
   toggleVisible: action,
   changeSystem: action,
   setSocials: action,
+  asJson: computed,
+  updateFromJson: action,
   changeName: action,
 });
 

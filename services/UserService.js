@@ -44,17 +44,17 @@ class UserService {
   };
 
   getUserByEmail = async (email) => {
-    const data = (await this.db.collection('users').doc(email).get()).data();
-    console.log('data:', data);
-    console.log(data);
+    const data = await this.db.collection('users').doc(email).get();
+    const json = await data.data();
+    console.log('data:', json);
     console.log('user', email);
-    return data;
+    return json;
   };
 
-  getUsersForUser = async (user) => {
+  getUsersForUser = async (email) => {
     const contacts = await this.db
       .collection('users')
-      .doc(user.email)
+      .doc(email)
       .collection('users')
       .get();
     return contacts.docs.map((u) => u.data());

@@ -73,16 +73,18 @@ export default function App(props) {
             ref={containerRef}
             initialState={initialNavigationState}
           >
-            {uiStore.currentUser ? (
-              <Stack.Navigator headerMode="none">
+            <Stack.Navigator
+              headerMode={uiStore.currentUser ? 'none' : 'header'}
+            >
+              {uiStore.currentUser ? (
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
-              </Stack.Navigator>
-            ) : (
-              <Stack.Navigator>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
-              </Stack.Navigator>
-            )}
+              ) : (
+                <>
+                  <Stack.Screen name="Login" component={Login} />
+                  <Stack.Screen name="Register" component={Register} />
+                </>
+              )}
+            </Stack.Navigator>
           </NavigationContainer>
         </KeyboardAvoidingView>
       );

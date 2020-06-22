@@ -39,24 +39,16 @@ class UiStore {
     return await this.authService.logout();
   };
   register = async (user) => {
-    const result = await this.authService.register(user);
-
-    user.id = result.uid;
-    //
-    const newUser = this.rootStore.userStore.updateUserFromServer(user);
-
-    const r = await this.rootStore.userStore.createUser(newUser.asJson);
-    console.log('r:', r);
+    const r = await this.authService.register(user);
+    return r;
   };
 
   onAuthStateChanged = async (data) => {
-    console.log(data);
     if (data) {
-      console.log('ingelogd:', data.email);
+      console.log('ingelogd:', data);
       const userJson = await this.rootStore.userStore.getUser(data.email);
-      const user = await this.rootStore.userStore.updateUserFromServer(
-        userJson
-      );
+      console.log('JSONUSER: ', userJson);
+      const user = this.rootStore.userStore.updateUserFromServer(userJson);
       this.setCurrentUser(user);
       await this.rootStore.userStore.loadUsersForUser(this.currentUser);
       await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
