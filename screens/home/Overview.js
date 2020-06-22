@@ -152,7 +152,11 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </ScrollView>
       ) : (
-        <Text>You have no trips atm</Text>
+        <TouchableOpacity onPress={() => startNewTrip()}>
+          <View style={styles.tripLast}>
+            <Text style={styles.tripLastText}>No recent trips! {'\n'} Start a new trip now!</Text>
+          </View>
+        </TouchableOpacity>
       )}
     </ScrollView>
   ));
@@ -186,6 +190,22 @@ const styles = StyleSheet.create({
     width: 170,
     height: 120,
     borderRadius: 10,
+  },
+
+  tripLast: {
+    backgroundColor: 'rgb(240,244,243)',
+    marginRight: 16,
+    width: 170,
+    height: 120,
+    borderRadius: 10,
+    marginLeft: 24,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tripLastText: {
+    textAlign: 'center',
+    marginRight: 10,
+    marginLeft: 10
   },
   button: {
     alignSelf: 'center',
