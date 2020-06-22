@@ -88,6 +88,7 @@ export default ({ navigation }) => {
           password: password,
           status: status,
           socials: insta,
+          system: 'km',
         });
         navigation.navigate('Root');
       } catch (error) {
@@ -109,7 +110,7 @@ export default ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={style.container}>
         <TopRegister style={style.topRegister} />
 

@@ -21,11 +21,9 @@ import { useObserver } from 'mobx-react-lite';
 
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
-import RegisterTwo from './screens/auth/RegisterTwo';
 import Start from './screens/auth/Start';
 
 const Stack = createStackNavigator();
-
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -81,10 +79,9 @@ export default function App(props) {
               </Stack.Navigator>
             ) : (
               <Stack.Navigator>
-                <Stack.Screen name="Start" component={Start} />
+  
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="RegisterTwo" component={RegisterTwo} />
               </Stack.Navigator>
             )}
           </NavigationContainer>

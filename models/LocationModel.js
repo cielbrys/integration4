@@ -11,6 +11,7 @@ class LocationModel {
     }
     this.rootStore = store;
     this.user = user;
+    this.cords = {};
     this.updateFromJson(json);
     this.rootStore.locationStore.addLocation(this);
   }
@@ -20,6 +21,7 @@ class LocationModel {
   }
 
   updateFromJson = (json) => {
+    console.log('jsonLoca', json);
     this.name = json.name !== undefined ? json.name : this.name;
     this.tripId = json.tripId !== undefined ? json.tripId : '';
     if (json.latitude) {
@@ -51,6 +53,7 @@ decorate(LocationModel, {
   name: observable,
   tripId: observable,
   setTripId: action,
+  cords: observable,
   changeName: action,
   updateFromJson: action,
 });

@@ -28,6 +28,8 @@ let pins = [];
 
 let pervLatLng = {};
 
+let p1 = {};
+
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
   const [heading, setHeading] = useState(0);
@@ -102,8 +104,6 @@ export default function TripView({ navigation }) {
       ? uiStore.meetLocation.longitude
       : uiStore.endLocation.longitude,
   };
-
-  let p1 = {};
 
   const startLocationTracking = async () => {
     await Location.watchPositionAsync(
@@ -185,10 +185,11 @@ export default function TripView({ navigation }) {
   };
 
   const pinLocation = () => {
+    console.log(p1);
     const name = pinName;
     const pin = new LocationModel({
-      longitude: p1.longitude,
-      latitude: p1.latitude,
+      longitude: p1.longitude.toFixed(6),
+      latitude: p1.latitude.toFixed(6),
       name,
       user: uiStore.currentUser,
       store: locationStore.rootStore,

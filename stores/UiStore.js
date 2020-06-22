@@ -40,6 +40,7 @@ class UiStore {
   };
   register = async (user) => {
     const result = await this.authService.register(user);
+
     user.id = result.uid;
     //
     const newUser = this.rootStore.userStore.updateUserFromServer(user);

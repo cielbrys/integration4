@@ -33,7 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           backgroundColor: '#154945',
           paddingTop: 5,
           paddingBottom: 10,
-          height: 70
+          height: 70,
         },
         activeTintColor: '#91B7AC',
         inactiveTintColor: '#fff',
