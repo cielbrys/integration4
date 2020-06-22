@@ -79,21 +79,38 @@ export default function TripView({ navigation }) {
   };
 
   useEffect(() => {
+
+    let isMounted = true;
+    let locationTrackingSubscription = false;
+
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
+      if (!isMounted) {
+        return;
+      }
       if (res.status !== 'granted') {
         Alert.alert('Pleas allow Location for this app');
         console.log('Permission to access location was denied');
       } else {
-        startLocationTracking();
+        locationTrackingSubscription = await startLocationTracking();
         Location.watchHeadingAsync((obj) => {
           let heading = obj.magHeading;
+          if (!isMounted) {
+            return;
+          }
           setHeading(heading);
         });
       }
     };
 
     config();
+
+    return () => {
+      isMounted = false;
+      if (locationTrackingSubscription) {
+        locationTrackingSubscription.remove();
+      }
+    };
   }, []);
 
   let p2 = {
@@ -105,8 +122,8 @@ export default function TripView({ navigation }) {
       : uiStore.endLocation.longitude,
   };
 
-  const startLocationTracking = async () => {
-    await Location.watchPositionAsync(
+  const startLocationTracking = () => {
+    return Location.watchPositionAsync(
       {
         enableHighAccuracy: false,
         distanceInterval: 1,
