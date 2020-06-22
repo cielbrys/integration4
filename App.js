@@ -80,6 +80,7 @@ export default function App(props) {
                 <Stack.Screen name="Root" component={BottomTabNavigator} />
               ) : (
                 <>
+                  <Stack.Screen name="Start" component={Start} />
                   <Stack.Screen name="Login" component={Login} />
                   <Stack.Screen name="Register" component={Register} />
                 </>

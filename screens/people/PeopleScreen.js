@@ -29,52 +29,55 @@ export default function PeopleScreen({ navigation }) {
     headerLeft: null,
   });
 
-  const startNewTrip = () => {
-    navigation.navigate('NewTripChoice');
-  };
-
-  return useObserver(() => (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <TitleBackground style={styles.top} />
-          <TopTitle style={styles.topTitle} />
-        </View>
-        <TouchableOpacity style={styles.back} onPress={() => goHome()}>
-          <Back />
-        </TouchableOpacity>
-        <View style={styles.title}>
-          <Text style={styles.met}>People you have met</Text>
-          {uiStore.currentUser.friends.length === 0 ? (
-            <View style={styles.locations}>
-              <TouchableOpacity onPress={startNewTrip} style={styles.location}>
-                <Text style={{fontSize: 16}}>You haven't made new friends yet! {'\n'}Start a new trip and make some!</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <>
-              <Text style={styles.txt}>Friends </Text>
-              <ScrollView style={styles.friendsView} showsHorizontalScrollIndicator={false}>
-                {uiStore.currentUser.friends.map((user) => (
-                  <View style={styles.friends} key={user.id}>
-                    <Text style={styles.name}>{user.name}</Text>
-                    <Insta
-                      onPress={() =>
-                        Linking.openURL(
-                          `https://www.instagram.com/${user.socials}`
-                        )
-                      }
-                    />
-                  </View>
-                ))}
-              </ScrollView>
-            </>
-          )}
-          <Boom style={styles.bottom} />
+  if (uiStore.currentUser) {
+    return useObserver(() => (
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <TitleBackground style={styles.top} />
+            <TopTitle style={styles.topTitle} />
+          </View>
+          <TouchableOpacity style={styles.back} onPress={() => goHome()}>
+            <Back />
+          </TouchableOpacity>
+          <View style={styles.title}>
+            <Text style={styles.met}>People you have met</Text>
+            {uiStore.currentUser.friends.length === 0 ? (
+              <View style={styles.locations}>
+                <TouchableOpacity onPress={startNewTrip} style={styles.location}>
+                  <Text style={{fontSize: 16}}>You haven't made new friends yet! {'\n'}Start a new trip and make some!</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                <Text style={styles.txt}>Friends </Text>
+                <ScrollView
+                  style={styles.friendsView}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  {uiStore.currentUser.friends.map((user) => (
+                    <View style={styles.friends} key={user.id}>
+                      <Text style={styles.name}>{user.name}</Text>
+                      <Insta
+                        onPress={() =>
+                          Linking.openURL(
+                            `https://www.instagram.com/${user.socials}`
+                          )
+                        }
+                      />
+                    </View>
+                  ))}
+                </ScrollView>
+              </>
+            )}
+            <Boom style={styles.bottom} />
+          </View>
         </View>
       </View>
-    </View>
-  ));
+    ));
+  } else {
+    navigation.navigate('Login');
+  }
 }
 
 const styles = StyleSheet.create({
