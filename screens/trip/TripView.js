@@ -9,8 +9,6 @@ import TripModel from '../../models/TripModel';
 import haversine from 'haversine';
 import LocationModel from '../../models/LocationModel';
 import Dialog from 'react-native-dialog';
-import endLocations from '../../constants/Locations';
-
 import { MARGINS } from '../../constants/CssConst';
 
 let deviceHeight = Dimensions.get('window').height;
@@ -36,7 +34,7 @@ export default function TripView({ navigation }) {
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
   const [distance, setDistance] = useState(0);
-  const [startTime, setStartTime] = useState();
+  const [startTime, setStartTime] = useState(new Date());
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
@@ -74,8 +72,6 @@ export default function TripView({ navigation }) {
       }
       const newCords = { latitude: 50.820583, longitude: 3.272017 };
       uiStore.setMeetLocation(newCords);
-
-      uiStore.setEndLocation();
     });
     setNearbyPop(false);
   };
@@ -112,8 +108,6 @@ export default function TripView({ navigation }) {
     longitude: 3.273197,
   };
 
-  setStartTime(new Date());
-
   const startLocationTracking = async () => {
     await Location.watchPositionAsync(
       {
@@ -145,12 +139,6 @@ export default function TripView({ navigation }) {
           Math.PI;
         setDegree(angleDeg);
         console.log('degree', degree);
-        region = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.002,
-          longitudeDelta: 0.002,
-        };
       }
     );
   };
