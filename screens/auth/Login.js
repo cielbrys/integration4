@@ -42,7 +42,6 @@ export default ({ navigation }) => {
   const handleSubmit = async () => {
     try {
       await uiStore.login(email, password);
-      history.push(ROUTES.home);
     } catch (error) {
       console.log(error.code);
       switch(error.code){

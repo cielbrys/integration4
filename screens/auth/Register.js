@@ -91,7 +91,6 @@ export default ({ navigation }) => {
           status: status,
           socials: insta,
         });
-        history.push(ROUTES.home);
       }catch (error) {
         console.log(error.code)
   
@@ -104,14 +103,12 @@ export default ({ navigation }) => {
           setErrorPassword('This password is not strong enough')
         }
       }
-
-
     }
     
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
       <View style={style.container}>
         <TopRegister style={style.topRegister} />
         

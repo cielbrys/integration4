@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
+import Dialog from 'react-native-dialog';
 
 import TopTitle from '../../assets/images/locations.svg';
 import Back from '../../assets/images/back.svg';
@@ -17,6 +18,7 @@ import Boom from '../../assets/images/boom.svg';
 import Map from '../../assets/images/map.svg';
 import Jeet from '../../assets/images/jeet.svg';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
+import DeleteLoc from '../../assets/images/DeleteLoc.svg';
 
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
@@ -29,6 +31,8 @@ export default function LocationsScreen({ navigation }) {
     headerTitle: null,
     headerLeft: null,
   });
+
+  const [popUpSave, setPopUpSave] = useState(false);
 
   const handlePress = async (cords) => {
     const scheme = Platform.select({
@@ -49,8 +53,16 @@ export default function LocationsScreen({ navigation }) {
     });
   };
 
+  const onDelete = async (location) => {
+    await locationStore.deleteLocation(location);
+  };
+
+  const startNewTrip = () => {
+    navigation.navigate('NewTripChoice');
+  };
+
   return useObserver(() => (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container} >
       <View style={styles.main}>
         <View style={styles.header}>
           <TitleBackground style={styles.top} />
@@ -59,7 +71,9 @@ export default function LocationsScreen({ navigation }) {
         <TouchableOpacity style={styles.back} onPress={() => goHome()}>
           <Back />
         </TouchableOpacity>
-        <ScrollView style={styles.locations}>
+        {
+          locationStore.locations.length !== 0 ? ( 
+        <ScrollView style={styles.locations} showsVerticalScrollIndicator={false}>
           {locationStore.locations.map((location) => (
             <TouchableOpacity style={styles.location} key={location.id} onPress={() => handlePress(location.cords)}>
               <View style={styles.text}>
@@ -73,13 +87,27 @@ export default function LocationsScreen({ navigation }) {
                   
                 ></Jeet>
               </View>
-              <Map />
+              <Map style={{position: 'absolute', right: 50, top: 22}} />
+              <TouchableOpacity style={{zIndex: 99999}} onPress={() => onDelete(location)}>
+                <DeleteLoc style={{zIndex: 99999}} />
+              </TouchableOpacity>
             </TouchableOpacity>
+
+
           ))}
         </ScrollView>
+        ) : (
+          <View style={styles.locations}>
+            <TouchableOpacity onPress={startNewTrip} style={styles.location}>
+              <Text style={{fontSize: 16}}>You don't have any pinned locations! {'\n'}Start a new trip and make some!</Text>
+            </TouchableOpacity>
+          </View>
+        )}
         <Boom style={styles.bottom} />
       </View>
-    </ScrollView>
+
+     
+    </View>
   ));
 }
 
@@ -112,7 +140,7 @@ const styles = StyleSheet.create({
   },
   locations: {
     marginTop: 100,
-    height: '100%',
+    height: '76%',
   },
   location: {
     backgroundColor: 'rgb(240,244,243)',
