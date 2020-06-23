@@ -9,7 +9,6 @@ import TopTitle from '../../assets/images/trips.svg';
 import Back from '../../assets/images/back.svg';
 import Front from '../../assets/images/front.svg';
 import Background from '../../assets/images/bg.svg';
-import { useHistory } from 'react-router-dom';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 import RectentTrip from '../../components/tripsrender/RecentTrip';
 import { MARGINS } from '../../constants/CssConst';
