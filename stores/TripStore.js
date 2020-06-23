@@ -16,6 +16,7 @@ class TripStore {
 
   createTrip = async (trip) => {
     const newTrip = await this.tripsService.create(trip.asJson);
+    this.updateTripFromServer(newTrip);
     console.log(newTrip);
   };
 

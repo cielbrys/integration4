@@ -37,7 +37,15 @@ class UserModel {
     this.rootStore.userStore.updateUsername(newName);
   };
 
-  addFriend(friend) {
+  addFriend = async (friendMail, user) => {
+    const friend = await this.rootStore.userStore.usersService.addNewFriend(
+      friendMail,
+      user.asJson
+    );
+    this.addNewFriend(friend);
+  };
+
+  addNewFriend(friend) {
     this.friends.push(friend);
   }
 
@@ -95,12 +103,14 @@ decorate(UserModel, {
   system: observable,
   socials: observable,
   visible: observable,
+  friends: observable,
   toggleVisible: action,
   changeSystem: action,
   setSocials: action,
   asJson: computed,
   updateFromJson: action,
   changeName: action,
+  addNewFriend: action,
 });
 
 export default UserModel;

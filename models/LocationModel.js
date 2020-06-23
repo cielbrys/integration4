@@ -21,7 +21,6 @@ class LocationModel {
   }
 
   updateFromJson = (json) => {
-    console.log('jsonLoca', json);
     this.name = json.name !== undefined ? json.name : this.name;
     this.tripId = json.tripId !== undefined ? json.tripId : '';
     if (json.latitude) {

@@ -19,7 +19,7 @@ class UserService {
       .doc(user.email)
       .collection('users')
       .doc(friend.email)
-      .set({ email: friend.email });
+      .set({ email: friend.email, socials: friend.socials, name: friend.name });
     return friend;
   };
 

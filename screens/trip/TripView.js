@@ -29,14 +29,16 @@ let pins = [];
 let pervLatLng = {};
 
 let p1 = {};
+let startTime = undefined;
+
+let distance = 0;
+timing = false;
 
 export default function TripView({ navigation }) {
   const { tripStore, uiStore, locationStore, userStore } = useStore();
   const [heading, setHeading] = useState(0);
   const [degree, setDegree] = useState(0);
   const [name, setName] = useState(`Trip #${tripStore.trips.length + 1}`);
-  const [distance, setDistance] = useState(0);
-  const [startTime, setStartTime] = useState(new Date());
   const [popUpSave, setPopUpSave] = useState(false);
   const [popUpPin, setPopUpPin] = useState(false);
   const [nearbyPop, setNearbyPop] = useState(false);
@@ -48,16 +50,8 @@ export default function TripView({ navigation }) {
     `Location #${locationStore.locations.length + 1}`
   );
 
-  if (uiStore.currentUser.visible === true) {
-    timeout();
-  }
-
-  function timeout() {
-    setTimeout(function () {
-      if (meetUserMail !== uiStore.currentUser.email) {
-        setNearbyPop(true);
-      }
-    }, 20000);
+  if (!startTime) {
+    startTime = new Date();
   }
 
   navigation.setOptions({ headerTitle: name });
@@ -66,22 +60,10 @@ export default function TripView({ navigation }) {
     await userStore.setNewFriend(friendMail, uiStore.currentUser);
   };
 
-  const meetUser = async () => {
-    console.log('meetfriend', meetUserMail);
-    uiStore.currentUser.friends.map((friend) => {
-      if (friend.email !== uiStore.currentUser.email) {
-        addNewFriend(meetUserMail);
-      }
-      const newCords = { latitude: 50.820583, longitude: 3.272017 };
-      uiStore.setMeetLocation(newCords);
-    });
-    setNearbyPop(false);
-  };
-
   useEffect(() => {
-
     let isMounted = true;
     let locationTrackingSubscription = false;
+    let locationHeading = false;
 
     const config = async () => {
       let res = await Location.requestPermissionsAsync();
@@ -92,14 +74,13 @@ export default function TripView({ navigation }) {
         Alert.alert('Pleas allow Location for this app');
         console.log('Permission to access location was denied');
       } else {
-        locationTrackingSubscription = await startLocationTracking();
-        Location.watchHeadingAsync((obj) => {
-          let heading = obj.magHeading;
-          if (!isMounted) {
-            return;
-          }
-          setHeading(heading);
-        });
+        if (isMounted) {
+          locationTrackingSubscription = await startLocationTracking();
+          locationHeading = await Location.watchHeadingAsync((obj) => {
+            let heading = obj.magHeading;
+            setHeading(heading);
+          });
+        }
       }
     };
 
@@ -110,8 +91,41 @@ export default function TripView({ navigation }) {
       if (locationTrackingSubscription) {
         locationTrackingSubscription.remove();
       }
+      if (locationHeading) {
+        locationHeading.remove();
+      }
     };
   }, []);
+
+  if (uiStore.currentUser.visible === true) {
+    0;
+    if (!timing) {
+      timeout();
+      timing = true;
+    }
+  }
+
+  function timeout() {
+    setTimeout(function () {
+      if (meetUserMail !== uiStore.currentUser.email) {
+        setNearbyPop(true);
+      }
+    }, 20000);
+  }
+
+  const meetUser = async () => {
+    console.log('meetfriend', meetUserMail);
+    let alreadyMet = false;
+    uiStore.currentUser.friends.map((friend) => {
+      if (friend.email === meetUserMail) {
+        alreadyMet = true;
+      }
+    });
+    if (!alreadyMet) {
+      uiStore.currentUser.addFriend(meetUserMail, uiStore.currentUser);
+    }
+    setNearbyPop(false);
+  };
 
   let p2 = {
     latitude: uiStore.meetLocation
@@ -161,8 +175,9 @@ export default function TripView({ navigation }) {
     const newDistance =
       haversine(pervLatLng, newLoc, { unit: 'km' }) || distance;
     pervLatLng = newLoc;
-    const calcDistance = distance + Number(newDistance);
-    setDistance(calcDistance.toFixed(2));
+    let calcDistance = Number(distance) + Number(newDistance);
+    console.log(calcDistance);
+    distance = calcDistance.toFixed(2);
   };
 
   const updateNearby = (newLoc) => {
@@ -175,6 +190,12 @@ export default function TripView({ navigation }) {
   const deleteTrip = () => {
     uiStore.setCurrentTrip(false);
     uiStore.setTripFeeling('');
+    uiStore.setTripFeeling('');
+    uiStore.setCurrentTrip(false);
+    startTime = undefined;
+    distance = 0;
+    pins = [];
+    pervLatLng = {};
     navigation.navigate('Home', {
       screen: 'Overview',
     });
@@ -193,12 +214,16 @@ export default function TripView({ navigation }) {
       pin.setTripId(trip.id);
     });
     await tripStore.createTrip(trip);
-    navigation.navigate('Home', {
-      screen: 'Overview',
-    });
     setPopUpSave(false);
     uiStore.setTripFeeling('');
     uiStore.setCurrentTrip(false);
+    startTime = undefined;
+    distance = 0;
+    pins = [];
+    pervLatLng = {};
+    navigation.navigate('Home', {
+      screen: 'Overview',
+    });
   };
 
   const pinLocation = () => {
@@ -291,7 +316,7 @@ export default function TripView({ navigation }) {
               <AmountMiles />
               <Text style={{ fontSize: 22, color: 'white', marginLeft: 6 }}>
                 {uiStore.currentUser.system === 'mile'
-                  ? (Number(distance) * 0.62137).toFixed(1)
+                  ? (distance * 0.62137).toFixed(1)
                   : distance}{' '}
                 {uiStore.currentUser.system}
               </Text>
@@ -321,18 +346,12 @@ export default function TripView({ navigation }) {
                 disabled={pinLocationButton}
               >
                 <PinLoc />
-                {/* <PinLocation /> */}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setPopUpSave(true)}
                 style={styles.stopButton}
               >
                 <StopTrip />
-                {/* <Text
-                  style={{ fontSize: 18, color: 'white', textAlign: 'center' }}
-                >
-                  Stop Trip
-                </Text> */}
               </TouchableOpacity>
             </View>
           </View>

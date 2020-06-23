@@ -7,12 +7,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Back from '../../assets/images/back.svg';
 import TopTitle from '../../assets/images/people.svg';
 import Boom from '../../assets/images/boom.svg';
-import Insta from '../../assets/images/instagram.svg';
 import { useObserver } from 'mobx-react-lite';
 import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg';
 
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
+import Friend from '../../components/friends/Friend';
 
 export default function PeopleScreen({ navigation }) {
   const { uiStore } = useStore();
@@ -52,16 +52,7 @@ export default function PeopleScreen({ navigation }) {
                   showsHorizontalScrollIndicator={false}
                 >
                   {uiStore.currentUser.friends.map((user) => (
-                    <View style={styles.friends} key={user.id}>
-                      <Text style={styles.name}>{user.name}</Text>
-                      <Insta
-                        onPress={() =>
-                          Linking.openURL(
-                            `https://www.instagram.com/${user.socials}`
-                          )
-                        }
-                      />
-                    </View>
+                    <Friend friend={user} key={user.email} />
                   ))}
                 </ScrollView>
               </>
@@ -114,26 +105,9 @@ const styles = StyleSheet.create({
     marginTop: 80,
     zIndex: 300,
   },
-  friends: {
-    marginLeft: MARGINS.defaultValue,
-    marginRight: MARGINS.defaultValue,
-    marginTop: 16,
-    backgroundColor: 'rgb(240,244,243)',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingRight: 16,
-    paddingLeft: 16,
-    borderRadius: 4,
-  },
 
   friendsView: {
     height: '100%',
-  },
-  name: {
-    fontSize: FONTSIZES.small,
   },
   met: {
     fontSize: FONTSIZES.default,
