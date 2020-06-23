@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useStore } from '../../hooks/useStore';
 import { useObserver } from 'mobx-react-lite';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 import TutorialBG from '../../assets/images/Tutorial/backgroundTuto.svg';
 import First from '../../assets/images/Tutorial/first.svg';
@@ -13,7 +12,6 @@ import Third from '../../assets/images/Tutorial/third.svg';
 import Next from '../../assets/images/Next.svg';
 import StartExpl from '../../assets/images/StartExploringB.svg';
 
-import Back from '../../assets/images/back.svg';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;

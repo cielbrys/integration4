@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Linking } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useStore } from '../../hooks/useStore';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -13,6 +13,7 @@ import TitleBackground from '../../assets/images/tripDetail/TitleBackground.svg'
 import { MARGINS } from '../../constants/CssConst';
 import { FONTSIZES } from '../../constants/CssConst';
 import Friend from '../../components/friends/Friend';
+import NoFriends from '../../components/friends/NoFriends';
 
 export default function PeopleScreen({ navigation }) {
   const { uiStore } = useStore();
@@ -47,11 +48,7 @@ export default function PeopleScreen({ navigation }) {
           <View style={styles.title}>
             <Text style={styles.met}>People you have met</Text>
             {uiStore.currentUser.friends.length === 0 ? (
-              <View style={styles.locations}>
-                <TouchableOpacity onPress={startNewTrip} style={styles.location}>
-                  <Text style={{fontSize: 16}}>You haven't made new friends yet! {'\n'}Start a new trip and make some!</Text>
-                </TouchableOpacity>
-              </View>
+              <NoFriends onPress={startNewTrip} />
             ) : (
               <>
                 <Text style={styles.txt}>Friends </Text>

@@ -19,7 +19,6 @@ import Back from '../../assets/images/back.svg';
 import TripTitle from '../../assets/images/currentTrip/TripTitle.svg';
 import ArrowUp from '../../assets/images/currentTrip/arrowUp.svg';
 import AmountMiles from '../../assets/images/currentTrip/amountMiles.svg';
-import PinLocation from '../../assets/images/currentTrip/pinLocation.svg';
 import Friends from '../../assets/images/currentTrip/friends.svg';
 import PinLoc from '../../assets/images/currentTrip/PinLoc.svg';
 import StopTrip from '../../assets/images/currentTrip/StopTrip.svg';

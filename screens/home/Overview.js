@@ -13,10 +13,9 @@ import Mountain from '../../assets/images/home.svg';
 import Rood from '../../assets/images/rood.svg';
 import CurrentTrip from '../../assets/images/currentTrip.svg';
 import Groen from '../../assets/images/groen.svg';
-import Timer from '../../assets/images/timerYellow';
-import Location from '../../assets/images/locationYellow';
 import Pijl from '../../assets/images/arrow.svg';
 import TutorialButton from '../../assets/images/tutorialButton.svg';
+import TripOverview from '../../components/tripsrender/TripOverview';
 
 export default function HomeScreen({ navigation }) {
   const { tripStore, uiStore } = useStore();
@@ -97,7 +96,6 @@ export default function HomeScreen({ navigation }) {
         )}
 
         <TouchableOpacity style={styles.logout} onPress={goToTutorial}>
-          {/* <Text style={styles.logoutText}>Sign Out</Text> */}
           <TutorialButton />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => goToTips()}>
@@ -116,27 +114,11 @@ export default function HomeScreen({ navigation }) {
             showsHorizontalScrollIndicator={false}
           >
             {lastTrips.map((item) => (
-              <TouchableOpacity key={item.id} onPress={() => goToDetail(item)}>
-                <View style={styles.trip}>
-                  <View style={styles.title}>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Pijl />
-                  </View>
-                  <View style={styles.stat}>
-                    <Timer />
-                    <Text style={styles.tekst}>{item.duration}h.</Text>
-                  </View>
-                  <View style={styles.stat}>
-                    <Location />
-                    <Text style={styles.tekst}>
-                      {uiStore.currentUser.system === 'mile'
-                        ? (Number(item.distance) * 0.62137).toFixed(1)
-                        : item.distance}
-                      {uiStore.currentUser.system}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              <TripOverview
+                key={item.id}
+                item={item}
+                onPress={() => goToDetail(item)}
+              />
             ))}
             <TouchableOpacity onPress={goToTrips}>
               <View style={styles.trip}>
@@ -186,13 +168,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  trip: {
-    backgroundColor: 'rgb(240,244,243)',
-    marginRight: 16,
-    width: 170,
-    height: 120,
-    borderRadius: 10,
   },
 
   tripLast: {
