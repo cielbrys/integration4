@@ -18,6 +18,9 @@ import { MARGINS } from '../../constants/CssConst';
 export default function StatsScreen({ navigation }) {
   const { tripStore, uiStore, locationStore } = useStore();
 
+  const distance = tripStore.distanceDone;
+  const hours = tripStore.timeDone;
+
   navigation.setOptions({
     headerStyle: { height: 0 },
     headerTitle: null,
@@ -55,7 +58,7 @@ export default function StatsScreen({ navigation }) {
                 <Text style={styles.number}>
                   {uiStore.currentUser.system === 'mile'
                     ? tripStore.distanceDone * (0.62137).toFixed(1)
-                    : tripStore.distanceDone}
+                    : Number(distance).toFixed(1)}
                 </Text>
               </View>
               <Black />
@@ -66,7 +69,7 @@ export default function StatsScreen({ navigation }) {
               <Black />
               <View style={styles.stat}>
                 <Text style={styles.statText}>hours {'\n'}traveled</Text>
-                <Text style={styles.number}>{tripStore.timeDone}</Text>
+                <Text style={styles.number}>{Number(hours).toFixed(1)}</Text>
               </View>
             </View>
             <View style={styles.bottomtxt}>

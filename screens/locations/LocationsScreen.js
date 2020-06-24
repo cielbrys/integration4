@@ -70,6 +70,10 @@ const styles = StyleSheet.create({
     right: MARGINS.defaultValue,
     top: 60,
   },
+  locations: {
+    marginTop: 100,
+    height: '76%',
+  },
   container: {
     backgroundColor: 'white',
   },

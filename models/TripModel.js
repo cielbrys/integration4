@@ -44,7 +44,7 @@ class TripModel {
   };
 
   durationTime() {
-    if (this.stopTime !== '') {
+    if (!this.duration) {
       const seconds = Math.abs(this.stopTime - this.startTime) / 1000;
       const hours = (seconds / 60 / 60).toFixed(1);
       console.log(seconds);

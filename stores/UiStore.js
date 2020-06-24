@@ -47,12 +47,11 @@ class UiStore {
     if (data) {
       console.log('ingelogd:', data);
       const userJson = await this.rootStore.userStore.getUser(data.email);
-      console.log('JSONUSER: ', userJson);
       const user = this.rootStore.userStore.updateUserFromServer(userJson);
+      await this.rootStore.tripStore.loadTripsForUser(user);
+      await this.rootStore.userStore.loadUsersForUser(user);
+      await this.rootStore.locationStore.loadLocationsForUser(user);
       this.setCurrentUser(user);
-      await this.rootStore.userStore.loadUsersForUser(this.currentUser);
-      await this.rootStore.tripStore.loadTripsForUser(this.currentUser);
-      await this.rootStore.locationStore.loadLocationsForUser(this.currentUser);
     } else {
       console.log('niet ingelogd');
       this.setCurrentUser(undefined);

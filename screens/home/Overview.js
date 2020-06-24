@@ -15,7 +15,8 @@ import CurrentTrip from '../../assets/images/currentTrip.svg';
 import Groen from '../../assets/images/groen.svg';
 import Pijl from '../../assets/images/arrow.svg';
 import TutorialButton from '../../assets/images/tutorialButton.svg';
-import TripOverview from '../../components/tripsrender/TripOverview';
+import Timer from '../../assets/images/timerYellow';
+import Location from '../../assets/images/locationYellow';
 
 export default function HomeScreen({ navigation }) {
   const { tripStore, uiStore } = useStore();
@@ -23,12 +24,11 @@ export default function HomeScreen({ navigation }) {
   const begin = tripStore.trips.length - 5;
   const end = tripStore.trips.length;
   const trips = tripStore.trips;
-  if (trips.length >= 5) {
+  if (trips.length > 5) {
     lastTrips = trips.slice(begin, end);
   } else {
     lastTrips = trips;
   }
-
   navigation.setOptions({
     headerStyle: { height: 0 },
     headerTitle: null,
@@ -107,18 +107,34 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.recent}>
           {uiStore.currentUser.name}'s recent trips
         </Text>
-        {trips.length !== 0 ? (
+        {lastTrips.length > 0 ? (
           <ScrollView
             style={styles.list}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           >
             {lastTrips.map((item) => (
-              <TripOverview
-                key={item.id}
-                item={item}
-                onPress={() => goToDetail(item)}
-              />
+              <TouchableOpacity key={item.id} onPress={() => onPress(item)}>
+                <View style={styles.trip}>
+                  <View style={styles.title}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Pijl />
+                  </View>
+                  <View style={styles.stat}>
+                    <Timer />
+                    <Text style={styles.tekst}>{item.duration}h.</Text>
+                  </View>
+                  <View style={styles.stat}>
+                    <Location />
+                    <Text style={styles.tekst}>
+                      {uiStore.currentUser.system === 'mile'
+                        ? (Number(item.distance) * 0.62137).toFixed(1)
+                        : item.distance}
+                      {uiStore.currentUser.system}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
             ))}
             <TouchableOpacity onPress={goToTrips}>
               <View style={styles.trip}>
