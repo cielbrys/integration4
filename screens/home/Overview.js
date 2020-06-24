@@ -153,6 +153,13 @@ const styles = StyleSheet.create({
     right: MARGINS.defaultValue,
     top: 60,
   },
+  trip: {
+    backgroundColor: 'rgb(240,244,243)',
+    marginRight: 16,
+    width: 170,
+    height: 120,
+    borderRadius: 10,
+  },
   logoutText: {
     fontSize: FONTSIZES.small,
   },
